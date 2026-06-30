@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Контакты - STEP</title>
+    <meta name="description" content="Контакты, адрес, телефон и запись на тренировку в спортивный клуб STEP.">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="STEP, главная"><span class="brand-mark">S</span><span><span class="brand-name">STEP</span><span class="brand-subtitle">бокс и фитнес</span></span></a>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <a href="index.html">Главная</a><a href="about.html">О нас</a><a href="training.html">Тренировки и цены</a><a href="reviews.html">Фото и отзывы</a><a href="contacts.html">Контакты</a>
+        </nav>
+        <div class="header-actions"><a class="button" href="contacts.html">Записаться</a><button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span></button></div>
+      </div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <div class="section-inner">
+          <p class="eyebrow">Контакты</p>
+          <h1>Запишитесь на пробную тренировку</h1>
+          <p>Позвоните, напишите в мессенджер или оставьте заявку. Мы подберем группу и удобное время.</p>
+        </div>
+      </section>
+      <section class="section white">
+        <div class="section-inner contact-layout">
+          <div class="contact-card">
+            <div class="contact-row"><strong>Телефон</strong><a href="tel:+998901234567">+998 90 123 45 67</a></div>
+            <div class="contact-row"><strong>Мессенджер</strong><a href="https://t.me/step_club">t.me/step_club</a></div>
+            <div class="contact-row"><strong>Адрес</strong><span>Ташкент, ул. Спортивная, 12</span></div>
+            <div class="contact-row"><strong>График</strong><span>Пн, Ср, Пт: 18:00-21:00; Сб: по записи</span></div>
+            <div class="contact-row"><strong>Email</strong><a href="mailto:hello@step-club.example">hello@step-club.example</a></div>
+          </div>
+          <div class="map-box">
+            <div>
+              <h2>Место для карты</h2>
+              <p>Ташкент, ул. Спортивная, 12</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-inner grid-2">
+          <div>
+            <h2>Форма заявки</h2>
+            <p>Оставьте имя и телефон, чтобы тренер мог уточнить удобное время и уровень подготовки.</p>
+          </div>
+          <form class="contact-card form-grid" action="mailto:hello@step-club.example" method="post" enctype="text/plain">
+            <label>Имя<input name="name" autocomplete="name" required></label>
+            <label>Телефон<input name="phone" autocomplete="tel" required></label>
+            <label>Комментарий<textarea name="message">Хочу записаться на пробную тренировку.</textarea></label>
+            <button class="button" type="submit">Отправить</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner"><div><strong>STEP</strong><br>Спортивный клуб бокса и фитнеса</div><div class="footer-links"><a href="index.html">Главная</a><a href="about.html">О нас</a><a href="training.html">Цены</a></div></div></footer>
+    <script src="assets/site.js"></script>
+  </body>
+</html>
