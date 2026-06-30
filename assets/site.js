@@ -32,7 +32,7 @@ function renderVideos() {
   if (!videos.length) {
     mount.innerHTML = `
       <div class="empty-state">
-        Видео пока не добавлены. Администратор может добавить ролики Rutube в файле <strong>content/videos.js</strong>.
+        Видео скоро появятся.
       </div>
     `;
     return;
