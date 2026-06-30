@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Инструкция администратора - МЕТЕОР</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img src="assets/logo63.jpg" alt="Школа бокса МЕТЕОР"></a><nav class="site-nav" aria-label="Основная навигация"><a href="index.html">Главная</a><a href="videos.html">Видео</a><a href="contacts.html">Контакты</a></nav><a class="top-phone" href="tel:+74957986940">+7 495 798 69 40</a><button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span></button></div></header>
+    <main>
+      <section class="page-hero"><div class="section-inner"><p class="eyebrow">Администратору</p><h1>Как добавить видео Rutube</h1><p>Инструкция рассчитана на человека, который работает с другого компьютера и не пользуется терминалом.</p></div></section>
+      <section class="section white">
+        <div class="section-inner content">
+          <h2>Добавление видео через GitHub</h2>
+          <p>1. Войдите в аккаунт GitHub, у которого есть доступ к репозиторию сайта.</p>
+          <p>2. Откройте репозиторий <strong>landat/step-static-website</strong>.</p>
+          <p>3. Откройте файл <strong>content/videos.js</strong> и нажмите кнопку редактирования с иконкой карандаша.</p>
+          <p>4. Вставьте новый блок перед строкой <strong>];</strong>:</p>
+          <pre><code>{
+  title: "Название видео",
+  rutube: "https://rutube.ru/video/ID_РОЛИКА/",
+  description: "Короткое описание видео"
+},</code></pre>
+          <p>5. Нажмите <strong>Commit changes</strong>. Через несколько минут GitHub Pages автоматически передеплоит сайт.</p>
+          <p>6. Проверьте страницу <a href="videos.html">Видео</a>.</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-inner grid-2">
+          <article class="card"><h3>Где взять ссылку Rutube</h3><p>Откройте ролик на Rutube и скопируйте адрес из строки браузера. Подойдет обычная ссылка вида <strong>https://rutube.ru/video/...</strong>.</p></article>
+          <article class="card"><h3>Если сайт не обновился сразу</h3><p>Подождите 2-5 минут и обновите страницу с очисткой кеша: Ctrl+F5. GitHub Pages иногда публикует изменения не мгновенно.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner"><div><strong>Школа бокса МЕТЕОР</strong></div><div class="footer-links"><a href="videos.html">Видео</a><a href="index.html">На сайт</a></div></div></footer>
+    <script src="assets/site.js"></script>
+  </body>
+</html>
