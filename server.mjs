@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
-import { extname, resolve } from "node:path";
+import { extname, isAbsolute, relative, resolve } from "node:path";
 
 const root = resolve(".");
 const port = Number(process.env.PORT || 8080);
@@ -21,8 +21,9 @@ const server = createServer(async (request, response) => {
     const pathname = decodeURIComponent(url.pathname);
     const requestedPath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
     const filePath = resolve(root, requestedPath);
+    const relativePath = relative(root, filePath);
 
-    if (!filePath.startsWith(root)) {
+    if (relativePath.startsWith("..") || relativePath === ".." || isAbsolute(relativePath)) {
       response.writeHead(403);
       response.end("Forbidden");
       return;
@@ -39,6 +40,6 @@ const server = createServer(async (request, response) => {
   }
 });
 
-server.listen(port, () => {
-  console.log(`STEP site: http://localhost:${port}`);
+server.listen(port, "127.0.0.1", () => {
+  console.log(`STEP site: http://127.0.0.1:${port}`);
 });
