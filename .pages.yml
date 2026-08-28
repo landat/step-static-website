@@ -1,0 +1,69 @@
+media:
+  input: assets/photos
+  output: assets/photos
+  rename: safe
+  extensions: [jpg, jpeg, png, webp]
+
+settings:
+  hide: true
+  content:
+    merge: true
+
+content:
+  - name: home_content
+    label: Главная страница
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: announcement
+        label: Плашка с расписанием
+        type: object
+        fields:
+          - { name: title, label: Заголовок, type: string, required: true }
+          - { name: intro, label: Объявление, type: text, required: true }
+          - { name: scheduleTitle, label: Заголовок расписания, type: string, required: true }
+          - name: groups
+            label: Группы
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{name} — {time}"
+            fields:
+              - { name: name, label: Название группы, type: string, required: true }
+              - { name: time, label: Дни и время, type: string, required: true }
+          - { name: address, label: Адрес, type: text, required: true }
+          - { name: directionsLabel, label: Текст ссылки на схему, type: string, required: true }
+          - { name: directionsUrl, label: Ссылка на схему, type: string, required: true }
+          - { name: phone, label: Телефон, type: string, required: true }
+      - name: news
+        label: Новости
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{date} — {title}"
+        fields:
+          - { name: date, label: Дата, type: date, required: true }
+          - { name: title, label: Заголовок, type: string, required: true }
+          - { name: text, label: Текст новости, type: text, required: true }
+      - name: photos
+        label: Фотографии
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{alt}"
+        fields:
+          - name: src
+            label: Файл фотографии
+            type: image
+            required: true
+          - name: alt
+            label: Краткое описание
+            type: string
+            required: true
+            description: Несколько слов о снимке для посетителей, которые не видят изображение.

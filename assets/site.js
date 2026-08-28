@@ -116,6 +116,113 @@ function renderBeginnerMaterials() {
 
 renderBeginnerMaterials();
 
+function safeUrl(value, fallback = "") {
+  const candidate = String(value || "").trim();
+  if (!candidate) return fallback;
+  if (/^(?:https?:|mailto:|tel:)/i.test(candidate) || !/^[a-z][a-z0-9+.-]*:/i.test(candidate)) {
+    return candidate;
+  }
+  return fallback;
+}
+
+function renderAnnouncement(announcement) {
+  const mount = document.querySelector("[data-announcement]");
+  if (!mount || !announcement) return;
+
+  const groups = Array.isArray(announcement.groups) ? announcement.groups : [];
+  const phoneHref = String(announcement.phone || "").replace(/[^+\d]/g, "");
+  mount.innerHTML = `
+    <h2>${escapeHtml(announcement.title)}</h2>
+    <p>${escapeHtml(announcement.intro)}</p>
+    <strong>${escapeHtml(announcement.scheduleTitle)}</strong>
+    ${groups.map((group) => `<p><b>${escapeHtml(group.name)}:</b><br>${escapeHtml(group.time)}</p>`).join("")}
+    <p>${escapeHtml(announcement.address)}</p>
+    <p><a href="${escapeHtml(safeUrl(announcement.directionsUrl, "contacts.html"))}">${escapeHtml(announcement.directionsLabel || "Схема проезда")}</a><br><a href="tel:${escapeHtml(phoneHref)}">тел. ${escapeHtml(announcement.phone)}</a></p>
+  `;
+}
+
+function formatNewsDate(value) {
+  const date = new Date(`${value}T12:00:00`);
+  return Number.isNaN(date.getTime())
+    ? value
+    : new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(date);
+}
+
+function renderNews(news) {
+  const mount = document.querySelector("[data-news-list]");
+  const section = document.querySelector("[data-news-section]");
+  if (!mount || !section) return;
+
+  const items = Array.isArray(news) ? news : [];
+  section.hidden = items.length === 0;
+  mount.innerHTML = items.map((item) => `
+    <article class="card news-card">
+      <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatNewsDate(item.date))}</time>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.text)}</p>
+    </article>
+  `).join("");
+}
+
+function initPhotoCarousel(photos) {
+  const carousel = document.querySelector("[data-photo-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-carousel-track]");
+  const status = carousel.querySelector("[data-carousel-status]");
+  const prev = carousel.querySelector(".carousel-prev");
+  const next = carousel.querySelector(".carousel-next");
+  const items = Array.isArray(photos) && photos.length
+    ? photos
+    : Array.from(track.querySelectorAll("img")).map((img) => ({ src: img.getAttribute("src"), alt: img.alt }));
+
+  track.innerHTML = items.map((photo) => {
+    const src = safeUrl(photo.src);
+    return `<figure class="carousel-slide"><img src="${escapeHtml(src)}" alt="${escapeHtml(photo.alt || "Фото школы бокса МЕТЕОР")}" loading="lazy"><figcaption>${escapeHtml(photo.alt || "Школа бокса МЕТЕОР")}</figcaption></figure>`;
+  }).join("");
+
+  let current = 0;
+  let touchStartX = 0;
+  const update = () => {
+    track.style.transform = `translateX(-${current * 100}%)`;
+    status.textContent = `${current + 1} / ${items.length}`;
+  };
+  const move = (step) => {
+    current = (current + step + items.length) % items.length;
+    update();
+  };
+
+  prev.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+  carousel.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") move(-1);
+    if (event.key === "ArrowRight") move(1);
+  });
+  carousel.addEventListener("touchstart", (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+  carousel.addEventListener("touchend", (event) => {
+    const distance = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(distance) > 45) move(distance > 0 ? -1 : 1);
+  }, { passive: true });
+  carousel.tabIndex = 0;
+  update();
+}
+
+async function loadEditableSiteContent() {
+  try {
+    const response = await fetch("content/site.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Content request failed: ${response.status}`);
+    const content = await response.json();
+    renderAnnouncement(content.announcement);
+    renderNews(content.news);
+    initPhotoCarousel(content.photos);
+  } catch (error) {
+    initPhotoCarousel();
+    console.warn("Editable site content could not be loaded.", error);
+  }
+}
+
+loadEditableSiteContent();
+
 function analyticsPath() {
   const path = window.location.pathname.replace(/\/+$/, "") || "/index.html";
   const productionHosts = ["meteorboxing.ru", "www.meteorboxing.ru"];
