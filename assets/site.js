@@ -29,13 +29,6 @@ document.querySelectorAll(".site-nav a").forEach((link) => {
   }
 });
 
-function rutubeEmbedUrl(value) {
-  if (!value) return "";
-  if (value.includes("/play/embed/")) return value;
-  const match = value.match(/rutube\.ru\/(?:video|shorts)\/([a-zA-Z0-9_-]+)/);
-  return match ? `https://rutube.ru/play/embed/${match[1]}` : value;
-}
-
 function escapeHtml(value) {
   return String(value || "").replace(/[&<>"']/g, (char) => ({
     "&": "&amp;",
@@ -63,20 +56,14 @@ function renderVideos() {
 
   if (mount.dataset.videoLayout === "inline") {
     const video = videos[0];
-    const src = rutubeEmbedUrl(video.rutube);
-    const media = video.src
-      ? `<video src="${escapeHtml(video.src)}" controls preload="metadata" playsinline></video>`
-      : `<iframe src="${escapeHtml(src)}" title="${escapeHtml(video.title)}" allow="clipboard-write; autoplay" allowfullscreen></iframe>`;
+    const media = `<video src="${escapeHtml(video.src)}" controls preload="metadata" playsinline></video>`;
 
     mount.innerHTML = `<div class="video-frame">${media}</div>`;
     return;
   }
 
   mount.innerHTML = videos.map((video) => {
-    const src = rutubeEmbedUrl(video.rutube);
-    const media = video.src
-      ? `<video src="${escapeHtml(video.src)}" controls preload="metadata" playsinline></video>`
-      : `<iframe src="${escapeHtml(src)}" title="${escapeHtml(video.title)}" allow="clipboard-write; autoplay" allowfullscreen></iframe>`;
+    const media = `<video src="${escapeHtml(video.src)}" controls preload="metadata" playsinline></video>`;
 
     return `
       <article class="video-card">
