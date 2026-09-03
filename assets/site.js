@@ -1,5 +1,6 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
+const siteHeader = document.querySelector(".site-header");
 const METEOR_ANALYTICS_ENDPOINT = "https://step-static-website.goatcounter.com/count";
 
 if (menuToggle && siteNav) {
@@ -8,6 +9,17 @@ if (menuToggle && siteNav) {
     menuToggle.setAttribute("aria-expanded", String(!expanded));
     siteNav.classList.toggle("is-open");
   });
+}
+
+if (siteHeader) {
+  const updateCompactHeader = () => {
+    const compact = window.matchMedia("(max-width: 560px)").matches && window.scrollY > 90;
+    siteHeader.classList.toggle("is-scrolled", compact);
+  };
+
+  updateCompactHeader();
+  window.addEventListener("scroll", updateCompactHeader, { passive: true });
+  window.addEventListener("resize", updateCompactHeader);
 }
 
 document.querySelectorAll(".site-nav a").forEach((link) => {
