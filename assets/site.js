@@ -39,11 +39,44 @@ function escapeHtml(value) {
   })[char]);
 }
 
-function renderVideos() {
+function isPublished(item) {
+  return item && item.published !== false;
+}
+
+function textParagraphs(value) {
+  return String(value || "")
+    .split(/\r?\n\s*\r?\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
+function rutubeEmbedUrl(value) {
+  try {
+    const url = new URL(String(value || "").trim());
+    if (!["rutube.ru", "www.rutube.ru"].includes(url.hostname.toLowerCase())) return "";
+    const match = url.pathname.match(/^\/(?:video|shorts|play\/embed)\/([^/?#]+)/i);
+    return match ? `https://rutube.ru/play/embed/${encodeURIComponent(match[1])}` : "";
+  } catch {
+    return "";
+  }
+}
+
+function videoMedia(video) {
+  if (video.kind === "rutube") {
+    const embedUrl = rutubeEmbedUrl(video.rutubeUrl);
+    return embedUrl
+      ? `<iframe src="${escapeHtml(embedUrl)}" title="${escapeHtml(video.title || "Видео с Rutube")}" allow="clipboard-write; autoplay" allowfullscreen></iframe>`
+      : "";
+  }
+  const src = safeUrl(video.src);
+  return src ? `<video src="${escapeHtml(src)}" controls preload="metadata" playsinline></video>` : "";
+}
+
+function renderVideos(source) {
   const mount = document.querySelector("[data-video-catalog]");
   if (!mount) return;
 
-  const videos = Array.isArray(window.METEOR_VIDEOS) ? window.METEOR_VIDEOS : [];
+  const videos = Array.isArray(source) ? source.filter(isPublished) : [];
 
   if (!videos.length) {
     mount.innerHTML = `
@@ -54,22 +87,12 @@ function renderVideos() {
     return;
   }
 
-  if (mount.dataset.videoLayout === "inline") {
-    const video = videos[0];
-    const media = `<video src="${escapeHtml(video.src)}" controls preload="metadata" playsinline></video>`;
-
-    mount.innerHTML = `<div class="video-frame">${media}</div>`;
-    return;
-  }
-
   mount.innerHTML = videos.map((video) => {
-    const media = `<video src="${escapeHtml(video.src)}" controls preload="metadata" playsinline></video>`;
+    const media = videoMedia(video);
 
     return `
       <article class="video-card">
-        <div class="video-frame">
-          ${media}
-        </div>
+        ${media ? `<div class="video-frame">${media}</div>` : `<div class="empty-state">Проверьте источник видео в CMS.</div>`}
         <div class="video-body">
           ${video.title ? `<h3>${escapeHtml(video.title)}</h3>` : ""}
           ${video.description ? `<p>${escapeHtml(video.description)}</p>` : ""}
@@ -79,13 +102,11 @@ function renderVideos() {
   }).join("");
 }
 
-renderVideos();
-
-function renderBeginnerMaterials() {
+function renderBeginnerMaterials(source) {
   const mount = document.querySelector("[data-beginner-materials]");
   if (!mount) return;
 
-  const materials = Array.isArray(window.METEOR_BEGINNER_MATERIALS) ? window.METEOR_BEGINNER_MATERIALS : [];
+  const materials = Array.isArray(source) ? source.filter(isPublished) : [];
 
   if (!materials.length) {
     mount.innerHTML = `
@@ -97,7 +118,9 @@ function renderBeginnerMaterials() {
   }
 
   mount.innerHTML = materials.map((material) => {
-    const paragraphs = Array.isArray(material.paragraphs) ? material.paragraphs : [];
+    const paragraphs = material.text
+      ? textParagraphs(material.text)
+      : (Array.isArray(material.paragraphs) ? material.paragraphs : []);
     const body = paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
     const link = material.url
       ? `<a class="button material-link" href="${escapeHtml(material.url)}" target="_blank" rel="noreferrer">${escapeHtml(material.linkText || "Открыть материал")}</a>`
@@ -113,8 +136,6 @@ function renderBeginnerMaterials() {
   }).join("");
 }
 
-renderBeginnerMaterials();
-
 function safeUrl(value, fallback = "") {
   const candidate = String(value || "").trim();
   if (!candidate) return fallback;
@@ -124,19 +145,30 @@ function safeUrl(value, fallback = "") {
   return fallback;
 }
 
-function renderAnnouncement(announcement) {
+function groupScheduleText(group) {
+  const slots = [
+    ["пн.", group.monday],
+    ["ср.", group.wednesday],
+    ["пт.", group.friday]
+  ].filter(([, time]) => time && String(time).toLowerCase() !== "нет");
+  return slots.map(([day, time]) => `${day}: ${time}`).join("; ");
+}
+
+function renderAnnouncement(announcement, schedule, contact) {
   const mount = document.querySelector("[data-announcement]");
   if (!mount || !announcement) return;
 
-  const groups = Array.isArray(announcement.groups) ? announcement.groups : [];
-  const phoneHref = String(announcement.phone || "").replace(/[^+\d]/g, "");
+  mount.hidden = announcement.enabled === false;
+  if (mount.hidden) return;
+  const groups = Array.isArray(schedule?.groups) ? schedule.groups : [];
+  const phoneHref = String(contact?.phone || "").replace(/[^+\d]/g, "");
   mount.innerHTML = `
     <h2>${escapeHtml(announcement.title)}</h2>
     <p>${escapeHtml(announcement.intro)}</p>
     <strong>${escapeHtml(announcement.scheduleTitle)}</strong>
-    ${groups.map((group) => `<p><b>${escapeHtml(group.name)}:</b><br>${escapeHtml(group.time)}</p>`).join("")}
-    <p>${escapeHtml(announcement.address)}</p>
-    <p><a href="${escapeHtml(safeUrl(announcement.directionsUrl, "contacts.html"))}">${escapeHtml(announcement.directionsLabel || "Схема проезда")}</a><br><a href="tel:${escapeHtml(phoneHref)}">тел. ${escapeHtml(announcement.phone)}</a></p>
+    ${groups.map((group) => `<p><b>${escapeHtml(group.name)}:</b><br>${escapeHtml(groupScheduleText(group))}</p>`).join("")}
+    <p>${escapeHtml(contact?.address)}</p>
+    <p><a href="contacts.html">${escapeHtml(announcement.directionsLabel || "Схема проезда")}</a><br><a href="tel:${escapeHtml(phoneHref)}">тел. ${escapeHtml(contact?.phone)}</a></p>
   `;
 }
 
@@ -152,7 +184,9 @@ function renderNews(news) {
   const section = document.querySelector("[data-news-section]");
   if (!mount || !section) return;
 
-  const items = Array.isArray(news) ? news : [];
+  const items = Array.isArray(news)
+    ? news.filter(isPublished).sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || String(b.date || "").localeCompare(String(a.date || "")))
+    : [];
   section.hidden = items.length === 0;
   mount.innerHTML = items.map((item) => `
     <article class="card news-card">
@@ -171,9 +205,17 @@ function initPhotoCarousel(photos) {
   const status = carousel.querySelector("[data-carousel-status]");
   const prev = carousel.querySelector(".carousel-prev");
   const next = carousel.querySelector(".carousel-next");
-  const items = Array.isArray(photos) && photos.length
-    ? photos
+  const items = Array.isArray(photos)
+    ? photos.filter(isPublished)
     : Array.from(track.querySelectorAll("img")).map((img) => ({ src: img.getAttribute("src"), alt: img.alt }));
+
+  if (!items.length) {
+    track.innerHTML = `<div class="empty-state">Фотографии скоро появятся.</div>`;
+    prev.hidden = true;
+    next.hidden = true;
+    status.textContent = "0 / 0";
+    return;
+  }
 
   track.innerHTML = items.map((photo) => {
     const src = safeUrl(photo.src);
@@ -206,16 +248,85 @@ function initPhotoCarousel(photos) {
   update();
 }
 
+function renderSchedule(schedule, contact) {
+  if (!schedule) return;
+  document.querySelectorAll("[data-schedule-intro]").forEach((element) => {
+    element.textContent = schedule.intro || "";
+  });
+  const groups = Array.isArray(schedule.groups) ? schedule.groups : [];
+  document.querySelectorAll("[data-schedule-table]").forEach((tbody) => {
+    tbody.innerHTML = groups.map((group) => `<tr><td>${escapeHtml(group.name)}</td><td>${escapeHtml(group.monday)}</td><td>${escapeHtml(group.wednesday)}</td><td>${escapeHtml(group.friday)}</td></tr>`).join("");
+  });
+  document.querySelectorAll("[data-schedule-groups]").forEach((mount) => {
+    mount.innerHTML = groups.map((group) => `<article class="card"><h3>${escapeHtml(group.name)}</h3><p>${escapeHtml(group.description)}</p></article>`).join("");
+  });
+  document.querySelectorAll("[data-schedule-address]").forEach((element) => {
+    element.textContent = contact?.address || "";
+  });
+}
+
+function renderContact(contact) {
+  if (!contact) return;
+  const phoneHref = String(contact.phone || "").replace(/[^+\d]/g, "");
+  document.querySelectorAll(".top-phone, [data-contact-phone]").forEach((element) => {
+    element.textContent = contact.phone || "";
+    element.setAttribute("href", `tel:${phoneHref}`);
+  });
+  document.querySelectorAll(".brand img").forEach((image) => {
+    image.alt = `Школа бокса МЕТЕОР, телефон ${contact.phone || ""}`;
+  });
+  document.querySelectorAll("[data-contact-address]").forEach((element) => { element.textContent = contact.address || ""; });
+  document.querySelectorAll("[data-contact-email]").forEach((element) => {
+    element.textContent = contact.email || "";
+    element.setAttribute("href", `mailto:${contact.email || ""}`);
+  });
+  document.querySelectorAll("[data-contact-directions]").forEach((element) => {
+    element.innerHTML = textParagraphs(contact.directions).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+  });
+  const mapUrl = safeUrl(contact.mapUrl);
+  document.querySelectorAll("[data-contact-map]").forEach((element) => {
+    if (mapUrl) element.setAttribute("src", mapUrl);
+  });
+}
+
+function renderPrices(prices) {
+  if (!prices) return;
+  document.querySelectorAll("[data-prices-intro]").forEach((element) => { element.textContent = prices.intro || ""; });
+  document.querySelectorAll("[data-price-items]").forEach((mount) => {
+    const items = Array.isArray(prices.items) ? prices.items : [];
+    mount.innerHTML = items.map((item) => `<article class="card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p></article>`).join("");
+  });
+  document.querySelectorAll("[data-prices-explanation-title]").forEach((element) => { element.textContent = prices.explanationTitle || ""; });
+  document.querySelectorAll("[data-prices-explanation]").forEach((element) => {
+    element.innerHTML = textParagraphs(prices.explanation).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+  });
+  document.querySelectorAll("[data-prices-button]").forEach((element) => { element.textContent = prices.buttonLabel || "Узнать стоимость"; });
+}
+
+function showContentWarning() {
+  const main = document.querySelector("main");
+  if (!main || document.querySelector(".content-warning")) return;
+  main.insertAdjacentHTML("afterbegin", `<p class="content-warning" role="status">Часть информации временно недоступна. Уточните расписание и контакты по телефону.</p>`);
+}
+
 async function loadEditableSiteContent() {
   try {
     const response = await fetch("content/site.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`Content request failed: ${response.status}`);
     const content = await response.json();
-    renderAnnouncement(content.announcement);
+    renderAnnouncement(content.announcement, content.schedule, content.contact);
+    renderSchedule(content.schedule, content.contact);
+    renderContact(content.contact);
+    renderPrices(content.prices);
     renderNews(content.news);
     initPhotoCarousel(content.photos);
+    renderVideos(content.videos);
+    renderBeginnerMaterials(content.beginnerMaterials);
   } catch (error) {
     initPhotoCarousel();
+    renderVideos([]);
+    renderBeginnerMaterials([]);
+    showContentWarning();
     console.warn("Editable site content could not be loaded.", error);
   }
 }
