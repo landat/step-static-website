@@ -1,17 +1,37 @@
 media:
-  input: assets/photos
-  output: assets/photos
-  rename: safe
-  extensions: [jpg, jpeg, png, webp]
+  - name: photos
+    label: Фотографии
+    input: assets/photos
+    output: assets/photos
+    rename: safe
+    extensions: [jpg, jpeg, png, webp]
+  - name: videos
+    label: Видео MP4
+    input: assets/videos
+    output: assets/videos
+    rename: safe
+    categories: [video]
+    extensions: [mp4, webm]
+  - name: materials
+    label: Файлы для учеников
+    input: assets/materials
+    output: assets/materials
+    rename: safe
+    categories: [document]
+    extensions: [pdf, doc, docx]
 
 settings:
   hide: true
   content:
     merge: true
+  commit:
+    identity: user
+    templates:
+      update: "Обновление сайта через CMS: {path}"
 
 content:
-  - name: home_content
-    label: Главная страница
+  - name: site_content
+    label: Содержимое сайта
     type: file
     path: content/site.json
     format: json
@@ -19,26 +39,81 @@ content:
       delete: false
     fields:
       - name: announcement
-        label: Плашка с расписанием
+        label: Срочное объявление
         type: object
         fields:
-          - { name: title, label: Заголовок, type: string, required: true }
-          - { name: intro, label: Объявление, type: text, required: true }
-          - { name: scheduleTitle, label: Заголовок расписания, type: string, required: true }
+          - { name: enabled, label: Показывать объявление, type: boolean, default: true }
+          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 80 } }
+          - { name: intro, label: Текст объявления, type: text, required: true, options: { maxlength: 500 } }
+          - { name: scheduleTitle, label: Подпись перед расписанием, type: string, required: true, options: { maxlength: 120 } }
+          - { name: directionsLabel, label: Текст ссылки на схему, type: string, required: true, options: { maxlength: 60 } }
+      - name: schedule
+        label: Расписание и группы
+        type: object
+        fields:
+          - { name: intro, label: Краткий текст над расписанием, type: text, required: true, options: { maxlength: 240 } }
           - name: groups
             label: Группы
             type: object
             list:
+              min: 1
               collapsible:
                 collapsed: false
-                summary: "{name} — {time}"
+                summary: "{name} — {monday}"
             fields:
-              - { name: name, label: Название группы, type: string, required: true }
-              - { name: time, label: Дни и время, type: string, required: true }
-          - { name: address, label: Адрес, type: text, required: true }
-          - { name: directionsLabel, label: Текст ссылки на схему, type: string, required: true }
-          - { name: directionsUrl, label: Ссылка на схему, type: string, required: true }
-          - { name: phone, label: Телефон, type: string, required: true }
+              - { name: name, label: Название группы, type: string, required: true, options: { maxlength: 80 } }
+              - { name: description, label: Для кого эта группа, type: text, required: true, options: { maxlength: 400 } }
+              - { name: monday, label: Понедельник, type: string, required: true, description: "Например: 19:00–20:30" }
+              - { name: wednesday, label: Среда, type: string, required: true, description: "Например: 19:00–20:30" }
+              - { name: friday, label: Пятница, type: string, required: true, description: "Например: 19:00–20:30" }
+      - name: contact
+        label: Контакты
+        type: object
+        fields:
+          - { name: address, label: Полный адрес, type: text, required: true, options: { maxlength: 300 } }
+          - name: phone
+            label: Телефон
+            type: string
+            required: true
+            description: "В формате +7 495 123-45-67"
+            pattern:
+              regex: "^\\+?[0-9 ()-]{10,24}$"
+              message: "Проверьте номер телефона. Разрешены цифры, пробелы, скобки, + и дефисы."
+          - name: email
+            label: Email
+            type: string
+            required: true
+            pattern:
+              regex: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+              message: "Введите email в формате name@example.ru."
+          - { name: directions, label: Как добраться, type: text, required: true, description: "Абзацы разделяйте пустой строкой." }
+          - name: mapUrl
+            label: Ссылка для карты
+            type: string
+            required: true
+            description: "Ссылка из атрибута src виджета Яндекс.Карт."
+            pattern:
+              regex: "^https://yandex\\.ru/map-widget/.*$"
+              message: "Нужна ссылка виджета https://yandex.ru/map-widget/..."
+      - name: prices
+        label: Цены
+        type: object
+        fields:
+          - { name: intro, label: Вводный текст, type: text, required: true, options: { maxlength: 300 } }
+          - name: items
+            label: Варианты занятий
+            type: object
+            list:
+              min: 1
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - { name: title, label: Название, type: string, required: true, options: { maxlength: 100 } }
+              - { name: text, label: Описание или стоимость, type: text, required: true, options: { maxlength: 400 } }
+          - { name: explanationTitle, label: Заголовок пояснения, type: string, required: true, options: { maxlength: 120 } }
+          - { name: explanation, label: Пояснение, type: text, required: true, description: "Абзацы разделяйте пустой строкой." }
+          - { name: buttonLabel, label: Текст кнопки, type: string, required: true, options: { maxlength: 60 } }
       - name: news
         label: Новости
         type: object
@@ -47,9 +122,11 @@ content:
             collapsed: true
             summary: "{date} — {title}"
         fields:
-          - { name: date, label: Дата, type: date, required: true }
-          - { name: title, label: Заголовок, type: string, required: true }
-          - { name: text, label: Текст новости, type: text, required: true }
+          - { name: published, label: Показывать на сайте, type: boolean, default: true }
+          - { name: pinned, label: Закрепить первой, type: boolean, default: false }
+          - { name: date, label: Дата, type: date, required: true, options: { format: yyyy-MM-dd } }
+          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 120 } }
+          - { name: text, label: Текст новости, type: text, required: true, options: { maxlength: 1000 } }
       - name: photos
         label: Фотографии
         type: object
@@ -58,12 +135,64 @@ content:
             collapsed: true
             summary: "{alt}"
         fields:
+          - { name: published, label: Показывать на сайте, type: boolean, default: true }
           - name: src
             label: Файл фотографии
             type: image
             required: true
-          - name: alt
-            label: Краткое описание
-            type: string
+            options:
+              media: photos
+              categories: [image]
+          - { name: alt, label: Краткое описание, type: string, required: true, options: { maxlength: 160 }, description: "Несколько слов о снимке для посетителей, которые не видят изображение." }
+      - name: videos
+        label: Видео для новичков
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - { name: published, label: Показывать на сайте, type: boolean, default: true }
+          - { name: title, label: Название урока, type: string, required: true, options: { maxlength: 140 } }
+          - { name: description, label: Краткое описание, type: text, options: { maxlength: 500 } }
+          - name: kind
+            label: Где находится видео
+            type: select
             required: true
-            description: Несколько слов о снимке для посетителей, которые не видят изображение.
+            default: mp4
+            options:
+              values:
+                - { name: mp4, label: Загруженный MP4/WebM }
+                - { name: rutube, label: Rutube }
+          - name: src
+            label: Файл MP4/WebM
+            type: file
+            description: "Заполните для типа «Загруженный MP4/WebM»."
+            options:
+              media: videos
+              categories: [video]
+          - name: rutubeUrl
+            label: Ссылка на Rutube
+            type: string
+            description: "Заполните для типа «Rutube»: вставьте обычную ссылку на ролик."
+            pattern:
+              regex: "^(https://(?:www\\.)?rutube\\.ru/(?:video|shorts|play/embed)/[^/?#]+[/?#]?.*|)$"
+              message: "Вставьте ссылку на видео с rutube.ru."
+      - name: beginnerMaterials
+        label: Материалы для новичков
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - { name: published, label: Показывать на сайте, type: boolean, default: true }
+          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 140 } }
+          - { name: text, label: Текст материала, type: text, required: true, description: "Абзацы разделяйте пустой строкой." }
+          - name: url
+            label: Файл для скачивания
+            type: file
+            options:
+              media: materials
+              categories: [document]
+          - { name: linkText, label: Текст кнопки, type: string, default: "Открыть материал", options: { maxlength: 60 } }

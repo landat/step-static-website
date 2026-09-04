@@ -595,6 +595,27 @@ a {
   color: var(--muted);
 }
 
+.catalog-heading {
+  margin-top: 36px;
+}
+
+.content-warning {
+  margin: 0;
+  padding: 12px 20px;
+  background: #fff2cc;
+  color: #5c4600;
+  font-weight: 700;
+  text-align: center;
+}
+
+[data-contact-directions] p {
+  margin: 0 0 12px;
+}
+
+[data-contact-directions] p:last-child {
+  margin-bottom: 0;
+}
+
 pre {
   overflow-x: auto;
   padding: 18px;
