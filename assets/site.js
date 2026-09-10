@@ -2,6 +2,8 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const siteHeader = document.querySelector(".site-header");
 const METEOR_ANALYTICS_ENDPOINT = "https://step-static-website.goatcounter.com/count";
+const METEOR_YANDEX_METRIKA_ID = "";
+const ANALYTICS_CONSENT_KEY = "meteor-analytics-consent";
 
 if (menuToggle && siteNav) {
   menuToggle.addEventListener("click", () => {
@@ -13,7 +15,7 @@ if (menuToggle && siteNav) {
 
 if (siteHeader) {
   const updateCompactHeader = () => {
-    const compact = window.matchMedia("(max-width: 560px)").matches && window.scrollY > 90;
+    const compact = window.scrollY > 90;
     siteHeader.classList.toggle("is-scrolled", compact);
   };
 
@@ -21,6 +23,29 @@ if (siteHeader) {
   window.addEventListener("scroll", updateCompactHeader, { passive: true });
   window.addEventListener("resize", updateCompactHeader);
 }
+
+function ensureHeaderContact(address = "") {
+  const phone = document.querySelector(".top-phone");
+  if (!phone) return;
+
+  let container = phone.closest(".header-contact");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "header-contact";
+    phone.before(container);
+    container.appendChild(phone);
+  }
+
+  let addressElement = container.querySelector(".top-address");
+  if (!addressElement) {
+    addressElement = document.createElement("span");
+    addressElement.className = "top-address";
+    container.appendChild(addressElement);
+  }
+  addressElement.textContent = address;
+}
+
+ensureHeaderContact();
 
 document.querySelectorAll(".site-nav a").forEach((link) => {
   const current = window.location.pathname.split("/").pop() || "index.html";
@@ -166,9 +191,8 @@ function renderAnnouncement(announcement, schedule, contact) {
     <h2>${escapeHtml(announcement.title)}</h2>
     <p>${escapeHtml(announcement.intro)}</p>
     <strong>${escapeHtml(announcement.scheduleTitle)}</strong>
-    ${groups.map((group) => `<p><b>${escapeHtml(group.name)}:</b><br>${escapeHtml(groupScheduleText(group))}</p>`).join("")}
-    <p>${escapeHtml(contact?.address)}</p>
-    <p><a href="contacts.html">${escapeHtml(announcement.directionsLabel || "Схема проезда")}</a><br><a href="tel:${escapeHtml(phoneHref)}">тел. ${escapeHtml(contact?.phone)}</a></p>
+    <p>${groups.map((group) => `<b>${escapeHtml(group.name)}:</b> ${escapeHtml(groupScheduleText(group))}`).join("<br>")}</p>
+    <p><a href="contacts.html">${escapeHtml(announcement.directionsLabel || "Схема проезда")}</a> · <a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(contact?.phone)}</a></p>
   `;
 }
 
@@ -267,6 +291,7 @@ function renderSchedule(schedule, contact) {
 
 function renderContact(contact) {
   if (!contact) return;
+  ensureHeaderContact(contact.address || "");
   const phoneHref = String(contact.phone || "").replace(/[^+\d]/g, "");
   document.querySelectorAll(".top-phone, [data-contact-phone]").forEach((element) => {
     element.textContent = contact.phone || "";
@@ -359,3 +384,72 @@ function loadPrivacySafeAnalytics() {
 }
 
 loadPrivacySafeAnalytics();
+
+function loadYandexMetrika() {
+  const id = Number(METEOR_YANDEX_METRIKA_ID);
+  if (!Number.isInteger(id) || id <= 0 || window.ym) return;
+
+  window.ym = window.ym || function () {
+    (window.ym.a = window.ym.a || []).push(arguments);
+  };
+  window.ym.l = Date.now();
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = "https://mc.yandex.ru/metrika/tag.js";
+  document.head.appendChild(script);
+  window.ym(id, "init", {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true
+  });
+}
+
+function storedAnalyticsConsent() {
+  try {
+    return localStorage.getItem(ANALYTICS_CONSENT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function saveAnalyticsConsent(value) {
+  try {
+    localStorage.setItem(ANALYTICS_CONSENT_KEY, value);
+  } catch {
+    // Сайт продолжает работать, даже если браузер запретил локальное хранилище.
+  }
+}
+
+function showCookieConsent() {
+  const saved = storedAnalyticsConsent();
+  if (saved === "accepted") {
+    loadYandexMetrika();
+    return;
+  }
+  if (saved === "declined") return;
+
+  const banner = document.createElement("section");
+  banner.className = "cookie-consent";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-label", "Согласие на использование аналитики");
+  banner.innerHTML = `
+    <p>Сайт использует обезличенную статистику. Яндекс Метрика будет подключена только с вашего согласия.</p>
+    <div class="cookie-actions">
+      <button class="cookie-accept" type="button">Разрешить</button>
+      <button class="cookie-decline" type="button">Только необходимые</button>
+    </div>
+  `;
+  banner.querySelector(".cookie-accept").addEventListener("click", () => {
+    saveAnalyticsConsent("accepted");
+    banner.remove();
+    loadYandexMetrika();
+  });
+  banner.querySelector(".cookie-decline").addEventListener("click", () => {
+    saveAnalyticsConsent("declined");
+    banner.remove();
+  });
+  document.body.appendChild(banner);
+}
+
+showCookieConsent();

@@ -27,6 +27,7 @@
 - Карта на странице `contacts.html` вставлена через iframe-виджет Яндекс.Карт без API key.
 - Аналитика подключается в `assets/site.js` через GoatCounter: `https://step-static-website.goatcounter.com/count`.
 - Скрипт аналитики не использует cookies и не загружается на `localhost` или при открытии файлов через `file:`.
+- Яндекс Метрика загружается только после согласия посетителя. Для включения укажите выданный Яндексом номер в `METEOR_YANDEX_METRIKA_ID` в `assets/site.js`.
 
 ## Управление содержимым
 
