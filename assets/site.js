@@ -2,7 +2,7 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const siteHeader = document.querySelector(".site-header");
 const METEOR_ANALYTICS_ENDPOINT = "https://step-static-website.goatcounter.com/count";
-const METEOR_YANDEX_METRIKA_ID = "";
+const METEOR_YANDEX_METRIKA_ID = "18677428";
 const ANALYTICS_CONSENT_KEY = "meteor-analytics-consent";
 const SCHEDULE_DAYS = [
   { value: "monday", label: "Понедельник", short: "пн." },
@@ -53,6 +53,10 @@ function ensureHeaderContact(address = "") {
     container.appendChild(addressElement);
   }
   addressElement.textContent = address;
+}
+
+function compactHeaderAddress(address = "") {
+  return String(address).replace(/,\s*здание ДОСААФ.*$/i, "").trim();
 }
 
 ensureHeaderContact();
@@ -329,14 +333,14 @@ function renderSchedule(schedule, contact) {
 
 function renderContact(contact) {
   if (!contact) return;
-  ensureHeaderContact(contact.address || "");
+  ensureHeaderContact(compactHeaderAddress(contact.address || ""));
   const phoneHref = String(contact.phone || "").replace(/[^+\d]/g, "");
   document.querySelectorAll(".top-phone, [data-contact-phone]").forEach((element) => {
     element.textContent = contact.phone || "";
     element.setAttribute("href", `tel:${phoneHref}`);
   });
   document.querySelectorAll(".brand img").forEach((image) => {
-    image.alt = `Школа бокса МЕТЕОР, телефон ${contact.phone || ""}`;
+    image.alt = "Школа бокса МЕТЕОР";
   });
   document.querySelectorAll("[data-contact-address]").forEach((element) => { element.textContent = contact.address || ""; });
   document.querySelectorAll("[data-contact-email]").forEach((element) => {

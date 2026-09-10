@@ -734,7 +734,7 @@ code {
   padding: 34px 0;
   background:
     linear-gradient(rgba(5, 5, 6, 0.82), rgba(5, 5, 6, 0.9)),
-    url("meteor-logo-header-phone.jpg") center / cover no-repeat,
+    url("meteor-logo-header.jpg") center / cover no-repeat,
     #050506;
   color: var(--white);
 }
@@ -815,28 +815,41 @@ code {
   }
 }
 
+@media (min-width: 981px) {
+  .page-hero h1.compact-page-title {
+    font-size: 2.4rem;
+  }
+}
+
 @media (max-width: 980px) {
   .menu-toggle {
     display: block;
   }
 
   .header-contact {
+    grid-column: 1 / -1;
     position: absolute;
     z-index: 1;
     top: 0;
     right: 0;
-    display: block;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
     width: 46%;
     height: 25.1vw;
     max-width: none;
+    padding: 0 58px 10px 0;
   }
 
   .top-phone {
-    position: absolute;
-    inset: 0;
-    display: block;
-    color: transparent;
-    font-size: 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.72);
+    color: var(--white);
+    font-size: clamp(0.72rem, 3vw, 0.9rem);
   }
 
   .top-address {
@@ -947,10 +960,13 @@ code {
   }
 
   .site-header.is-scrolled .header-contact {
+    grid-column: 1 / -1;
     top: 0;
     right: 56px;
     width: 50%;
     height: 72px;
+    align-items: center;
+    padding: 0;
   }
 
   .site-header.is-scrolled .menu-toggle {
