@@ -278,6 +278,7 @@ a {
 }
 
 .feature-video-card {
+  min-width: 0;
   overflow: hidden;
   padding: 0;
 }
@@ -289,9 +290,15 @@ a {
 .feature-video-card video {
   display: block;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   background: #000;
+}
+
+.feature-grid > * {
+  min-width: 0;
 }
 
 .section {

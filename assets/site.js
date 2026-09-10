@@ -15,7 +15,8 @@ if (menuToggle && siteNav) {
 
 if (siteHeader) {
   const updateCompactHeader = () => {
-    const compact = window.scrollY > 90;
+    const wasCompact = siteHeader.classList.contains("is-scrolled");
+    const compact = wasCompact ? window.scrollY > 20 : window.scrollY > 260;
     siteHeader.classList.toggle("is-scrolled", compact);
   };
 
