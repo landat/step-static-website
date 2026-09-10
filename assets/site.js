@@ -4,6 +4,15 @@ const siteHeader = document.querySelector(".site-header");
 const METEOR_ANALYTICS_ENDPOINT = "https://step-static-website.goatcounter.com/count";
 const METEOR_YANDEX_METRIKA_ID = "";
 const ANALYTICS_CONSENT_KEY = "meteor-analytics-consent";
+const SCHEDULE_DAYS = [
+  { value: "monday", label: "Понедельник", short: "пн." },
+  { value: "tuesday", label: "Вторник", short: "вт." },
+  { value: "wednesday", label: "Среда", short: "ср." },
+  { value: "thursday", label: "Четверг", short: "чт." },
+  { value: "friday", label: "Пятница", short: "пт." },
+  { value: "saturday", label: "Суббота", short: "сб." },
+  { value: "sunday", label: "Воскресенье", short: "вс." }
+];
 
 if (menuToggle && siteNav) {
   menuToggle.addEventListener("click", () => {
@@ -172,12 +181,22 @@ function safeUrl(value, fallback = "") {
 }
 
 function groupScheduleText(group) {
-  const slots = [
-    ["пн.", group.monday],
-    ["ср.", group.wednesday],
-    ["пт.", group.friday]
-  ].filter(([, time]) => time && String(time).toLowerCase() !== "нет");
-  return slots.map(([day, time]) => `${day}: ${time}`).join("; ");
+  return scheduleSessions(group).map((session) => {
+    const day = SCHEDULE_DAYS.find((item) => item.value === session.day);
+    return `${day?.short || session.day}: ${session.time}`;
+  }).join("; ");
+}
+
+function scheduleSessions(group) {
+  if (Array.isArray(group?.sessions)) {
+    return group.sessions.filter((session) => session?.day && session?.time && String(session.time).toLowerCase() !== "нет");
+  }
+
+  return [
+    { day: "monday", time: group?.monday },
+    { day: "wednesday", time: group?.wednesday },
+    { day: "friday", time: group?.friday }
+  ].filter((session) => session.time && String(session.time).toLowerCase() !== "нет");
 }
 
 function renderAnnouncement(announcement, schedule, contact) {
@@ -213,13 +232,21 @@ function renderNews(news) {
     ? news.filter(isPublished).sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || String(b.date || "").localeCompare(String(a.date || "")))
     : [];
   section.hidden = items.length === 0;
-  mount.innerHTML = items.map((item) => `
-    <article class="card news-card">
+  mount.innerHTML = items.map((item) => {
+    const image = safeUrl(item.image);
+    const url = safeUrl(item.url);
+    return `
+    <article class="card news-card${image ? " has-image" : ""}">
+      ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(item.title || "Новость школы бокса МЕТЕОР")}" loading="lazy">` : ""}
+      <div class="news-card-body">
       <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatNewsDate(item.date))}</time>
       <h3>${escapeHtml(item.title)}</h3>
       <p>${escapeHtml(item.text)}</p>
+      ${url ? `<a class="news-link" href="${escapeHtml(url)}">${escapeHtml(item.linkLabel || "Подробнее")}</a>` : ""}
+      </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function initPhotoCarousel(photos) {
@@ -279,8 +306,18 @@ function renderSchedule(schedule, contact) {
     element.textContent = schedule.intro || "";
   });
   const groups = Array.isArray(schedule.groups) ? schedule.groups : [];
+  const activeDays = SCHEDULE_DAYS.filter((day) => groups.some((group) => scheduleSessions(group).some((session) => session.day === day.value)));
+  document.querySelectorAll("[data-schedule-head]").forEach((row) => {
+    row.innerHTML = `<th>Группа</th>${activeDays.map((day) => `<th>${escapeHtml(day.label)}</th>`).join("")}`;
+  });
   document.querySelectorAll("[data-schedule-table]").forEach((tbody) => {
-    tbody.innerHTML = groups.map((group) => `<tr><td>${escapeHtml(group.name)}</td><td>${escapeHtml(group.monday)}</td><td>${escapeHtml(group.wednesday)}</td><td>${escapeHtml(group.friday)}</td></tr>`).join("");
+    tbody.innerHTML = groups.map((group) => {
+      const sessions = scheduleSessions(group);
+      return `<tr><td>${escapeHtml(group.name)}</td>${activeDays.map((day) => {
+        const time = sessions.find((session) => session.day === day.value)?.time || "—";
+        return `<td>${escapeHtml(time)}</td>`;
+      }).join("")}</tr>`;
+    }).join("");
   });
   document.querySelectorAll("[data-schedule-groups]").forEach((mount) => {
     mount.innerHTML = groups.map((group) => `<article class="card"><h3>${escapeHtml(group.name)}</h3><p>${escapeHtml(group.description)}</p></article>`).join("");

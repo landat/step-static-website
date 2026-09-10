@@ -1,0 +1,51 @@
+name: Optimize uploaded photos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/photos/**"
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS action context
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-photos-main
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install image optimizer
+        run: npm ci
+      - name: Optimize oversized images
+        run: node scripts/optimize-images.mjs
+      - name: Save optimized images
+        shell: bash
+        run: |
+          if git diff --quiet -- assets/photos; then
+            echo "No oversized photos found."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/photos
+          git commit -m "Оптимизация фотографий после загрузки"
+          git pull --rebase origin main
+          git push origin main

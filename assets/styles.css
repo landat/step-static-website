@@ -514,6 +514,32 @@ a {
   text-transform: uppercase;
 }
 
+.news-card.has-image {
+  overflow: hidden;
+  padding: 0;
+}
+
+.news-card > img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.news-card-body {
+  padding: 24px;
+}
+
+.news-card:not(.has-image) .news-card-body {
+  padding: 0;
+}
+
+.news-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--red);
+  font-weight: 900;
+}
+
 .photo-carousel {
   position: relative;
   display: grid;
