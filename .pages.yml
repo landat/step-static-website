@@ -5,6 +5,16 @@ media:
     output: assets/photos
     rename: safe
     extensions: [jpg, jpeg, png, webp]
+    actions:
+      - name: optimize_photos
+        label: Уменьшить большие фотографии
+        workflow: optimize-images.yml
+        ref: current
+        cancelable: false
+        confirm:
+          title: Оптимизировать фотографии?
+          message: Большие изображения будут уменьшены без изменения их адресов на сайте.
+          button: Запустить
   - name: videos
     label: Видео MP4
     input: assets/videos
@@ -27,11 +37,11 @@ settings:
   commit:
     identity: user
     templates:
-      update: "Обновление сайта через CMS: {path}"
+      update: "Обновление сайта через CMS: {name}"
 
 content:
-  - name: site_content
-    label: Содержимое сайта
+  - name: announcement
+    label: 1. Срочное объявление
     type: file
     path: content/site.json
     format: json
@@ -39,7 +49,7 @@ content:
       delete: false
     fields:
       - name: announcement
-        label: Срочное объявление
+        label: Объявление на главной странице
         type: object
         fields:
           - { name: enabled, label: Показывать объявление, type: boolean, default: true }
@@ -47,8 +57,17 @@ content:
           - { name: intro, label: Текст объявления, type: text, required: true, options: { maxlength: 500 } }
           - { name: scheduleTitle, label: Подпись перед расписанием, type: string, required: true, options: { maxlength: 120 } }
           - { name: directionsLabel, label: Текст ссылки на схему, type: string, required: true, options: { maxlength: 60 } }
+
+  - name: schedule
+    label: 2. Расписание и группы
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
       - name: schedule
-        label: Расписание и группы
+        label: Расписание
         type: object
         fields:
           - { name: intro, label: Краткий текст над расписанием, type: text, required: true, options: { maxlength: 240 } }
@@ -59,15 +78,100 @@ content:
               min: 1
               collapsible:
                 collapsed: false
-                summary: "{name} — {monday}"
+                summary: "{name}"
             fields:
               - { name: name, label: Название группы, type: string, required: true, options: { maxlength: 80 } }
               - { name: description, label: Для кого эта группа, type: text, required: true, options: { maxlength: 400 } }
-              - { name: monday, label: Понедельник, type: string, required: true, description: "Например: 19:00–20:30" }
-              - { name: wednesday, label: Среда, type: string, required: true, description: "Например: 19:00–20:30" }
-              - { name: friday, label: Пятница, type: string, required: true, description: "Например: 19:00–20:30" }
+              - name: sessions
+                label: Дни и время занятий
+                type: object
+                list:
+                  min: 1
+                  collapsible:
+                    collapsed: false
+                    summary: "{day} — {time}"
+                fields:
+                  - name: day
+                    label: День недели
+                    type: select
+                    required: true
+                    options:
+                      values:
+                        - { name: monday, label: Понедельник }
+                        - { name: tuesday, label: Вторник }
+                        - { name: wednesday, label: Среда }
+                        - { name: thursday, label: Четверг }
+                        - { name: friday, label: Пятница }
+                        - { name: saturday, label: Суббота }
+                        - { name: sunday, label: Воскресенье }
+                  - { name: time, label: Время, type: string, required: true, description: "Например: 19:00–20:30" }
+
+  - name: news
+    label: 3. Новости
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: news
+        label: Новости на главной странице
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{date} — {title}"
+        fields:
+          - { name: published, label: Показывать на сайте, type: boolean, default: true }
+          - { name: pinned, label: Закрепить первой, type: boolean, default: false }
+          - { name: date, label: Дата, type: date, required: true, options: { format: yyyy-MM-dd } }
+          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 120 } }
+          - { name: text, label: Текст новости, type: text, required: true, options: { maxlength: 1000 } }
+          - name: image
+            label: Фотография к новости
+            type: image
+            options:
+              media: photos
+              categories: [image]
+          - { name: url, label: Ссылка «Подробнее», type: string, description: "Можно вставить https://... или адрес страницы сайта, например photos.html" }
+          - { name: linkLabel, label: Текст ссылки, type: string, default: "Подробнее", options: { maxlength: 60 } }
+
+  - name: photos
+    label: 4. Фотографии
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: photos
+        label: Карусель фотографий
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{alt}"
+        fields:
+          - { name: published, label: Показывать на сайте, type: boolean, default: true }
+          - name: src
+            label: Файл фотографии
+            type: image
+            required: true
+            options:
+              media: photos
+              categories: [image]
+          - { name: alt, label: Подпись и краткое описание, type: string, required: true, options: { maxlength: 160 }, description: "Несколько слов о снимке. Эта подпись отображается под фотографией." }
+
+  - name: contact
+    label: 5. Контакты
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
       - name: contact
-        label: Контакты
+        label: Контактная информация
         type: object
         fields:
           - { name: address, label: Полный адрес, type: text, required: true, options: { maxlength: 300 } }
@@ -91,12 +195,21 @@ content:
             label: Ссылка для карты
             type: string
             required: true
-            description: "Ссылка из атрибута src виджета Яндекс.Карт."
+            description: "Ссылка из атрибута src виджета Яндекс.Карт. Обычно её меняет разработчик."
             pattern:
               regex: "^https://yandex\\.ru/map-widget/.*$"
               message: "Нужна ссылка виджета https://yandex.ru/map-widget/..."
+
+  - name: prices
+    label: 6. Цены
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
       - name: prices
-        label: Цены
+        label: Цены и варианты занятий
         type: object
         fields:
           - { name: intro, label: Вводный текст, type: text, required: true, options: { maxlength: 300 } }
@@ -114,38 +227,17 @@ content:
           - { name: explanationTitle, label: Заголовок пояснения, type: string, required: true, options: { maxlength: 120 } }
           - { name: explanation, label: Пояснение, type: text, required: true, description: "Абзацы разделяйте пустой строкой." }
           - { name: buttonLabel, label: Текст кнопки, type: string, required: true, options: { maxlength: 60 } }
-      - name: news
-        label: Новости
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{date} — {title}"
-        fields:
-          - { name: published, label: Показывать на сайте, type: boolean, default: true }
-          - { name: pinned, label: Закрепить первой, type: boolean, default: false }
-          - { name: date, label: Дата, type: date, required: true, options: { format: yyyy-MM-dd } }
-          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 120 } }
-          - { name: text, label: Текст новости, type: text, required: true, options: { maxlength: 1000 } }
-      - name: photos
-        label: Фотографии
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{alt}"
-        fields:
-          - { name: published, label: Показывать на сайте, type: boolean, default: true }
-          - name: src
-            label: Файл фотографии
-            type: image
-            required: true
-            options:
-              media: photos
-              categories: [image]
-          - { name: alt, label: Краткое описание, type: string, required: true, options: { maxlength: 160 }, description: "Несколько слов о снимке для посетителей, которые не видят изображение." }
+
+  - name: videos
+    label: 7. Видео для новичков
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
       - name: videos
-        label: Видео для новичков
+        label: Видеоуроки
         type: object
         list:
           collapsible:
@@ -178,8 +270,17 @@ content:
             pattern:
               regex: "^(https://(?:www\\.)?rutube\\.ru/(?:video|shorts|play/embed)/[^/?#]+[/?#]?.*|)$"
               message: "Вставьте ссылку на видео с rutube.ru."
+
+  - name: beginner_materials
+    label: 8. Материалы для новичков
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
       - name: beginnerMaterials
-        label: Материалы для новичков
+        label: Статьи и файлы
         type: object
         list:
           collapsible:

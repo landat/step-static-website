@@ -5,6 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "test": "node scripts/validate-content.mjs"
+    "test": "node scripts/validate-content.mjs",
+    "optimize:photos": "node scripts/optimize-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "yaml": "^2.9.0"
   }
 }

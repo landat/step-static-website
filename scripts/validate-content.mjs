@@ -1,9 +1,16 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, extname, isAbsolute, join, relative, resolve } from "node:path";
+import { parse as parseYaml } from "yaml";
 
 const root = resolve(".");
 const errors = [];
 const contentPath = join(root, "content", "site.json");
+
+try {
+  parseYaml(readFileSync(join(root, ".pages.yml"), "utf8"));
+} catch (error) {
+  errors.push(`.pages.yml: некорректная конфигурация (${error.message})`);
+}
 
 function fail(message) {
   errors.push(message);
@@ -43,9 +50,20 @@ if (!Array.isArray(content.schedule?.groups) || !content.schedule.groups.length)
     const label = `Расписание / группа ${index + 1}`;
     requiredString(group.name, `${label} / название`);
     requiredString(group.description, `${label} / описание`);
-    requiredString(group.monday, `${label} / понедельник`);
-    requiredString(group.wednesday, `${label} / среда`);
-    requiredString(group.friday, `${label} / пятница`);
+    if (!Array.isArray(group.sessions) || !group.sessions.length) {
+      fail(`${label}: добавьте хотя бы один день занятий`);
+    } else {
+      const days = new Set();
+      group.sessions.forEach((session, sessionIndex) => {
+        const sessionLabel = `${label} / занятие ${sessionIndex + 1}`;
+        if (!["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"].includes(session.day)) {
+          fail(`${sessionLabel}: выберите день недели`);
+        }
+        requiredString(session.time, `${sessionLabel} / время`);
+        if (days.has(session.day)) fail(`${sessionLabel}: день недели повторяется`);
+        days.add(session.day);
+      });
+    }
     if (names.has(group.name)) fail(`${label}: название группы повторяется`);
     names.add(group.name);
   });
@@ -66,6 +84,8 @@ if (!Array.isArray(content.prices?.items) || !content.prices.items.length) fail(
   requiredString(item.title, `Новости / запись ${index + 1} / заголовок`);
   requiredString(item.text, `Новости / запись ${index + 1} / текст`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date || "")) fail(`Новости / запись ${index + 1}: дата должна иметь формат ГГГГ-ММ-ДД`);
+  localFile(item.image, `Новости / запись ${index + 1} / фотография`, [".jpg", ".jpeg", ".png", ".webp"]);
+  if (item.url && !/^(?:https?:\/\/|[^:]+$)/i.test(item.url)) fail(`Новости / запись ${index + 1}: недопустимая ссылка`);
 });
 
 (content.photos || []).forEach((item, index) => {
