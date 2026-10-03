@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>МЕТЕОР — управление сайтом</title>
+  <link href="./config.yml" type="application/yaml" rel="cms-config-url">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { display: flex; flex-direction: column; }
+    .admin-links { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 10px 16px; background: #142238; color: white; font: 14px/1.5 system-ui, sans-serif; }
+    .admin-links a { color: white; }
+    #nc-root { flex: 1 1 auto; min-height: 0; position: relative; }
+  </style>
+</head>
+<body>
+  <nav class="admin-links" aria-label="Помощь администратору">
+    <a href="../" target="_blank" rel="noopener">Открыть сайт</a>
+    <a href="./help.html" target="_blank" rel="noopener">Инструкция и первый вход</a>
+    <a href="https://github.com/landat/step-static-website/actions/workflows/optimize-images.yml" target="_blank" rel="noopener">Уменьшить большие фотографии</a>
+  </nav>
+  <div id="nc-root"></div>
+  <noscript>Для работы панели включите JavaScript в браузере.</noscript>
+  <script type="module" src="./vendor/cms.js"></script>
+</body>
+</html>

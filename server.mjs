@@ -12,6 +12,7 @@ const types = {
   ".jpeg": "image/jpeg",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".yml": "application/yaml; charset=utf-8",
   ".mp4": "video/mp4",
   ".png": "image/png",
   ".svg": "image/svg+xml; charset=utf-8",
@@ -22,7 +23,7 @@ const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url || "/", `http://${request.headers.host}`);
     const pathname = decodeURIComponent(url.pathname);
-    const requestedPath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
+    const requestedPath = (pathname.endsWith("/") ? `${pathname}index.html` : pathname).replace(/^\/+/, "");
     const filePath = resolve(root, requestedPath);
     const relativePath = relative(root, filePath);
 
