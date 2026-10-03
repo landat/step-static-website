@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "test": "node scripts/validate-content.mjs",
-    "optimize:photos": "node scripts/optimize-images.mjs"
+    "test": "node scripts/validate-content.mjs && node scripts/validate-cms.mjs",
+    "optimize:photos": "node scripts/optimize-images.mjs",
+    "build:cms": "node scripts/build-cms.mjs"
   },
   "devDependencies": {
+    "@sveltia/cms": "0.227.2",
+    "ajv": "8.20.0",
+    "esbuild": "0.28.2",
     "sharp": "^0.35.4",
     "yaml": "^2.9.0"
   }
