@@ -62,7 +62,7 @@
   "photos": [
     {
       "published": true,
-      "src": "assets/photos/IMG_20260805_212659.jpg",
+      "src": "assets/photos/img-20260917-wa0002.jpg",
       "alt": "Школа бокса МЕТЕОР"
     },
     {
@@ -109,6 +109,11 @@
       "published": true,
       "src": "assets/photos/IMG_20260420_204814.jpg",
       "alt": "Отработка"
+    },
+    {
+      "published": false,
+      "src": "assets/photos/img-20260917-wa0002.jpg",
+      "alt": "Школа бокса Метеор"
     }
   ],
   "contact": {
