@@ -1,6 +1,7 @@
 import { build } from "esbuild";
-import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { parse, stringify } from "yaml";
+import { sections, singularLabels } from "../admin/src/sections.js";
 
 // Keep the existing schema as the migration source and rollback configuration.
 const source = parse(await readFile(".pages.yml", "utf8"));
@@ -20,6 +21,7 @@ function convert(field) {
   if (field.fields) result.fields = field.fields.map(convert);
   if (field.type === "object") result.collapsed = true;
   if (field.list) {
+    result.label_singular = singularLabels[field.name];
     result.min = field.list.min ?? 0;
     result.collapsed = field.list.collapsible?.collapsed ?? true;
     if (field.list.collapsible?.summary) {
@@ -75,11 +77,14 @@ const config = {
     editor: { preview: false },
     files: [{
       name: "site",
-      label: "Объявление, расписание и другие разделы",
+      label: "Редактировать сайт",
       file: "content/site.json",
       format: "json",
       fields: source.content.flatMap((section) => section.fields.map((field) => ({
-        ...convert(field), label: section.label,
+        ...convert(field),
+        label: sections.find((item) => item.name === field.name).label,
+        hint: sections.find((item) => item.name === field.name).hint,
+        ...(!field.list ? { collapsed: false } : {}),
       }))),
     }],
   }],
@@ -104,4 +109,7 @@ await build({
   logLevel: "warning",
 });
 await copyFile("node_modules/@sveltia/cms/LICENSE.txt", "admin/vendor/SVELTIA-LICENSE.txt");
+// esbuild does not copy runtime new URL('assets/...', import.meta.url) dependencies.
+// Keep the upstream names so fonts, workers and codecs resolve beside cms.js.
+await cp("node_modules/@sveltia/cms/npm/assets", "admin/vendor/assets", { recursive: true });
 console.log("CMS built: local application, translations and configuration in admin/.");

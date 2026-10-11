@@ -6,21 +6,26 @@
   <meta name="robots" content="noindex, nofollow">
   <title>МЕТЕОР — управление сайтом</title>
   <link href="./config.yml" type="application/yaml" rel="cms-config-url">
-  <style>
-    html, body { margin: 0; height: 100%; }
-    body { display: flex; flex-direction: column; }
-    .admin-links { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 10px 16px; background: #142238; color: white; font: 14px/1.5 system-ui, sans-serif; }
-    .admin-links a { color: white; }
-    #nc-root { flex: 1 1 auto; min-height: 0; position: relative; }
-  </style>
+  <link href="./panel.css" rel="stylesheet">
 </head>
 <body>
-  <nav class="admin-links" aria-label="Помощь администратору">
-    <a href="../" target="_blank" rel="noopener">Открыть сайт</a>
-    <a href="./help.html" target="_blank" rel="noopener">Инструкция и первый вход</a>
-    <a href="https://github.com/landat/step-static-website/actions/workflows/optimize-images.yml" target="_blank" rel="noopener">Уменьшить большие фотографии</a>
-  </nav>
-  <div id="nc-root"></div>
+  <header class="panel-header">
+    <a class="panel-brand" href="../" target="_blank" rel="noopener"><span class="brand-mark" aria-hidden="true">М</span><span>МЕТЕОР<small>Панель тренера</small></span></a>
+    <nav aria-label="Помощь администратору">
+      <a href="./help.html" target="_blank" rel="noopener">Как редактировать</a>
+      <a class="site-link" href="../" target="_blank" rel="noopener">Открыть сайт <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <div class="panel-workspace">
+    <aside id="section-sidebar" class="section-sidebar" hidden>
+      <h1>Что изменить?</h1>
+      <p class="sidebar-intro">Выберите раздел сайта</p>
+      <nav id="section-menu" aria-label="Разделы сайта"></nav>
+      <div class="save-tip"><strong>После изменений</strong><p>Нажмите «Сохранить» вверху редактора. Сайт обновится через несколько минут.</p></div>
+      <a class="photo-tools" href="https://github.com/landat/step-static-website/actions/workflows/optimize-images.yml" target="_blank" rel="noopener">Уменьшить большие фото ↗</a>
+    </aside>
+    <main id="nc-root" aria-label="Управление содержимым"></main>
+  </div>
   <noscript>Для работы панели включите JavaScript в браузере.</noscript>
   <script type="module" src="./vendor/cms.js"></script>
 </body>

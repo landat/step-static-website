@@ -1,5 +1,6 @@
 import CMS from "@sveltia/cms";
 import { formatContent } from "./content-format.js";
+import { setupNavigation } from "./navigation.js";
 
 // Russian on the first visit; preserve a language explicitly chosen later.
 try {
@@ -12,3 +13,4 @@ try {
 
 CMS.registerCustomFormat("json", "json", { fromFile: JSON.parse, toFile: formatContent });
 CMS.init();
+setupNavigation();

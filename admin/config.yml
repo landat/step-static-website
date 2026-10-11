@@ -39,12 +39,12 @@ collections:
       preview: false
     files:
       - name: site
-        label: Объявление, расписание и другие разделы
+        label: Редактировать сайт
         file: content/site.json
         format: json
         fields:
           - name: announcement
-            label: 1. Срочное объявление
+            label: Объявление
             widget: object
             required: true
             fields:
@@ -73,9 +73,11 @@ collections:
                 widget: string
                 required: true
                 maxlength: 60
-            collapsed: true
+            collapsed: false
+            hint: Измените текст или выключите «Показывать объявление», чтобы временно
+              скрыть его.
           - name: schedule
-            label: 2. Расписание и группы
+            label: Расписание
             widget: object
             required: true
             fields:
@@ -129,14 +131,17 @@ collections:
                         required: true
                         hint: "Например: 19:00–20:30"
                     collapsed: false
+                    label_singular: занятие
                     min: 1
                     summary: "{{day}} — {{time}}"
                 collapsed: false
+                label_singular: группу
                 min: 1
                 summary: "{{name}}"
-            collapsed: true
+            collapsed: false
+            hint: Раскройте нужную группу и измените дни или время занятий.
           - name: news
-            label: 3. Новости
+            label: Новости
             widget: list
             required: false
             fields:
@@ -188,10 +193,13 @@ collections:
                 default: Подробнее
                 maxlength: 60
             collapsed: true
+            label_singular: новость
             min: 0
             summary: "{{date}} — {{title}}"
+            hint: Раскройте новость для изменения или нажмите «Добавить новость». Выключите
+              «Показывать на сайте», чтобы скрыть её без удаления.
           - name: photos
-            label: 4. Фотографии
+            label: Фотографии
             widget: list
             required: false
             fields:
@@ -215,10 +223,13 @@ collections:
                 hint: Несколько слов о снимке. Эта подпись отображается под фотографией.
                 maxlength: 160
             collapsed: true
+            label_singular: фотографию
             min: 0
             summary: "{{alt}}"
+            hint: Нажмите «Добавить фотографию», выберите файл и напишите подпись. Порядок
+              снимков можно менять перетаскиванием.
           - name: contact
-            label: 5. Контакты
+            label: Контакты
             widget: object
             required: true
             fields:
@@ -256,9 +267,11 @@ collections:
                 pattern:
                   - ^https://yandex\.ru/map-widget/.*$
                   - Нужна ссылка виджета https://yandex.ru/map-widget/...
-            collapsed: true
+            collapsed: false
+            hint: Здесь меняются контактные данные во всех разделах сайта. Ссылку для карты
+              обычно меняет разработчик.
           - name: prices
-            label: 6. Цены
+            label: Цены
             widget: object
             required: true
             fields:
@@ -283,6 +296,7 @@ collections:
                     required: true
                     maxlength: 400
                 collapsed: true
+                label_singular: вариант занятий
                 min: 1
                 summary: "{{title}}"
               - name: explanationTitle
@@ -300,9 +314,10 @@ collections:
                 widget: string
                 required: true
                 maxlength: 60
-            collapsed: true
+            collapsed: false
+            hint: Раскройте нужный вариант занятий, чтобы изменить описание или стоимость.
           - name: videos
-            label: 7. Видео для новичков
+            label: Видеоуроки
             widget: list
             required: false
             fields:
@@ -349,10 +364,12 @@ collections:
                   - ^(https://(?:www\.)?rutube\.ru/(?:video|shorts|play/embed)/[^/?#]+[/?#]?.*|)$
                   - Вставьте ссылку на видео с rutube.ru.
             collapsed: true
+            label_singular: видеоурок
             min: 0
             summary: "{{title}}"
+            hint: "Добавьте урок и выберите источник: файл MP4/WebM или ссылку на Rutube."
           - name: beginnerMaterials
-            label: 8. Материалы для новичков
+            label: Материалы
             widget: list
             required: false
             fields:
@@ -386,5 +403,8 @@ collections:
                 default: Открыть материал
                 maxlength: 60
             collapsed: true
+            label_singular: материал
             min: 0
             summary: "{{title}}"
+            hint: Добавьте текст материала. При необходимости прикрепите файл для
+              скачивания.

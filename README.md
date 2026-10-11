@@ -87,3 +87,5 @@ npm test
 ```text
 https://landat.github.io/step-static-website/
 ```
+
+Меню панели и подписи разделов задаются в `admin/src/sections.js`, оформление — в `admin/panel.css`. Сборка также копирует `@sveltia/cms/npm/assets` (шрифты, иконки, кодеки); проверка `npm test` защищает от повторной потери этих файлов.

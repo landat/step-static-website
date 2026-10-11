@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import Ajv from "ajv";
 import { parse } from "yaml";
 import { formatContent, repositoryMediaPath } from "../admin/src/content-format.js";
+import { sections, singularLabels } from "../admin/src/sections.js";
 
 const config = parse(readFileSync("admin/config.yml", "utf8"));
 const legacy = parse(readFileSync(".pages.yml", "utf8"));
@@ -48,6 +49,14 @@ function check(oldFields, newFields, data, prefix = "") {
 }
 
 check(legacy.content.flatMap((section) => section.fields), files[0].fields, content);
+assert.deepEqual(sections.map((section) => section.name), files[0].fields.map((field) => field.name), "Navigation must cover every section");
+for (const field of files[0].fields) {
+  assert.equal(field.label, sections.find((section) => section.name === field.name).label);
+  if (field.widget === "list") assert.equal(field.label_singular, singularLabels[field.name]);
+}
+for (const name of readdirSync("node_modules/@sveltia/cms/npm/assets")) {
+  assert.deepEqual(readFileSync(`admin/vendor/assets/${name}`), readFileSync(`node_modules/@sveltia/cms/npm/assets/${name}`), `Missing or stale CMS runtime asset: ${name}`);
+}
 for (const filename of ["admin/index.html", "admin/help.html", "admin/vendor/cms.js", "admin/vendor/SVELTIA-LICENSE.txt"]) assert(existsSync(filename), filename);
 assert(!/<script[^>]+src=["']https?:/i.test(readFileSync("admin/index.html", "utf8")), "CMS must be served locally");
 assert.deepEqual(JSON.parse(formatContent(content)), content, "Existing content must survive serialization");
