@@ -197,7 +197,7 @@ a {
   align-items: center;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.62) 48%, rgba(0, 0, 0, 0.18)),
-    url("picbl.jpg") center / cover no-repeat,
+    url("optimized/hero.webp") center / cover no-repeat,
     var(--black);
   color: var(--white);
 }

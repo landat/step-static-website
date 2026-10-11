@@ -30,11 +30,29 @@
   }, { threshold: visibleFraction, rootMargin: `0px 0px -${bottomInset}px 0px` });
 
   for (const tile of tiles) {
+    // A reload can restore the scroll position. Leave tiles already in view
+    // visible instead of making the current screen disappear and animate again.
+    const bounds = tile.getBoundingClientRect();
+    if (bounds.top < window.innerHeight && bounds.bottom > 0) continue;
     // Hide only after animation support is confirmed, avoiding a visible jump
     // from the resting position when the delayed entrance begins.
     tile.dataset.revealPending = "";
     observer.observe(tile);
   }
+  window.addEventListener("pageshow", (event) => {
+    const navigation = performance.getEntriesByType("navigation")[0];
+    if (!event.persisted && navigation?.type !== "reload" && navigation?.type !== "back_forward") return;
+    requestAnimationFrame(() => {
+      for (const tile of tiles) {
+        const bounds = tile.getBoundingClientRect();
+        if (bounds.top >= window.innerHeight || bounds.bottom <= 0) continue;
+        observer.unobserve(tile);
+        delete tile.dataset.revealPending;
+        active.get(tile)?.cancel();
+        active.delete(tile);
+      }
+    });
+  });
   // A keyboard user must never have to wait for a moving link or video control.
   document.addEventListener("focusin", (event) => {
     const tile = event.target.closest("[data-reveal]");

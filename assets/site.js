@@ -352,7 +352,7 @@ function renderContact(contact) {
   });
   const mapUrl = safeUrl(contact.mapUrl);
   document.querySelectorAll("[data-contact-map]").forEach((element) => {
-    if (mapUrl) element.setAttribute("src", mapUrl);
+    if (mapUrl && element.getAttribute("src") !== mapUrl) element.setAttribute("src", mapUrl);
   });
 }
 
@@ -378,7 +378,8 @@ function showContentWarning() {
 
 async function loadEditableSiteContent() {
   try {
-    const response = await fetch("content/site.json", { cache: "no-store" });
+    // Revalidate on every visit, while allowing an unchanged document to return 304.
+    const response = await fetch("content/site.json", { cache: "no-cache" });
     if (!response.ok) throw new Error(`Content request failed: ${response.status}`);
     const content = await response.json();
     renderAnnouncement(content.announcement, content.schedule, content.contact);
