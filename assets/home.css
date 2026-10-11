@@ -1,5 +1,6 @@
 /* Homepage only: the editor and other pages keep their own layouts. */
 .home-page .tile-section { overflow: clip; }
+.home-page [data-reveal-pending] { opacity: 0; }
 .direction-tiles, .story-tiles, .reason-tiles, .preparation-tiles {
   display: grid;
   gap: 12px;
@@ -45,5 +46,8 @@
   .home-page .tile-section { padding: 44px 0; }
 }
 @media print {
+  .home-page [data-reveal] { transform: none !important; opacity: 1 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
   .home-page [data-reveal] { transform: none !important; opacity: 1 !important; }
 }

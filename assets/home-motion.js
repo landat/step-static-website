@@ -5,12 +5,17 @@
   if (!tiles.length || !window.IntersectionObserver || !Element.prototype.animate || reducedMotion.matches) return;
 
   const active = new Map();
+  const visibleFraction = .15;
+  // Keep the bottom quarter out of the trigger area. Use pixels: percentages
+  // in IntersectionObserver rootMargin are relative to width, not height.
+  const bottomInset = Math.round(window.innerHeight * .25);
   const observer = new IntersectionObserver((entries) => {
     let order = 0;
     for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
+      if (!entry.isIntersecting || entry.intersectionRatio < visibleFraction) continue;
       const tile = entry.target;
       observer.unobserve(tile);
+      delete tile.dataset.revealPending;
       const distance = window.matchMedia("(max-width: 560px)").matches ? 36 : Math.min(220, window.innerWidth * .18);
       const offset = {
         left: [-distance, 0], right: [distance, 0], top: [0, -distance], bottom: [0, distance],
@@ -22,14 +27,20 @@
       active.set(tile, animation);
       animation.onfinish = () => active.delete(tile);
     }
-  }, { threshold: .08, rootMargin: "0px 0px -24px 0px" });
+  }, { threshold: visibleFraction, rootMargin: `0px 0px -${bottomInset}px 0px` });
 
-  for (const tile of tiles) observer.observe(tile);
+  for (const tile of tiles) {
+    // Hide only after animation support is confirmed, avoiding a visible jump
+    // from the resting position when the delayed entrance begins.
+    tile.dataset.revealPending = "";
+    observer.observe(tile);
+  }
   // A keyboard user must never have to wait for a moving link or video control.
   document.addEventListener("focusin", (event) => {
     const tile = event.target.closest("[data-reveal]");
     if (tile) {
       observer.unobserve(tile);
+      delete tile.dataset.revealPending;
       active.get(tile)?.cancel();
       active.delete(tile);
     }
@@ -37,6 +48,7 @@
   reducedMotion.addEventListener("change", () => {
     if (!reducedMotion.matches) return;
     observer.disconnect();
+    for (const tile of tiles) delete tile.dataset.revealPending;
     for (const animation of active.values()) animation.cancel();
     active.clear();
   });
