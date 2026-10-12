@@ -4,8 +4,8 @@
 
 ## Основные страницы
 
-- `index.html` - главная, включая блоки «О школе» и «Стоимость и запись»
-- `about.html` - переход к блоку «О школе» на главной
+- `index.html` - главная, включая блок «Стоимость и запись» и редактируемый фон первого экрана
+- `about.html` - о нас, с редактируемыми основным текстом и фотографией
 - `prices.html` - переход к блоку «Стоимость и запись» на главной
 - `photos.html` - фото
 - `training.html` - тренировки
@@ -15,6 +15,8 @@
 - `contacts.html` - контакты
 
 ## Видео и материалы для новичков
+
+Превью обзорного ролика — его первый кадр, сохранённый в `assets/videos/meteor-overview-first-frame.png`. `npm run build:home-images` сжимает этот кадр в `assets/optimized/video-poster.webp`. Видео на главной сохраняет `preload="none"`: для превью загружается только картинка. При замене ролика исходный кадр можно получить командой `ffmpeg -i assets/videos/meteor-overview.mp4 -frames:v 1 -update 1 assets/videos/meteor-overview-first-frame.png`.
 
 Видео, ссылки Rutube и карточки материалов редактируются через Sveltia CMS. Загруженные видео хранятся в `assets/videos`, документы — в `assets/materials`.
 

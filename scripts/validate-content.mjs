@@ -40,8 +40,10 @@ try {
 
 requiredString(content.announcement?.title, "Объявление / заголовок");
 requiredString(content.announcement?.intro, "Объявление / текст");
-requiredString(content.about?.title, "О школе / заголовок");
-requiredString(content.about?.text, "О школе / текст");
+requiredString(content.about?.title, "О нас / заголовок");
+requiredString(content.about?.text, "О нас / текст");
+localFile(content.about?.image, "О нас / фотография", [".jpg", ".jpeg", ".png", ".webp"]);
+localFile(content.home?.heroImage, "Главная / фоновая фотография", [".jpg", ".jpeg", ".png", ".webp"]);
 requiredString(content.schedule?.intro, "Расписание / вводный текст");
 
 if (!Array.isArray(content.schedule?.groups) || !content.schedule.groups.length) {

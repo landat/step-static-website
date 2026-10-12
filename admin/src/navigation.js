@@ -11,7 +11,16 @@ export function setupNavigation() {
 
   function revealSection(name) {
     const field = root.querySelector(`[data-key-path="${name}"]`);
-    if (!field) return false;
+    if (!field) {
+      // Later fields mount lazily. Bring the nearest preceding section into view
+      // so the requested field can mount and sync() can finish the jump.
+      const index = sections.findIndex((section) => section.name === name);
+      const preceding = sections.slice(0, index).reverse()
+        .map((section) => root.querySelector(`[data-key-path="${section.name}"]`))
+        .find(Boolean);
+      preceding?.scrollIntoView({ block: "end", behavior: "instant" });
+      return false;
+    }
     // Only expand the top-level object, never toggle an already open section.
     const toggle = field.querySelector('button[aria-expanded][aria-controls]');
     if (field.dataset.fieldType === "object" && toggle?.getAttribute("aria-expanded") === "false") toggle.click();

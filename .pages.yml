@@ -299,7 +299,7 @@ content:
           - { name: linkText, label: Текст кнопки, type: string, default: "Открыть материал", options: { maxlength: 60 } }
 
   - name: about
-    label: 9. О школе
+    label: 9. О нас
     type: file
     path: content/site.json
     format: json
@@ -307,8 +307,36 @@ content:
       delete: false
     fields:
       - name: about
-        label: О школе на главной странице
+        label: Страница «О нас»
         type: object
         fields:
           - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 100 } }
-          - { name: text, label: Кратко о школе и тренере, type: text, required: true, options: { maxlength: 1000 }, description: "Достаточно 1–2 коротких абзацев. Разделяйте их пустой строкой. Возраст приёма — с 11 лет." }
+          - { name: text, label: Основной текст, type: text, required: true, options: { maxlength: 3000 }, description: "Абзацы разделяйте пустой строкой. Возраст приёма — с 11 лет." }
+          - name: image
+            label: Фотография
+            type: image
+            description: "Загрузите фото или выберите существующее. Оно будет показано целиком. Чтобы скрыть фотографию, очистите поле."
+            options:
+              media: photos
+              categories: [image]
+          - { name: imageAlt, label: Описание фотографии, type: string, options: { maxlength: 160 } }
+
+  - name: home
+    label: 10. Главная
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: home
+        label: Изображения главной страницы
+        type: object
+        fields:
+          - name: heroImage
+            label: Фоновая фотография первого экрана
+            type: image
+            description: "Выберите или загрузите горизонтальное фото. Фон подстраивается под экран и может обрезаться по краям. Пустое поле возвращает исходное фото."
+            options:
+              media: photos
+              categories: [image]

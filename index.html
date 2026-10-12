@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Школа бокса МЕТЕОР</title>
     <meta name="description" content="Школа бокса МЕТЕОР: тренировки по боксу на Пресне, группы для начинающих и опытных, первая тренировка бесплатно.">
-    <link rel="preload" as="image" href="assets/optimized/hero.webp" fetchpriority="high">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="assets/home.css">
+    <noscript><style>.hero { background-image: linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.62) 48%, rgba(0,0,0,.18)), url("assets/optimized/hero.webp"); }</style></noscript>
   </head>
   <body class="home-page">
     <header class="site-header">
@@ -15,6 +15,7 @@
         <a class="brand" href="index.html" aria-label="Школа бокса МЕТЕОР"><img src="assets/optimized/header.webp" width="992" height="255" fetchpriority="high" alt="Школа бокса МЕТЕОР" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'brand-fallback',textContent:'МЕТЕОР'}))"></a>
         <nav class="site-nav" aria-label="Основная навигация">
           <a href="index.html">Главная</a>
+          <a href="about.html">О нас</a>
           <a href="training.html">Тренировки</a>
           <a href="schedule.html">Расписание</a>
           <a href="beginners.html">Уроки начинающим</a>
@@ -27,7 +28,7 @@
     </header>
 
     <main>
-      <section class="hero">
+      <section class="hero" data-hero>
         <div class="hero-inner">
           <aside class="announcement" data-announcement aria-live="polite">
             <h2>ВНИМАНИЕ!</h2>
@@ -44,16 +45,6 @@
               <a class="button" href="contacts.html">Записаться</a>
               <a class="button light" href="schedule.html">Расписание</a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section white home-about" id="about" aria-labelledby="about-title">
-        <div class="section-inner home-about-inner">
-          <div><p class="eyebrow">Для детей с 11 лет и взрослых</p><h2 id="about-title" data-about-title>О школе «МЕТЕОР»</h2></div>
-          <div class="content" data-about-text>
-            <p>С 2010 года обучаем классической технике бокса. В школе занимаются начинающие и опытные спортсмены — в отдельных группах, в доброжелательной атмосфере.</p>
-            <p>Тренер использует методики советской школы бокса и современные подходы к подготовке. В зале есть всё необходимое для занятий, раздевалка и душевые.</p>
           </div>
         </div>
       </section>
@@ -171,7 +162,7 @@
     <footer class="site-footer">
       <div class="footer-inner">
         <div>Школа бокса МЕТЕОР © 2010-2026</div>
-        <div class="footer-links"><a href="index.html#about">О школе</a><a href="index.html#prices">Стоимость и запись</a><a href="contacts.html">Контакты</a></div>
+        <div class="footer-links"><a href="about.html">О нас</a><a href="index.html#prices">Стоимость и запись</a><a href="contacts.html">Контакты</a></div>
       </div>
     </footer>
     <script src="assets/site.js"></script>

@@ -362,6 +362,21 @@ function renderAbout(about) {
   document.querySelectorAll("[data-about-text]").forEach((element) => {
     element.innerHTML = textParagraphs(about.text).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
   });
+  document.querySelectorAll("[data-about-photo]").forEach((image) => {
+    const src = safeUrl(about.image);
+    image.hidden = !src;
+    if (src) image.setAttribute("src", src);
+    else image.removeAttribute("src");
+    image.alt = about.imageAlt || "Школа бокса МЕТЕОР";
+  });
+}
+
+function renderHomeImages(home) {
+  const hero = document.querySelector("[data-hero]");
+  if (!hero) return;
+  const src = safeUrl(home?.heroImage, "assets/optimized/hero.webp");
+  // CSS variables containing relative URLs resolve against the stylesheet, not the page.
+  hero.style.setProperty("--hero-image", `url(${JSON.stringify(new URL(src, document.baseURI).href)})`);
 }
 
 function renderPrices(prices) {
@@ -395,11 +410,13 @@ async function loadEditableSiteContent() {
     renderContact(content.contact);
     renderPrices(content.prices);
     renderAbout(content.about);
+    renderHomeImages(content.home);
     renderNews(content.news);
     initPhotoCarousel(content.photos);
     renderVideos(content.videos);
     renderBeginnerMaterials(content.beginnerMaterials);
   } catch (error) {
+    renderHomeImages();
     initPhotoCarousel();
     renderVideos([]);
     renderBeginnerMaterials([]);

@@ -411,7 +411,7 @@ collections:
             hint: Добавьте текст материала. При необходимости прикрепите файл для
               скачивания.
           - name: about
-            label: О школе
+            label: О нас
             widget: object
             required: true
             fields:
@@ -421,12 +421,45 @@ collections:
                 required: true
                 maxlength: 100
               - name: text
-                label: Кратко о школе и тренере
+                label: Основной текст
                 widget: text
                 required: true
-                hint: Достаточно 1–2 коротких абзацев. Разделяйте их пустой строкой. Возраст
-                  приёма — с 11 лет.
-                maxlength: 1000
+                hint: Абзацы разделяйте пустой строкой. Возраст приёма — с 11 лет.
+                maxlength: 3000
+              - name: image
+                label: Фотография
+                widget: image
+                required: false
+                hint: Загрузите фото или выберите существующее. Оно будет показано целиком.
+                  Чтобы скрыть фотографию, очистите поле.
+                media_folder: /assets/photos
+                public_folder: ./assets/photos
+                accept: .jpg,.jpeg,.png,.webp
+                choose_url: false
+              - name: imageAlt
+                label: Описание фотографии
+                widget: string
+                required: false
+                maxlength: 160
             collapsed: false
-            hint: Измените заголовок и краткий текст о школе и тренере. Этот блок находится
-              под первым экраном главной страницы.
+            hint: Здесь меняются заголовок, основной текст и фотография страницы «О нас».
+              Можно загрузить новое фото или выбрать существующее.
+          - name: home
+            label: Главная
+            widget: object
+            required: true
+            fields:
+              - name: heroImage
+                label: Фоновая фотография первого экрана
+                widget: image
+                required: false
+                hint: Выберите или загрузите горизонтальное фото. Фон подстраивается под экран и
+                  может обрезаться по краям. Пустое поле возвращает исходное
+                  фото.
+                media_folder: /assets/photos
+                public_folder: ./assets/photos
+                accept: .jpg,.jpeg,.png,.webp
+                choose_url: false
+            collapsed: false
+            hint: Выберите фотографию для первого экрана главной. Она автоматически заполнит
+              фон; края могут обрезаться под размер экрана.

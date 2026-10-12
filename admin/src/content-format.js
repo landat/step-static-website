@@ -10,6 +10,11 @@ export function repositoryMediaPath(value) {
 
 export function formatContent(value) {
   const content = structuredClone(value);
+  for (const [section, field] of [["about", "image"], ["home", "heroImage"]]) {
+    if (content[section] && Object.hasOwn(content[section], field)) {
+      content[section][field] = repositoryMediaPath(content[section][field]);
+    }
+  }
   for (const [section, field] of [["photos", "src"], ["news", "image"], ["videos", "src"], ["beginnerMaterials", "url"]]) {
     for (const item of content[section] ?? []) {
       if (Object.hasOwn(item, field)) item[field] = repositoryMediaPath(item[field]);

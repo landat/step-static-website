@@ -30,21 +30,14 @@
 .tile-video h3 { margin: 0; padding: 24px; font-size: 1.2rem; }
 .tile-video video { display: block; width: 100%; min-height: 0; flex: 1; aspect-ratio: 1; object-fit: contain; background: #000; }
 .preparation-tiles .plain-list { margin-bottom: 0; }
-.home-about { border-bottom: 1px solid var(--line); }
-.home-about-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 24px 48px; align-items: start; }
-.home-about h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.2; }
-.home-about .eyebrow { color: var(--red); }
-.home-about .content p:first-child { margin-top: 0; }
-.home-about .content p:last-child { margin-bottom: 0; }
 .home-price-note { display: flex; align-items: center; gap: 24px 48px; margin-top: 28px; }
 .home-price-note .content { flex: 1; min-width: 0; }
 .home-price-note h3 { margin: 0 0 8px; }
 .home-price-note p { margin: 0; }
 .home-price-note p + p { margin-top: 12px; }
 .home-price-note .button { flex-shrink: 0; text-align: center; }
-#about, #prices { scroll-margin-top: 120px; }
+#prices { scroll-margin-top: 120px; }
 @media (max-width: 980px) {
-  .home-about-inner { grid-template-columns: 1fr; }
   .home-price-note { flex-direction: column; align-items: flex-start; }
   .direction-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .direction-photo { grid-row: auto; grid-column: 1 / -1; height: 300px; }
