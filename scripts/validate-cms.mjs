@@ -60,6 +60,11 @@ for (const name of readdirSync("node_modules/@sveltia/cms/npm/assets")) {
 for (const filename of ["admin/index.html", "admin/help.html", "admin/vendor/cms.js", "admin/vendor/SVELTIA-LICENSE.txt"]) assert(existsSync(filename), filename);
 assert(!/<script[^>]+src=["']https?:/i.test(readFileSync("admin/index.html", "utf8")), "CMS must be served locally");
 assert.deepEqual(JSON.parse(formatContent(content)), content, "Existing content must survive serialization");
+const homeEdit = structuredClone(content);
+homeEdit.about.text = "Обновлённый рассказ о школе.\n\nВторой абзац.";
+homeEdit.prices.items[0].text = "Новые условия занятий";
+const savedHome = JSON.parse(formatContent(homeEdit));
+assert.deepEqual(savedHome, homeEdit, "Home blocks must remain editable without losing other sections");
 const changed = structuredClone(content);
 changed.photos[0].src = "/step-static-website/assets/photos/club-02.jpg";
 changed.news[0].image = "./assets/photos/club-02.jpg";

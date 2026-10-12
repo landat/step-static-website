@@ -15,8 +15,6 @@
         <a class="brand" href="index.html" aria-label="Школа бокса МЕТЕОР"><img src="assets/optimized/header.webp" width="992" height="255" fetchpriority="high" alt="Школа бокса МЕТЕОР" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'brand-fallback',textContent:'МЕТЕОР'}))"></a>
         <nav class="site-nav" aria-label="Основная навигация">
           <a href="index.html">Главная</a>
-          <a href="about.html">О нас</a>
-          <a href="prices.html">Цены</a>
           <a href="training.html">Тренировки</a>
           <a href="schedule.html">Расписание</a>
           <a href="beginners.html">Уроки начинающим</a>
@@ -33,7 +31,7 @@
         <div class="hero-inner">
           <aside class="announcement" data-announcement aria-live="polite">
             <h2>ВНИМАНИЕ!</h2>
-            <p>С 16 сентября начинается набор в новую группу для детей с 11-ти лет и начинающих!</p>
+            <p>Продолжается набор в новую группу для детей с 11 лет и начинающих!</p>
             <strong>Расписание тренировок с 16 сентября:</strong>
             <p><b>0-я группа:</b> пн., ср., пт. 19:00–20:30<br><b>1-я группа:</b> пн., ср., пт. 20:30–22:00</p>
             <p><a href="contacts.html">Схема проезда</a> · <a href="tel:+74957986940">+7 495 798-69-40</a></p>
@@ -46,6 +44,16 @@
               <a class="button" href="contacts.html">Записаться</a>
               <a class="button light" href="schedule.html">Расписание</a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section white home-about" id="about" aria-labelledby="about-title">
+        <div class="section-inner home-about-inner">
+          <div><p class="eyebrow">Для детей с 11 лет и взрослых</p><h2 id="about-title" data-about-title>О школе «МЕТЕОР»</h2></div>
+          <div class="content" data-about-text>
+            <p>С 2010 года обучаем классической технике бокса. В школе занимаются начинающие и опытные спортсмены — в отдельных группах, в доброжелательной атмосфере.</p>
+            <p>Тренер использует методики советской школы бокса и современные подходы к подготовке. В зале есть всё необходимое для занятий, раздевалка и душевые.</p>
           </div>
         </div>
       </section>
@@ -122,7 +130,24 @@
         </div>
       </section>
 
-      <section class="section white home-contacts" id="contacts">
+      <section class="section white home-prices" id="prices" aria-labelledby="prices-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="prices-title">Стоимость и запись</h2>
+            <p data-prices-intro>Первая пробная групповая тренировка — бесплатно. Принимаем детей с 11 лет и взрослых.</p>
+          </div>
+          <div class="grid-2" data-price-items>
+            <article class="card"><h3>Индивидуальная тренировка</h3><p>Время занятий и график оговариваются с тренером.</p></article>
+            <article class="card"><h3>Абонемент на месяц</h3><p>Занятия 3 раза в неделю в выбранной группе.</p></article>
+          </div>
+          <div class="home-price-note">
+            <div class="content"><h3 data-prices-explanation-title>Как узнать стоимость</h3><div data-prices-explanation><p>Стоимость абонемента и индивидуальных занятий уточните у тренера. Он поможет выбрать группу и записаться на бесплатное пробное занятие.</p></div></div>
+            <a class="button" data-prices-button href="contacts.html">Узнать стоимость и записаться</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section home-contacts" id="contacts">
         <div class="section-inner">
           <div class="section-head">
             <h2>Контакты</h2>
@@ -146,7 +171,7 @@
     <footer class="site-footer">
       <div class="footer-inner">
         <div>Школа бокса МЕТЕОР © 2010-2026</div>
-        <div class="footer-links"><a href="contacts.html">Контакты</a></div>
+        <div class="footer-links"><a href="index.html#about">О школе</a><a href="index.html#prices">Стоимость и запись</a><a href="contacts.html">Контакты</a></div>
       </div>
     </footer>
     <script src="assets/site.js"></script>

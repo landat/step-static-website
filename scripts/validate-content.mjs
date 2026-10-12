@@ -40,6 +40,8 @@ try {
 
 requiredString(content.announcement?.title, "Объявление / заголовок");
 requiredString(content.announcement?.intro, "Объявление / текст");
+requiredString(content.about?.title, "О школе / заголовок");
+requiredString(content.about?.text, "О школе / текст");
 requiredString(content.schedule?.intro, "Расписание / вводный текст");
 
 if (!Array.isArray(content.schedule?.groups) || !content.schedule.groups.length) {
@@ -117,7 +119,7 @@ if (!Array.isArray(content.prices?.items) || !content.prices.items.length) fail(
 for (const html of readdirSync(root).filter((name) => name.endsWith(".html"))) {
   const body = readFileSync(join(root, html), "utf8");
   for (const match of body.matchAll(/(?:href|src)="([^"#]+)"/g)) {
-    const target = match[1].split("?")[0];
+    const target = match[1].split(/[?#]/)[0];
     if (/^(?:https?:|mailto:|tel:|data:)/i.test(target)) continue;
     if (!existsSync(resolve(dirname(join(root, html)), target))) fail(`${html}: локальная ссылка не найдена — ${target}`);
   }

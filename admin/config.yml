@@ -308,14 +308,16 @@ collections:
                 label: Пояснение
                 widget: text
                 required: true
-                hint: Абзацы разделяйте пустой строкой.
+                hint: Коротко поясните, как узнать стоимость и записаться. Абзацы разделяйте
+                  пустой строкой.
               - name: buttonLabel
                 label: Текст кнопки
                 widget: string
                 required: true
                 maxlength: 60
             collapsed: false
-            hint: Раскройте нужный вариант занятий, чтобы изменить описание или стоимость.
+            hint: Этот блок показывается на главной странице. Раскройте нужный вариант
+              занятий, чтобы изменить описание или стоимость.
           - name: videos
             label: Видеоуроки
             widget: list
@@ -408,3 +410,23 @@ collections:
             summary: "{{title}}"
             hint: Добавьте текст материала. При необходимости прикрепите файл для
               скачивания.
+          - name: about
+            label: О школе
+            widget: object
+            required: true
+            fields:
+              - name: title
+                label: Заголовок
+                widget: string
+                required: true
+                maxlength: 100
+              - name: text
+                label: Кратко о школе и тренере
+                widget: text
+                required: true
+                hint: Достаточно 1–2 коротких абзацев. Разделяйте их пустой строкой. Возраст
+                  приёма — с 11 лет.
+                maxlength: 1000
+            collapsed: false
+            hint: Измените заголовок и краткий текст о школе и тренере. Этот блок находится
+              под первым экраном главной страницы.

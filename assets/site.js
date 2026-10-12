@@ -356,6 +356,14 @@ function renderContact(contact) {
   });
 }
 
+function renderAbout(about) {
+  if (!about) return;
+  document.querySelectorAll("[data-about-title]").forEach((element) => { element.textContent = about.title || ""; });
+  document.querySelectorAll("[data-about-text]").forEach((element) => {
+    element.innerHTML = textParagraphs(about.text).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+  });
+}
+
 function renderPrices(prices) {
   if (!prices) return;
   document.querySelectorAll("[data-prices-intro]").forEach((element) => { element.textContent = prices.intro || ""; });
@@ -386,6 +394,7 @@ async function loadEditableSiteContent() {
     renderSchedule(content.schedule, content.contact);
     renderContact(content.contact);
     renderPrices(content.prices);
+    renderAbout(content.about);
     renderNews(content.news);
     initPhotoCarousel(content.photos);
     renderVideos(content.videos);
