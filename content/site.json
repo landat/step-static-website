@@ -61,7 +61,7 @@
   ],
   "photos": [
     {
-      "published": true,
+      "published": false,
       "src": "assets/photos/img-20260917-wa0002.jpg",
       "alt": "Школа бокса МЕТЕОР"
     },
@@ -165,6 +165,7 @@
     "imageAlt": "Боксерские бинты"
   },
   "home": {
-    "heroImage": "assets/optimized/hero.webp"
+    "heroImage": "assets/optimized/hero.webp",
+    "directionsImage": ""
   }
 }
