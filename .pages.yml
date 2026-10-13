@@ -340,3 +340,10 @@ content:
             options:
               media: photos
               categories: [image]
+          - name: directionsImage
+            label: Фотография блока «Основные направления»
+            type: image
+            description: "Меняет фото рядом с карточками направлений на главной. Выберите файл и нажмите «Сохранить». Пустое поле возвращает исходный снимок. Это фото не связано с галереей; края подстраиваются под плитку."
+            options:
+              media: photos
+              categories: [image]

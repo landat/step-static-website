@@ -372,6 +372,14 @@ function renderAbout(about) {
 }
 
 function renderHomeImages(home) {
+  const directionPhoto = document.querySelector("[data-directions-photo]");
+  const directionsImage = safeUrl(home?.directionsImage);
+  if (directionPhoto && directionsImage) {
+    // Otherwise the browser keeps selecting the old optimized image from srcset.
+    directionPhoto.removeAttribute("srcset");
+    directionPhoto.removeAttribute("sizes");
+    directionPhoto.src = directionsImage;
+  }
   const hero = document.querySelector("[data-hero]");
   if (!hero) return;
   const src = safeUrl(home?.heroImage, "assets/optimized/hero.webp");
