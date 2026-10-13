@@ -61,7 +61,7 @@
   ],
   "photos": [
     {
-      "published": true,
+      "published": false,
       "src": "assets/photos/img-20260917-wa0002.jpg",
       "alt": "Школа бокса МЕТЕОР"
     },
