@@ -17,7 +17,7 @@ media_libraries:
   stock_assets: false
 asset_collections:
   - name: photos
-    label: Фотографии
+    label: Фото и видео
     media_folder: /assets/photos
     public_folder: ./assets/photos
   - name: videos
@@ -174,12 +174,12 @@ collections:
                 required: true
                 maxlength: 1000
               - name: image
-                label: Фотография к новости
-                widget: image
+                label: Фото или видео к новости
+                widget: file
                 required: false
                 media_folder: /assets/photos
                 public_folder: ./assets/photos
-                accept: .jpg,.jpeg,.png,.webp
+                accept: .jpg,.jpeg,.png,.webp,.mp4,.webm
                 choose_url: false
               - name: url
                 label: Ссылка «Подробнее»
@@ -199,7 +199,7 @@ collections:
             hint: Раскройте новость для изменения или нажмите «Добавить новость». Выключите
               «Показывать на сайте», чтобы скрыть её без удаления.
           - name: photos
-            label: Фотографии
+            label: Фото и видео
             widget: list
             required: false
             fields:
@@ -209,25 +209,26 @@ collections:
                 required: false
                 default: true
               - name: src
-                label: Файл фотографии
-                widget: image
+                label: Фото или видео
+                widget: file
                 required: true
                 media_folder: /assets/photos
                 public_folder: ./assets/photos
-                accept: .jpg,.jpeg,.png,.webp
+                accept: .jpg,.jpeg,.png,.webp,.mp4,.webm
                 choose_url: false
               - name: alt
                 label: Подпись и краткое описание
                 widget: string
                 required: true
-                hint: Несколько слов о снимке. Эта подпись отображается под фотографией.
+                hint: Несколько слов о фото или видео. Подпись отображается в галерее.
                 maxlength: 160
             collapsed: true
-            label_singular: фотографию
+            label_singular: фото или видео
             min: 0
             summary: "{{alt}}"
-            hint: Нажмите «Добавить фотографию», выберите файл и напишите подпись. Порядок
-              снимков можно менять перетаскиванием.
+            hint: Добавьте фото или видео MP4/WebM, напишите подпись и сохраните. Галочка
+              управляет видимостью в галерее. Порядок можно менять
+              перетаскиванием.
           - name: contact
             label: Контакты
             widget: object
@@ -427,52 +428,51 @@ collections:
                 hint: Абзацы разделяйте пустой строкой. Возраст приёма — с 11 лет.
                 maxlength: 3000
               - name: image
-                label: Фотография
-                widget: image
+                label: Фото или видео
+                widget: file
                 required: false
-                hint: Загрузите фото или выберите существующее. Оно будет показано целиком.
-                  Чтобы скрыть фотографию, очистите поле.
+                hint: Выберите фото (JPG, PNG, WebP) или видео (MP4, WebM), до 50 МиБ. Видео
+                  запускается по нажатию. Чтобы скрыть медиа, очистите поле.
                 media_folder: /assets/photos
                 public_folder: ./assets/photos
-                accept: .jpg,.jpeg,.png,.webp
+                accept: .jpg,.jpeg,.png,.webp,.mp4,.webm
                 choose_url: false
               - name: imageAlt
-                label: Описание фотографии
+                label: Описание фото или видео
                 widget: string
                 required: false
                 maxlength: 160
             collapsed: false
-            hint: Здесь меняются заголовок, основной текст и фотография страницы «О нас».
-              Можно загрузить новое фото или выбрать существующее.
+            hint: Здесь меняются заголовок, основной текст и фото или видео страницы «О
+              нас». Видео запускается по нажатию.
           - name: home
             label: Главная
             widget: object
             required: true
             fields:
               - name: heroImage
-                label: Фоновая фотография первого экрана
-                widget: image
+                label: Фото или видео первого экрана
+                widget: file
                 required: false
-                hint: Выберите или загрузите горизонтальное фото. Фон подстраивается под экран и
-                  может обрезаться по краям. Пустое поле возвращает исходное
-                  фото.
+                hint: Горизонтальное фото или видео MP4/WebM, до 50 МиБ. Фон заполняет экран;
+                  края могут обрезаться. Видео запускается кнопкой без звука.
+                  Пустое поле возвращает исходное фото.
                 media_folder: /assets/photos
                 public_folder: ./assets/photos
-                accept: .jpg,.jpeg,.png,.webp
+                accept: .jpg,.jpeg,.png,.webp,.mp4,.webm
                 choose_url: false
               - name: directionsImage
-                label: Фотография блока «Основные направления»
-                widget: image
+                label: Фото или видео блока «Основные направления»
+                widget: file
                 required: false
-                hint: Меняет фото рядом с карточками направлений на главной. Выберите файл и
-                  нажмите «Сохранить». Пустое поле возвращает исходный снимок.
-                  Это фото не связано с галереей; края подстраиваются под
-                  плитку.
+                hint: Фото или видео MP4/WebM, до 50 МиБ, рядом с карточками направлений. Видео
+                  запускается по нажатию. Выберите файл и сохраните. Пустое поле
+                  возвращает исходный снимок. Этот блок не связан с галереей.
                 media_folder: /assets/photos
                 public_folder: ./assets/photos
-                accept: .jpg,.jpeg,.png,.webp
+                accept: .jpg,.jpeg,.png,.webp,.mp4,.webm
                 choose_url: false
             collapsed: false
-            hint: Здесь отдельно выбираются фон первого экрана и фотография блока «Основные
-              направления». После выбора нажмите «Сохранить». Фото галереи
-              меняются в разделе «Фотографии».
+            hint: Здесь отдельно выбираются фото или видео первого экрана и блока «Основные
+              направления». После выбора сохраните. Галерея меняется в разделе
+              «Фото и видео».

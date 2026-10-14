@@ -184,6 +184,38 @@ function safeUrl(value, fallback = "") {
   return fallback;
 }
 
+function isVideoFile(src) {
+  return /\.(mp4|webm)(?:[?#]|$)/i.test(String(src || ""));
+}
+
+function siteMedia(src, description) {
+  src = safeUrl(src);
+  if (!src) return "";
+  const label = escapeHtml(description || "Школа бокса МЕТЕОР");
+  return isVideoFile(src)
+    ? `<video src="${escapeHtml(src)}" aria-label="${label}" controls playsinline preload="none"></video>`
+    : `<img src="${escapeHtml(src)}" alt="${label}" loading="lazy" decoding="async">`;
+}
+
+function replacePhotoWithMedia(image, src, description) {
+  if (isVideoFile(src)) {
+    const video = document.createElement("video");
+    video.className = image.className;
+    for (const [key, value] of Object.entries(image.dataset)) video.dataset[key] = value;
+    video.src = src;
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "none";
+    video.setAttribute("aria-label", description);
+    image.replaceWith(video);
+  } else {
+    image.removeAttribute("srcset");
+    image.removeAttribute("sizes");
+    image.src = src;
+    image.alt = description;
+  }
+}
+
 function groupScheduleText(group) {
   return scheduleSessions(group).map((session) => {
     const day = SCHEDULE_DAYS.find((item) => item.value === session.day);
@@ -241,7 +273,7 @@ function renderNews(news) {
     const url = safeUrl(item.url);
     return `
     <article class="card news-card${image ? " has-image" : ""}">
-      ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(item.title || "Новость школы бокса МЕТЕОР")}" loading="lazy">` : ""}
+      ${siteMedia(image, item.title || "Новость школы бокса МЕТЕОР")}
       <div class="news-card-body">
       <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatNewsDate(item.date))}</time>
       <h3>${escapeHtml(item.title)}</h3>
@@ -266,7 +298,7 @@ function initPhotoCarousel(photos) {
     : Array.from(track.querySelectorAll("img")).map((img) => ({ src: img.getAttribute("src"), alt: img.alt }));
 
   if (!items.length) {
-    track.innerHTML = `<div class="empty-state">Фотографии скоро появятся.</div>`;
+    track.innerHTML = `<div class="empty-state">Фото и видео скоро появятся.</div>`;
     prev.hidden = true;
     next.hidden = true;
     status.textContent = "0 / 0";
@@ -275,12 +307,16 @@ function initPhotoCarousel(photos) {
 
   track.innerHTML = items.map((photo) => {
     const src = safeUrl(photo.src);
-    return `<figure class="carousel-slide"><img src="${escapeHtml(src)}" alt="${escapeHtml(photo.alt || "Фото школы бокса МЕТЕОР")}" loading="lazy"><figcaption>${escapeHtml(photo.alt || "Школа бокса МЕТЕОР")}</figcaption></figure>`;
+    return `<figure class="carousel-slide">${siteMedia(src, photo.alt)}<figcaption>${escapeHtml(photo.alt || "Школа бокса МЕТЕОР")}</figcaption></figure>`;
   }).join("");
 
   let current = 0;
   let touchStartX = 0;
   const update = () => {
+    track.querySelectorAll(".carousel-slide").forEach((slide, index) => {
+      slide.inert = index !== current;
+      if (index !== current) slide.querySelectorAll("video").forEach((video) => video.pause());
+    });
     track.style.transform = `translateX(-${current * 100}%)`;
     status.textContent = `${current + 1} / ${items.length}`;
   };
@@ -292,11 +328,13 @@ function initPhotoCarousel(photos) {
   prev.addEventListener("click", () => move(-1));
   next.addEventListener("click", () => move(1));
   carousel.addEventListener("keydown", (event) => {
+    if (event.target.closest("video")) return;
     if (event.key === "ArrowLeft") move(-1);
     if (event.key === "ArrowRight") move(1);
   });
-  carousel.addEventListener("touchstart", (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+  carousel.addEventListener("touchstart", (event) => { touchStartX = event.target.closest("video") ? null : event.changedTouches[0].clientX; }, { passive: true });
   carousel.addEventListener("touchend", (event) => {
+    if (touchStartX === null) return;
     const distance = event.changedTouches[0].clientX - touchStartX;
     if (Math.abs(distance) > 45) move(distance > 0 ? -1 : 1);
   }, { passive: true });
@@ -365,7 +403,7 @@ function renderAbout(about) {
   document.querySelectorAll("[data-about-photo]").forEach((image) => {
     const src = safeUrl(about.image);
     image.hidden = !src;
-    if (src) image.setAttribute("src", src);
+    if (src) replacePhotoWithMedia(image, src, about.imageAlt || "Школа бокса МЕТЕОР");
     else image.removeAttribute("src");
     image.alt = about.imageAlt || "Школа бокса МЕТЕОР";
   });
@@ -375,16 +413,47 @@ function renderHomeImages(home) {
   const directionPhoto = document.querySelector("[data-directions-photo]");
   const directionsImage = safeUrl(home?.directionsImage);
   if (directionPhoto && directionsImage) {
-    // Otherwise the browser keeps selecting the old optimized image from srcset.
-    directionPhoto.removeAttribute("srcset");
-    directionPhoto.removeAttribute("sizes");
-    directionPhoto.src = directionsImage;
+    replacePhotoWithMedia(directionPhoto, directionsImage, "Основные направления школы бокса МЕТЕОР");
   }
   const hero = document.querySelector("[data-hero]");
   if (!hero) return;
-  const src = safeUrl(home?.heroImage, "assets/optimized/hero.webp");
+  const selected = safeUrl(home?.heroImage, "assets/optimized/hero.webp");
+  const src = isVideoFile(selected) ? "assets/optimized/hero.webp" : selected;
   // CSS variables containing relative URLs resolve against the stylesheet, not the page.
   hero.style.setProperty("--hero-image", `url(${JSON.stringify(new URL(src, document.baseURI).href)})`);
+  if (isVideoFile(selected)) {
+    const video = document.createElement("video");
+    video.className = "hero-video";
+    video.src = selected;
+    video.preload = "none";
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("aria-hidden", "true");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "button light hero-video-toggle";
+    button.textContent = "Включить видео на фоне";
+    button.setAttribute("aria-pressed", "false");
+    button.addEventListener("click", async () => {
+      if (!video.paused) { video.pause(); return; }
+      button.disabled = true;
+      try { await video.play(); }
+      catch { button.textContent = "Видео не загрузилось — повторить"; }
+      finally { button.disabled = false; }
+    });
+    video.addEventListener("playing", () => {
+      hero.classList.add("is-video-playing");
+      button.textContent = "Приостановить видео";
+      button.setAttribute("aria-pressed", "true");
+    });
+    video.addEventListener("pause", () => {
+      button.textContent = "Продолжить видео";
+      button.setAttribute("aria-pressed", "false");
+    });
+    hero.prepend(video);
+    hero.querySelector(".hero-copy").append(button);
+  }
 }
 
 function renderPrices(prices) {

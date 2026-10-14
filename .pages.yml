@@ -1,10 +1,10 @@
 media:
   - name: photos
-    label: Фотографии
+    label: Фото и видео
     input: assets/photos
     output: assets/photos
     rename: safe
-    extensions: [jpg, jpeg, png, webp]
+    extensions: [jpg, jpeg, png, webp, mp4, webm]
     actions:
       - name: optimize_photos
         label: Уменьшить большие фотографии
@@ -128,16 +128,16 @@ content:
           - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 120 } }
           - { name: text, label: Текст новости, type: text, required: true, options: { maxlength: 1000 } }
           - name: image
-            label: Фотография к новости
-            type: image
+            label: Фото или видео к новости
+            type: file
             options:
               media: photos
-              categories: [image]
+              categories: [image, video]
           - { name: url, label: Ссылка «Подробнее», type: string, description: "Можно вставить https://... или адрес страницы сайта, например photos.html" }
           - { name: linkLabel, label: Текст ссылки, type: string, default: "Подробнее", options: { maxlength: 60 } }
 
   - name: photos
-    label: 4. Фотографии
+    label: 4. Фото и видео
     type: file
     path: content/site.json
     format: json
@@ -145,7 +145,7 @@ content:
       delete: false
     fields:
       - name: photos
-        label: Карусель фотографий
+        label: Галерея фото и видео
         type: object
         list:
           collapsible:
@@ -154,13 +154,13 @@ content:
         fields:
           - { name: published, label: Показывать на сайте, type: boolean, default: true }
           - name: src
-            label: Файл фотографии
-            type: image
+            label: Фото или видео
+            type: file
             required: true
             options:
               media: photos
-              categories: [image]
-          - { name: alt, label: Подпись и краткое описание, type: string, required: true, options: { maxlength: 160 }, description: "Несколько слов о снимке. Эта подпись отображается под фотографией." }
+              categories: [image, video]
+          - { name: alt, label: Подпись и краткое описание, type: string, required: true, options: { maxlength: 160 }, description: "Несколько слов о фото или видео. Подпись отображается в галерее." }
 
   - name: contact
     label: 5. Контакты
@@ -313,13 +313,13 @@ content:
           - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 100 } }
           - { name: text, label: Основной текст, type: text, required: true, options: { maxlength: 3000 }, description: "Абзацы разделяйте пустой строкой. Возраст приёма — с 11 лет." }
           - name: image
-            label: Фотография
-            type: image
-            description: "Загрузите фото или выберите существующее. Оно будет показано целиком. Чтобы скрыть фотографию, очистите поле."
+            label: Фото или видео
+            type: file
+            description: "Выберите фото (JPG, PNG, WebP) или видео (MP4, WebM), до 50 МиБ. Видео запускается по нажатию. Чтобы скрыть медиа, очистите поле."
             options:
               media: photos
-              categories: [image]
-          - { name: imageAlt, label: Описание фотографии, type: string, options: { maxlength: 160 } }
+              categories: [image, video]
+          - { name: imageAlt, label: Описание фото или видео, type: string, options: { maxlength: 160 } }
 
   - name: home
     label: 10. Главная
@@ -334,16 +334,16 @@ content:
         type: object
         fields:
           - name: heroImage
-            label: Фоновая фотография первого экрана
-            type: image
-            description: "Выберите или загрузите горизонтальное фото. Фон подстраивается под экран и может обрезаться по краям. Пустое поле возвращает исходное фото."
+            label: Фото или видео первого экрана
+            type: file
+            description: "Горизонтальное фото или видео MP4/WebM, до 50 МиБ. Фон заполняет экран; края могут обрезаться. Видео запускается кнопкой без звука. Пустое поле возвращает исходное фото."
             options:
               media: photos
-              categories: [image]
+              categories: [image, video]
           - name: directionsImage
-            label: Фотография блока «Основные направления»
-            type: image
-            description: "Меняет фото рядом с карточками направлений на главной. Выберите файл и нажмите «Сохранить». Пустое поле возвращает исходный снимок. Это фото не связано с галереей; края подстраиваются под плитку."
+            label: Фото или видео блока «Основные направления»
+            type: file
+            description: "Фото или видео MP4/WebM, до 50 МиБ, рядом с карточками направлений. Видео запускается по нажатию. Выберите файл и сохраните. Пустое поле возвращает исходный снимок. Этот блок не связан с галереей."
             options:
               media: photos
-              categories: [image]
+              categories: [image, video]

@@ -42,9 +42,9 @@ requiredString(content.announcement?.title, "Объявление / заголо
 requiredString(content.announcement?.intro, "Объявление / текст");
 requiredString(content.about?.title, "О нас / заголовок");
 requiredString(content.about?.text, "О нас / текст");
-localFile(content.about?.image, "О нас / фотография", [".jpg", ".jpeg", ".png", ".webp"]);
-localFile(content.home?.heroImage, "Главная / фоновая фотография", [".jpg", ".jpeg", ".png", ".webp"]);
-localFile(content.home?.directionsImage, "Главная / основные направления", [".jpg", ".jpeg", ".png", ".webp"]);
+localFile(content.about?.image, "О нас / фотография", [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm"]);
+localFile(content.home?.heroImage, "Главная / фоновая фотография", [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm"]);
+localFile(content.home?.directionsImage, "Главная / основные направления", [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm"]);
 requiredString(content.schedule?.intro, "Расписание / вводный текст");
 
 if (!Array.isArray(content.schedule?.groups) || !content.schedule.groups.length) {
@@ -89,14 +89,14 @@ if (!Array.isArray(content.prices?.items) || !content.prices.items.length) fail(
   requiredString(item.title, `Новости / запись ${index + 1} / заголовок`);
   requiredString(item.text, `Новости / запись ${index + 1} / текст`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date || "")) fail(`Новости / запись ${index + 1}: дата должна иметь формат ГГГГ-ММ-ДД`);
-  localFile(item.image, `Новости / запись ${index + 1} / фотография`, [".jpg", ".jpeg", ".png", ".webp"]);
+  localFile(item.image, `Новости / запись ${index + 1} / фотография`, [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm"]);
   if (item.url && !/^(?:https?:\/\/|[^:]+$)/i.test(item.url)) fail(`Новости / запись ${index + 1}: недопустимая ссылка`);
 });
 
 (content.photos || []).forEach((item, index) => {
   if (!item.published) return;
   requiredString(item.alt, `Фото ${index + 1} / описание`);
-  localFile(item.src, `Фото ${index + 1}`, [".jpg", ".jpeg", ".png", ".webp"]);
+  localFile(item.src, `Фото ${index + 1}`, [".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm"]);
 });
 
 (content.videos || []).forEach((item, index) => {

@@ -84,4 +84,20 @@ assert.equal(roundTrip.home.directionsImage, "assets/photos/club-02.jpg");
 assert.equal(changed.photos[0].src, "/step-static-website/assets/photos/club-02.jpg", "Do not mutate editor data");
 assert.equal(repositoryMediaPath("https://example.com/assets/photos/photo.jpg"), "https://example.com/assets/photos/photo.jpg");
 assert.equal(repositoryMediaPath("photos.html"), "photos.html");
+// Every former photo slot must accept and preserve a video, not just the gallery.
+const videoEdit = structuredClone(content);
+const mediaSlots = [["news", "image"], ["photos", "src"], ["about", "image"], ["home", "heroImage"], ["home", "directionsImage"]];
+for (const [section, key] of mediaSlots) {
+  const field = files[0].fields.find((item) => item.name === section).fields.find((item) => item.name === key);
+  assert.equal(field.widget, "file", `${section}.${key}: mixed media picker`);
+  for (const extension of [".jpg", ".webp", ".mp4", ".webm"]) assert(field.accept.split(",").includes(extension));
+  const target = Array.isArray(videoEdit[section]) ? videoEdit[section][0] : videoEdit[section];
+  target[key] = "/step-static-website/assets/photos/clip.mp4";
+}
+const savedVideo = JSON.parse(formatContent(videoEdit));
+for (const [section, key] of mediaSlots) {
+  const target = Array.isArray(savedVideo[section]) ? savedVideo[section][0] : savedVideo[section];
+  assert.equal(target[key], "assets/photos/clip.mp4");
+}
+assert.deepEqual(savedVideo.schedule, content.schedule, "Media edits must preserve schedule");
 console.log("Проверка CMS пройдена: схема Sveltia, все поля Pages CMS, медиа и пути GitHub Pages.");

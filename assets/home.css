@@ -22,6 +22,7 @@
 .tile-photo { position: relative; overflow: hidden; background: var(--black); }
 .tile-photo img { width: 100%; height: 100%; object-fit: cover; }
 .direction-photo { grid-row: span 2; }
+.direction-photo video { display: block; width: 100%; height: 100%; min-height: 240px; object-fit: contain; background: var(--black); }
 .story-tiles .tile-copy { background: var(--white); }
 .story-tiles .tile-photo img { position: absolute; inset: 0; }
 .reason-tiles .tile-video { grid-column: 3; grid-row: 1 / span 2; }
