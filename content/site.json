@@ -67,7 +67,7 @@
     },
     {
       "published": true,
-      "src": "assets/photos/club-02.jpg",
+      "src": "assets/photos/-5201943705089150848_121.jpg",
       "alt": "Тренировка в школе бокса МЕТЕОР"
     },
     {
@@ -166,6 +166,6 @@
   },
   "home": {
     "heroImage": "assets/optimized/hero.webp",
-    "directionsImage": "assets/photos/img-20260917-wa0002.jpg"
+    "directionsImage": "assets/photos/img-20261014-wa0001.jpg"
   }
 }
