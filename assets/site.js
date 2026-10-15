@@ -1,3 +1,21 @@
+let pageTextValues = {};
+function copyText(key, fallback = "") {
+  const value = key.split(".").reduce((item, part) => item?.[part], pageTextValues);
+  return value === null ? "" : typeof value === "string" ? value : fallback;
+}
+function renderPageTexts(values) {
+  pageTextValues = values || {};
+  document.querySelectorAll("[data-copy]").forEach((element) => {
+    element.textContent = copyText(element.dataset.copy, element.textContent);
+  });
+  for (const attribute of ["alt", "aria-label", "title", "content"]) {
+    document.querySelectorAll(`[data-copy-${attribute}]`).forEach((element) => {
+      element.setAttribute(attribute, copyText(element.getAttribute(`data-copy-${attribute}`), element.getAttribute(attribute)));
+    });
+  }
+  document.querySelectorAll(".brand-fallback").forEach((element) => { element.textContent = copyText("interface.brandShort", "МЕТЕОР"); });
+}
+
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const siteHeader = document.querySelector(".site-header");
@@ -104,7 +122,7 @@ function videoMedia(video) {
   if (video.kind === "rutube") {
     const embedUrl = rutubeEmbedUrl(video.rutubeUrl);
     return embedUrl
-      ? `<iframe src="${escapeHtml(embedUrl)}" title="${escapeHtml(video.title || "Видео с Rutube")}" allow="clipboard-write; autoplay" allowfullscreen></iframe>`
+      ? `<iframe src="${escapeHtml(embedUrl)}" title="${escapeHtml(video.title || copyText("interface.rutubeTitle", "Видео с Rutube"))}" allow="clipboard-write; autoplay" allowfullscreen></iframe>`
       : "";
   }
   const src = safeUrl(video.src);
@@ -120,7 +138,7 @@ function renderVideos(source) {
   if (!videos.length) {
     mount.innerHTML = `
       <div class="empty-state">
-        Видео скоро появятся.
+        ${escapeHtml(copyText("interface.emptyVideos", "Видео скоро появятся."))}
       </div>
     `;
     return;
@@ -131,7 +149,7 @@ function renderVideos(source) {
 
     return `
       <article class="video-card">
-        ${media ? `<div class="video-frame">${media}</div>` : `<div class="empty-state">Проверьте источник видео в CMS.</div>`}
+        ${media ? `<div class="video-frame">${media}</div>` : `<div class="empty-state">${escapeHtml(copyText("interface.invalidVideo", "Проверьте источник видео в CMS."))}</div>`}
         <div class="video-body">
           ${video.title ? `<h3>${escapeHtml(video.title)}</h3>` : ""}
           ${video.description ? `<p>${escapeHtml(video.description)}</p>` : ""}
@@ -150,7 +168,7 @@ function renderBeginnerMaterials(source) {
   if (!materials.length) {
     mount.innerHTML = `
       <article class="card empty-state">
-        Материалы скоро появятся.
+        ${escapeHtml(copyText("interface.emptyMaterials", "Материалы скоро появятся."))}
       </article>
     `;
     return;
@@ -162,7 +180,7 @@ function renderBeginnerMaterials(source) {
       : (Array.isArray(material.paragraphs) ? material.paragraphs : []);
     const body = paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
     const link = material.url
-      ? `<a class="button material-link" href="${escapeHtml(material.url)}" target="_blank" rel="noreferrer">${escapeHtml(material.linkText || "Открыть материал")}</a>`
+      ? `<a class="button material-link" href="${escapeHtml(material.url)}" target="_blank" rel="noreferrer">${escapeHtml(material.linkText || copyText("interface.materialLink", "Открыть материал"))}</a>`
       : "";
 
     return `
@@ -191,7 +209,7 @@ function isVideoFile(src) {
 function siteMedia(src, description) {
   src = safeUrl(src);
   if (!src) return "";
-  const label = escapeHtml(description || "Школа бокса МЕТЕОР");
+  const label = escapeHtml(description || copyText("interface.brand", "Школа бокса МЕТЕОР"));
   return isVideoFile(src)
     ? `<video src="${escapeHtml(src)}" aria-label="${label}" controls playsinline preload="none"></video>`
     : `<img src="${escapeHtml(src)}" alt="${label}" loading="lazy" decoding="async">`;
@@ -248,7 +266,7 @@ function renderAnnouncement(announcement, schedule, contact) {
     <p>${escapeHtml(announcement.intro)}</p>
     <strong>${escapeHtml(announcement.scheduleTitle)}</strong>
     <p>${groups.map((group) => `<b>${escapeHtml(group.name)}:</b> ${escapeHtml(groupScheduleText(group))}`).join("<br>")}</p>
-    <p><a href="contacts.html">${escapeHtml(announcement.directionsLabel || "Схема проезда")}</a> · <a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(contact?.phone)}</a></p>
+    <p><a href="contacts.html">${escapeHtml(announcement.directionsLabel || copyText("interface.directionsLink", "Схема проезда"))}</a> · <a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(contact?.phone)}</a></p>
   `;
 }
 
@@ -273,12 +291,12 @@ function renderNews(news) {
     const url = safeUrl(item.url);
     return `
     <article class="card news-card${image ? " has-image" : ""}">
-      ${siteMedia(image, item.title || "Новость школы бокса МЕТЕОР")}
+      ${siteMedia(image, item.title || copyText("interface.newsImage", "Новость школы бокса МЕТЕОР"))}
       <div class="news-card-body">
       <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatNewsDate(item.date))}</time>
       <h3>${escapeHtml(item.title)}</h3>
       <p>${escapeHtml(item.text)}</p>
-      ${url ? `<a class="news-link" href="${escapeHtml(url)}">${escapeHtml(item.linkLabel || "Подробнее")}</a>` : ""}
+      ${url ? `<a class="news-link" href="${escapeHtml(url)}">${escapeHtml(item.linkLabel || copyText("interface.more", "Подробнее"))}</a>` : ""}
       </div>
     </article>
   `;
@@ -298,7 +316,7 @@ function initPhotoCarousel(photos) {
     : Array.from(track.querySelectorAll("img")).map((img) => ({ src: img.getAttribute("src"), alt: img.alt }));
 
   if (!items.length) {
-    track.innerHTML = `<div class="empty-state">Фото и видео скоро появятся.</div>`;
+    track.innerHTML = `<div class="empty-state">${escapeHtml(copyText("interface.emptyGallery", "Фото и видео скоро появятся."))}</div>`;
     prev.hidden = true;
     next.hidden = true;
     status.textContent = "0 / 0";
@@ -307,7 +325,7 @@ function initPhotoCarousel(photos) {
 
   track.innerHTML = items.map((photo) => {
     const src = safeUrl(photo.src);
-    return `<figure class="carousel-slide">${siteMedia(src, photo.alt)}<figcaption>${escapeHtml(photo.alt || "Школа бокса МЕТЕОР")}</figcaption></figure>`;
+    return `<figure class="carousel-slide">${siteMedia(src, photo.alt)}<figcaption>${escapeHtml(photo.alt || copyText("interface.brand", "Школа бокса МЕТЕОР"))}</figcaption></figure>`;
   }).join("");
 
   let current = 0;
@@ -350,7 +368,7 @@ function renderSchedule(schedule, contact) {
   const groups = Array.isArray(schedule.groups) ? schedule.groups : [];
   const activeDays = SCHEDULE_DAYS.filter((day) => groups.some((group) => scheduleSessions(group).some((session) => session.day === day.value)));
   document.querySelectorAll("[data-schedule-head]").forEach((row) => {
-    row.innerHTML = `<th>Группа</th>${activeDays.map((day) => `<th>${escapeHtml(day.label)}</th>`).join("")}`;
+    row.innerHTML = `<th>${escapeHtml(copyText("interface.groupColumn", "Группа"))}</th>${activeDays.map((day) => `<th>${escapeHtml(day.label)}</th>`).join("")}`;
   });
   document.querySelectorAll("[data-schedule-table]").forEach((tbody) => {
     tbody.innerHTML = groups.map((group) => {
@@ -378,7 +396,7 @@ function renderContact(contact) {
     element.setAttribute("href", `tel:${phoneHref}`);
   });
   document.querySelectorAll(".brand img").forEach((image) => {
-    image.alt = "Школа бокса МЕТЕОР";
+    image.alt = copyText("interface.brand", "Школа бокса МЕТЕОР");
   });
   document.querySelectorAll("[data-contact-address]").forEach((element) => { element.textContent = contact.address || ""; });
   document.querySelectorAll("[data-contact-email]").forEach((element) => {
@@ -403,9 +421,9 @@ function renderAbout(about) {
   document.querySelectorAll("[data-about-photo]").forEach((image) => {
     const src = safeUrl(about.image);
     image.hidden = !src;
-    if (src) replacePhotoWithMedia(image, src, about.imageAlt || "Школа бокса МЕТЕОР");
+    if (src) replacePhotoWithMedia(image, src, about.imageAlt || copyText("interface.brand", "Школа бокса МЕТЕОР"));
     else image.removeAttribute("src");
-    image.alt = about.imageAlt || "Школа бокса МЕТЕОР";
+    image.alt = about.imageAlt || copyText("interface.brand", "Школа бокса МЕТЕОР");
   });
 }
 
@@ -413,7 +431,7 @@ function renderHomeImages(home) {
   const directionPhoto = document.querySelector("[data-directions-photo]");
   const directionsImage = safeUrl(home?.directionsImage);
   if (directionPhoto && directionsImage) {
-    replacePhotoWithMedia(directionPhoto, directionsImage, "Основные направления школы бокса МЕТЕОР");
+    replacePhotoWithMedia(directionPhoto, directionsImage, copyText("interface.directionsMedia", "Основные направления школы бокса МЕТЕОР"));
   }
   const hero = document.querySelector("[data-hero]");
   if (!hero) return;
@@ -433,22 +451,22 @@ function renderHomeImages(home) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "button light hero-video-toggle";
-    button.textContent = "Включить видео на фоне";
+    button.textContent = copyText("interface.heroPlay", "Включить видео на фоне");
     button.setAttribute("aria-pressed", "false");
     button.addEventListener("click", async () => {
       if (!video.paused) { video.pause(); return; }
       button.disabled = true;
       try { await video.play(); }
-      catch { button.textContent = "Видео не загрузилось — повторить"; }
+      catch { button.textContent = copyText("interface.heroRetry", "Видео не загрузилось — повторить"); }
       finally { button.disabled = false; }
     });
     video.addEventListener("playing", () => {
       hero.classList.add("is-video-playing");
-      button.textContent = "Приостановить видео";
+      button.textContent = copyText("interface.heroPause", "Приостановить видео");
       button.setAttribute("aria-pressed", "true");
     });
     video.addEventListener("pause", () => {
-      button.textContent = "Продолжить видео";
+      button.textContent = copyText("interface.heroResume", "Продолжить видео");
       button.setAttribute("aria-pressed", "false");
     });
     hero.prepend(video);
@@ -467,13 +485,13 @@ function renderPrices(prices) {
   document.querySelectorAll("[data-prices-explanation]").forEach((element) => {
     element.innerHTML = textParagraphs(prices.explanation).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
   });
-  document.querySelectorAll("[data-prices-button]").forEach((element) => { element.textContent = prices.buttonLabel || "Узнать стоимость"; });
+  document.querySelectorAll("[data-prices-button]").forEach((element) => { element.textContent = prices.buttonLabel || copyText("interface.priceButton", "Узнать стоимость"); });
 }
 
 function showContentWarning() {
   const main = document.querySelector("main");
   if (!main || document.querySelector(".content-warning")) return;
-  main.insertAdjacentHTML("afterbegin", `<p class="content-warning" role="status">Часть информации временно недоступна. Уточните расписание и контакты по телефону.</p>`);
+  main.insertAdjacentHTML("afterbegin", `<p class="content-warning" role="status">${escapeHtml(copyText("interface.contentError", "Часть информации временно недоступна. Уточните расписание и контакты по телефону."))}</p>`);
 }
 
 async function loadEditableSiteContent() {
@@ -482,6 +500,11 @@ async function loadEditableSiteContent() {
     const response = await fetch("content/site.json", { cache: "no-cache" });
     if (!response.ok) throw new Error(`Content request failed: ${response.status}`);
     const content = await response.json();
+    pageTextValues = content.pageTexts || {};
+    for (const day of SCHEDULE_DAYS) {
+      day.label = copyText(`interface.${day.value}`, day.label);
+      day.short = copyText(`interface.${day.value}Short`, day.short);
+    }
     renderAnnouncement(content.announcement, content.schedule, content.contact);
     renderSchedule(content.schedule, content.contact);
     renderContact(content.contact);
@@ -492,6 +515,7 @@ async function loadEditableSiteContent() {
     initPhotoCarousel(content.photos);
     renderVideos(content.videos);
     renderBeginnerMaterials(content.beginnerMaterials);
+    renderPageTexts(content.pageTexts);
   } catch (error) {
     renderHomeImages();
     initPhotoCarousel();
@@ -578,12 +602,13 @@ function showCookieConsent() {
   const banner = document.createElement("section");
   banner.className = "cookie-consent";
   banner.setAttribute("role", "dialog");
-  banner.setAttribute("aria-label", "Согласие на использование аналитики");
+  banner.setAttribute("data-copy-aria-label", "interface.consentTitle");
+  banner.setAttribute("aria-label", copyText("interface.consentTitle", "Согласие на использование аналитики"));
   banner.innerHTML = `
-    <p>Сайт использует обезличенную статистику. Яндекс Метрика будет подключена только с вашего согласия.</p>
+    <p data-copy="interface.consentText">Сайт использует обезличенную статистику. Яндекс Метрика будет подключена только с вашего согласия.</p>
     <div class="cookie-actions">
-      <button class="cookie-accept" type="button">Разрешить</button>
-      <button class="cookie-decline" type="button">Только необходимые</button>
+      <button class="cookie-accept" type="button" data-copy="interface.consentAccept">Разрешить</button>
+      <button class="cookie-decline" type="button" data-copy="interface.consentDecline">Только необходимые</button>
     </div>
   `;
   banner.querySelector(".cookie-accept").addEventListener("click", () => {

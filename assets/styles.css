@@ -29,6 +29,8 @@ img {
   max-width: 100%;
 }
 
+[data-copy] { white-space: pre-line; }
+
 a {
   color: inherit;
 }

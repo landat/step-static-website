@@ -476,3 +476,1111 @@ collections:
             hint: Здесь отдельно выбираются фото или видео первого экрана и блока «Основные
               направления». После выбора сохраните. Галерея меняется в разделе
               «Фото и видео».
+          - name: pageTexts
+            label: Тексты страниц
+            widget: object
+            required: true
+            fields:
+              - name: common
+                label: "Общие: меню, подвал и подписи"
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Описание изображения: Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Подпись элемента: Основная навигация"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Кнопка или ссылка: Главная"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Кнопка или ссылка: О нас"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Кнопка или ссылка: Тренировки"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Кнопка или ссылка: Расписание"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Кнопка или ссылка: Уроки начинающим"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text08
+                    label: "Кнопка или ссылка: Фото и видео"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text09
+                    label: "Кнопка или ссылка: Контакты"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text10
+                    label: "Подпись элемента: Открыть меню"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text11
+                    label: "Текст: Школа бокса МЕТЕОР © 2010-2026"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text12
+                    label: "Кнопка или ссылка: Стоимость и запись"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text13
+                    label: "Подпись элемента: Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: home
+                label: Главная
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: Школа бокса МЕТЕОР: тренировки по боксу на Пресне,
+                      группы для начинающ…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Первая тренировка — бесплатно"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Заголовок: Школа бокса «МЕТЕОР»"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Текст: Обучение классической технике бокса как системе самозащиты,
+                      постановка…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Кнопка или ссылка: Записаться"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Кнопка или ссылка: Расписание"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text08
+                    label: "Заголовок: Основные направления"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text09
+                    label: "Текст: Школа работает с начинающими и опытными спортсменами, помогает
+                      развить…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text10
+                    label: "Описание изображения: Тренировка в школе бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text11
+                    label: "Заголовок: Навыки бокса"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text12
+                    label: "Текст: Обучение боксу как системе самозащиты."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text13
+                    label: "Заголовок: Ударная техника"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text14
+                    label: "Текст: Постановка базовой и прикладной ударной техники."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text15
+                    label: "Заголовок: Акцентированный удар"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text16
+                    label: "Текст: Работа над точностью, силой и моментом удара."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text17
+                    label: "Заголовок: Комбинации"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text18
+                    label: "Текст: Наработка эффективных ударных комбинаций."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text19
+                    label: "Текст: Зачем заниматься боксом?"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text20
+                    label: "Заголовок: Бокс развивает тело, волю и уверенность"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text21
+                    label: "Текст: Бокс - один из самых динамичных и увлекательных видов спорта. Он
+                      разви…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text22
+                    label: "Текст: Занятия боксом укрепляют волю, воспитывают смелость,
+                      находчивость, уме…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text23
+                    label: "Описание изображения: Боксерские бинты для тренировки"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text24
+                    label: "Заголовок: Почему выбирают МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text25
+                    label: "Текст: Удобное местоположение, специализированная школа бокса, группы по
+                      уров…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text26
+                    label: "Заголовок: Классическая техника"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text27
+                    label: "Текст: Основная цель школы - научить классической технике бокса как
+                      системе с…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text28
+                    label: "Заголовок: Группы по уровню"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text29
+                    label: "Текст: Для новичков есть отдельная группа, при росте уровня возможен
+                      переход …"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text30
+                    label: "Заголовок: Оснащённая школа бокса"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text31
+                    label: "Текст: Просторная специализированная школа бокса, мешки, груши, снаряды,
+                      разд…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text32
+                    label: "Заголовок: Видео школы"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text33
+                    label: "Подпись элемента: Обзорное видео школы бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text34
+                    label: "Заголовок: Новости"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text35
+                    label: "Заголовок: Что необходимо для первого занятия?"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text36
+                    label: "Текст: Для пробной тренировки подойдет спортивная форма и нескользкая
+                      спортив…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text37
+                    label: "Заголовок: Что понадобится дальше?"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text38
+                    label: "Текст: боксерские бинты"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text39
+                    label: "Текст: скакалка"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text40
+                    label: "Текст: снарядные и боксерские перчатки"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text41
+                    label: "Текст: шлем и капа"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text42
+                    label: "Заголовок: Стоимость и запись"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text43
+                    label: "Заголовок: Контакты"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text44
+                    label: "Текст: Занятия боксом на Пресне рядом с метро Шелепиха, Фили, Улица 1905
+                      года…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text45
+                    label: "Текст: Адрес"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text46
+                    label: "Текст: Телефон"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text47
+                    label: "Текст: Email"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text48
+                    label: "Текст: Как добраться"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text49
+                    label: "Подсказка: Карта проезда к школе бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: about
+                label: О нас
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: О нас - Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: О школе бокса МЕТЕОР, тренере, оборудовании и
+                      программах тренировок."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: О нас"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Текст: Школа бокса начала свою работу в 2010 году и открыта для всех
+                      желающих…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Заголовок: Школа бокса и атмосфера"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Заголовок: Тренер и методика"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Текст: Тренер по боксу имеет профильное образование и опыт работы более
+                      10 ле…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text08
+                    label: "Заголовок: Программы"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text09
+                    label: "Текст: Существуют дифференцированные программы тренировок для начинающих
+                      и бо…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text10
+                    label: "Заголовок: Школа для тех, кто хочет"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text11
+                    label: "Текст: Приходите на первую бесплатную тренировку и посмотрите, подходит
+                      ли ва…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text12
+                    label: "Заголовок: Научиться боксу"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text13
+                    label: "Текст: Освоить бокс как систему самообороны и повысить уверенность в
+                      себе."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text14
+                    label: "Заголовок: Поставить удар"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text15
+                    label: "Текст: Развить силу, скорость удара и реакции, научиться работать
+                      акцентирова…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text16
+                    label: "Заголовок: Снять стресс"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text17
+                    label: "Текст: Улучшить форму, найти новых друзей и тренироваться регулярно."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: training
+                label: Тренировки
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Тренировки - Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: Бокс для детей с 11 лет и взрослых: группы по
+                      уровню подготовки, ход з…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Тренировки"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Заголовок: Тренировки по боксу"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Текст: Групповые и индивидуальные занятия для детей с 11 лет и
+                      взрослых."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Заголовок: Какую группу выбрать"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Текст: В группе 13–15 человек. Первая пробная групповая тренировка —
+                      бесплатн…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text08
+                    label: "Кнопка или ссылка: Посмотреть дни и время занятий →"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text09
+                    label: "Заголовок: Как проходит занятие"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text10
+                    label: "Заголовок: 1. Разминка"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text11
+                    label: "Текст: Разогрев и подготовка мышц к нагрузке."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text12
+                    label: "Заголовок: 2. Техника"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text13
+                    label: "Текст: Изучение и отработка элементов бокса."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text14
+                    label: "Заголовок: 3. Практика"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text15
+                    label: "Текст: Бой с тенью, упражнения на лапах и мешках, работа в парах — по
+                      уровню …"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text16
+                    label: "Заголовок: Индивидуальные тренировки"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text17
+                    label: "Текст: Занятия один на один с тренером: программа подбирается под ваш
+                      опыт, ф…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text18
+                    label: "Текст: Подойдут для освоения техники с нуля, работы над конкретными
+                      навыками …"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text19
+                    label: "Кнопка или ссылка: Обсудить занятия с тренером"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: schedule
+                label: Расписание
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Расписание - Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: Расписание тренировок по боксу в школе МЕТЕОР."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Расписание"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Заголовок: Расписание тренировок по боксу"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Заголовок: Адрес"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Кнопка или ссылка: Схема проезда"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: photos
+                label: Фото и видео
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Фото и видео — Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: Фотографии школы бокса МЕТЕОР, тренировок и
+                      атмосферы школы."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Фото и видео"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Заголовок: Школа бокса «МЕТЕОР»"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Текст: Школа бокса, групповые тренировки, работа на лапах и атмосфера
+                      школы."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Подпись элемента: Фото и видео школы бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Подпись элемента: Предыдущий слайд"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text08
+                    label: "Подпись элемента: Следующий слайд"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: beginners
+                label: Уроки начинающим
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Уроки начинающим - Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: Уроки бокса для начинающих: бинтование рук, стойка
+                      боксера и базовые м…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Уроки начинающим"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Заголовок: Материалы для начинающих боксеров"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Текст: Базовые уроки для тех, кто только начинает заниматься боксом:
+                      экипиров…"
+                    widget: text
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Заголовок: Видео"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Заголовок: Материалы"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: contacts
+                label: Контакты
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Контакты - Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Описание для поиска: Контакты школы бокса МЕТЕОР: адрес, телефон, email
+                      и схема проезда."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Контакты"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Заголовок: Занятия боксом на Пресне"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text05
+                    label: "Текст: Рядом с метро Фили, Шелепиха, Деловой центр, Международная, Улица
+                      1905…"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text06
+                    label: "Текст: Адрес"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text07
+                    label: "Текст: Телефон"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text08
+                    label: "Текст: Email"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text09
+                    label: "Текст: Как добраться"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text10
+                    label: "Подсказка: Карта проезда к школе бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: reviews
+                label: Отзывы (старая ссылка)
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Фото — Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Текст: Раздел «Отзывы» заменён на"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Кнопка или ссылка: фотографии школы бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: prices
+                label: Цены (старая ссылка)
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "Заголовок вкладки: Стоимость и запись — Школа бокса МЕТЕОР"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text02
+                    label: "Заголовок: Стоимость и запись"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text03
+                    label: "Текст: Раздел теперь находится на главной странице."
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: "Кнопка или ссылка: Перейти к разделу"
+                    widget: string
+                    required: false
+                    hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                collapsed: true
+              - name: interface
+                label: Служебные подписи и кнопки
+                widget: object
+                required: true
+                fields:
+                  - name: rutubeTitle
+                    label: Видео с Rutube
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: invalidVideo
+                    label: Проверьте источник видео в CMS.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: materialLink
+                    label: Открыть материал
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: brand
+                    label: Школа бокса МЕТЕОР
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: directionsLink
+                    label: Схема проезда
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: newsImage
+                    label: Новость школы бокса МЕТЕОР
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: more
+                    label: Подробнее
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: directionsMedia
+                    label: Основные направления школы бокса МЕТЕОР
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: heroPlay
+                    label: Включить видео на фоне
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: heroRetry
+                    label: Видео не загрузилось — повторить
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: heroPause
+                    label: Приостановить видео
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: heroResume
+                    label: Продолжить видео
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: priceButton
+                    label: Узнать стоимость
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: consentTitle
+                    label: Согласие на использование аналитики
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: emptyVideos
+                    label: Видео скоро появятся.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: emptyMaterials
+                    label: Материалы скоро появятся.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: emptyGallery
+                    label: Фото и видео скоро появятся.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: groupColumn
+                    label: Группа
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: contentError
+                    label: Часть информации временно недоступна. Уточните расписание и контакты по
+                      телефону.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: brandShort
+                    label: МЕТЕОР
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: consentText
+                    label: Сайт использует обезличенную статистику. Яндекс Метрика будет подключена
+                      только с вашего согласия.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: consentAccept
+                    label: Разрешить
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: consentDecline
+                    label: Только необходимые
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: monday
+                    label: Понедельник
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: mondayShort
+                    label: пн.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: tuesday
+                    label: Вторник
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: tuesdayShort
+                    label: вт.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: wednesday
+                    label: Среда
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: wednesdayShort
+                    label: ср.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: thursday
+                    label: Четверг
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: thursdayShort
+                    label: чт.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: friday
+                    label: Пятница
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: fridayShort
+                    label: пт.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: saturday
+                    label: Суббота
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: saturdayShort
+                    label: сб.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: sunday
+                    label: Воскресенье
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                  - name: sundayShort
+                    label: вс.
+                    widget: string
+                    required: false
+                    maxlength: 2000
+                collapsed: true
+            collapsed: false
+            hint: Раскройте нужную страницу. Поля идут в порядке появления на сайте.
+              Новости, контакты, группы и цены редактируются в своих разделах.
+              Общие подписи меняются сразу на всех страницах.

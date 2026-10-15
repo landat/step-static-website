@@ -1,4 +1,10 @@
 :root { color-scheme: light; }
+.connection-help { margin: 16px 10px; font-size: 12px; }
+.connection-help summary { cursor: pointer; font-weight: 700; }
+.connection-help ol { padding-left: 18px; }
+.connection-help li { margin: 8px 0; }
+.connection-help button { padding: 8px; font: inherit; cursor: pointer; }
+.connection-result { font-weight: 650; }
 html, body { margin: 0; height: 100%; }
 body { display: flex; flex-direction: column; background: #f4f6f9; }
 .panel-header, .section-sidebar { font: 14px/1.5 system-ui, sans-serif; box-sizing: border-box; }

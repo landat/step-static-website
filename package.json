@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "test": "node scripts/validate-content.mjs && node scripts/validate-cms.mjs",
+    "test": "node scripts/validate-content.mjs && node scripts/validate-cms.mjs && node scripts/validate-page-texts.mjs",
     "optimize:photos": "node scripts/optimize-images.mjs",
     "build:home-images": "node scripts/build-home-images.mjs",
     "build:cms": "node scripts/build-cms.mjs"
