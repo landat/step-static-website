@@ -7,6 +7,7 @@
   <title>МЕТЕОР — управление сайтом</title>
   <link href="./config.yml" type="application/yaml" rel="cms-config-url">
   <link href="./panel.css" rel="stylesheet">
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <header class="panel-header">
@@ -16,6 +17,14 @@
       <a class="site-link" href="../" target="_blank" rel="noopener">Открыть сайт <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
+  <details id="login-help" class="login-help">
+    <summary>Не получается войти?</summary>
+    <p>Для входа нужен ваш личный токен GitHub и право записи в репозиторий сайта. Токен, сохранённый на landat.github.io, не переносится автоматически на meteorboxing.ru или в другой браузер.</p>
+    <p>Если токен истёк или отозван, создайте новый в своей учётной записи по <a href="./help.html" target="_blank" rel="noopener">инструкции первого входа</a>. Если токена нет, первоначальную настройку нужно завершить с владельцем сайта. Пароль GitHub в поле токена не подходит. Сам токен никому не отправляйте.</p>
+    <button id="login-connection-check" type="button">Проверить соединение с GitHub</button>
+    <p id="login-connection-result" role="status"></p>
+    <p>Эта проверка не использует токен и не проверяет право редактирования. Если вход не работает, сообщите точный текст ошибки после попытки входа.</p>
+  </details>
   <div class="panel-workspace">
     <aside id="section-sidebar" class="section-sidebar" hidden>
       <h1>Что изменить?</h1>

@@ -12,6 +12,7 @@ await rm(outputPath, { recursive: true, force: true });
 await mkdir(outputPath, { recursive: true });
 for (const folder of ["assets", "admin", "content"]) await cp(folder, `dist/${folder}`, { recursive: true });
 await cp(".nojekyll", "dist/.nojekyll");
+await cp("favicon.ico", "dist/favicon.ico");
 
 const files = (await readdir(".")).filter((name) => name.endsWith(".html") && !name.startsWith("article-"));
 const pages = new Map();

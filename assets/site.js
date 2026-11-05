@@ -1,3 +1,5 @@
+import { orderedNews, textCss } from "./presentation.js";
+
 let pageTextValues = {};
 function copyText(key, fallback = "") {
   const value = key.split(".").reduce((item, part) => item?.[part], pageTextValues);
@@ -14,6 +16,13 @@ function renderPageTexts(values) {
     });
   }
   document.querySelectorAll(".brand-fallback").forEach((element) => { element.textContent = copyText("interface.brandShort", "МЕТЕОР"); });
+}
+
+function renderTextStyles(content) {
+  document.querySelectorAll("[data-text-style]").forEach((element) => {
+    const style = element.dataset.textStyle.split(".").reduce((value, key) => value?.[key], content);
+    element.style.cssText = textCss(style);
+  });
 }
 
 const menuToggle = document.querySelector(".menu-toggle");
@@ -291,9 +300,7 @@ function renderNews(news) {
   const section = document.querySelector("[data-news-section]");
   if (!mount || !section) return;
 
-  const items = Array.isArray(news)
-    ? news.filter(isPublished).sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || String(b.date || "").localeCompare(String(a.date || "")))
-    : [];
+  const items = orderedNews(news);
   section.hidden = items.length === 0;
   mount.innerHTML = items.map((item) => {
     const image = safeUrl(item.image);
@@ -303,13 +310,38 @@ function renderNews(news) {
       ${siteMedia(image, item.title || copyText("interface.newsImage", "Новость школы бокса МЕТЕОР"))}
       <div class="news-card-body">
       <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatNewsDate(item.date))}</time>
-      <h3>${escapeHtml(item.title)}</h3>
-      <p>${escapeHtml(item.text)}</p>
+      <h3 data-news-heading style="${escapeHtml(textCss(item.headingStyle))}">${escapeHtml(item.title)}</h3>
+      <p data-news-text style="${escapeHtml(textCss(item.textStyle))}">${escapeHtml(item.text)}</p>
       ${url ? `<a class="news-link" href="${escapeHtml(url)}">${escapeHtml(item.linkLabel || copyText("interface.more", "Подробнее"))}</a>` : ""}
       </div>
     </article>
   `;
   }).join("");
+  setupNewsNavigation(section, mount);
+}
+
+function setupNewsNavigation(section, track) {
+  const controls = section.querySelector("[data-news-controls]");
+  if (!controls || track.dataset.navigationReady) return;
+  track.dataset.navigationReady = "true";
+  const previous = controls.querySelector("[data-news-previous]");
+  const next = controls.querySelector("[data-news-next]");
+  const update = () => {
+    const maximum = track.scrollWidth - track.clientWidth;
+    controls.hidden = maximum < 2;
+    previous.disabled = track.scrollLeft < 2;
+    next.disabled = track.scrollLeft > maximum - 2;
+  };
+  const move = (direction) => {
+    const card = track.querySelector(".news-card");
+    const step = (card?.getBoundingClientRect().width || track.clientWidth) + 20;
+    track.scrollBy({ left: direction * step, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  };
+  previous.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+  track.addEventListener("scroll", update, { passive: true });
+  new ResizeObserver(update).observe(track);
+  update();
 }
 
 function initPhotoCarousel(photos) {
@@ -546,6 +578,7 @@ async function loadEditableSiteContent() {
     renderBeginnerMaterials(content.beginnerMaterials);
     renderArticles(content.articles);
     renderPageTexts(content.pageTexts);
+    renderTextStyles(content);
   } catch (error) {
     renderHomeImages();
     initPhotoCarousel();

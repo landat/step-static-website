@@ -38,7 +38,17 @@
       "text": "Приглашаем детей с 11 лет и взрослых начинающих. Первая групповая тренировка — бесплатно.",
       "image": "assets/photos/img-20260917-wa0003.jpg",
       "url": "",
-      "linkLabel": "Подробнее"
+      "linkLabel": "Подробнее",
+      "headingStyle": {
+        "font": "site",
+        "size": "24",
+        "color": "#0b0b0d"
+      },
+      "textStyle": {
+        "font": "site",
+        "size": "18",
+        "color": "#0b0b0d"
+      }
     }
   ],
   "photos": [
@@ -144,11 +154,31 @@
     "title": "О школе бокса «Метеор»",
     "text": "В школе создана благожелательная и дружеская атмосфера для занятий как начинающих, так и опытных боксеров. Здесь можно приобрести или развить навыки ударной техники бокса, исправить ошибки, овладеть правильной и эффективной защитой.\n\nВ школе бокса имеется все необходимое оборудование для полноценных тренировок: мешки, груши, настенные подушки для отработки мощности и точности ударов, гантели и скакалки для развития выносливости.",
     "image": "assets/photos/img_20260408_201652.jpg",
-    "imageAlt": "Отрабока ударов на лапах"
+    "imageAlt": "Отрабока ударов на лапах",
+    "audienceHeadingStyle": {
+      "font": "site",
+      "size": "36",
+      "color": "#ffffff"
+    },
+    "invitationStyle": {
+      "font": "site",
+      "size": "24",
+      "color": "#ffffff"
+    }
   },
   "home": {
     "heroImage": "assets/optimized/hero.webp",
-    "directionsImage": "assets/photos/img-20261014-wa0001.jpg"
+    "directionsImage": "assets/photos/img-20261014-wa0001.jpg",
+    "preparationHeadingStyle": {
+      "font": "site",
+      "size": "36",
+      "color": "#ffffff"
+    },
+    "preparationTextStyle": {
+      "font": "site",
+      "size": "22",
+      "color": "#ffffff"
+    }
   },
   "pageTexts": {
     "common": {
@@ -353,7 +383,9 @@
       "saturday": "Суббота",
       "saturdayShort": "сб.",
       "sunday": "Воскресенье",
-      "sundayShort": "вс."
+      "sundayShort": "вс.",
+      "newsPrevious": "К новым новостям",
+      "newsNext": "К предыдущим новостям"
     },
     "articles": {
       "text01": "Статьи о боксе — школа МЕТЕОР",

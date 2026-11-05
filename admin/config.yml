@@ -192,12 +192,142 @@ collections:
                 required: false
                 default: Подробнее
                 maxlength: 60
+              - name: headingStyle
+                label: Оформление заголовка
+                widget: object
+                required: false
+                default:
+                  font: site
+                  size: "24"
+                  color: "#0b0b0d"
+                fields:
+                  - name: font
+                    label: Шрифт
+                    widget: select
+                    required: false
+                    default: site
+                    options:
+                      - value: site
+                        label: Шрифт сайта
+                      - value: arial
+                        label: Arial
+                      - value: georgia
+                        label: Georgia — с засечками
+                      - value: verdana
+                        label: Verdana
+                      - value: system
+                        label: Системный шрифт
+                  - name: size
+                    label: Размер шрифта
+                    widget: select
+                    required: false
+                    default: "24"
+                    options:
+                      - value: "14"
+                        label: 14 px
+                      - value: "16"
+                        label: 16 px
+                      - value: "18"
+                        label: 18 px
+                      - value: "20"
+                        label: 20 px
+                      - value: "22"
+                        label: 22 px
+                      - value: "24"
+                        label: 24 px
+                      - value: "28"
+                        label: 28 px
+                      - value: "32"
+                        label: 32 px
+                      - value: "36"
+                        label: 36 px
+                      - value: "40"
+                        label: 40 px
+                      - value: "48"
+                        label: 48 px
+                      - value: "56"
+                        label: 56 px
+                  - name: color
+                    label: Цвет текста
+                    widget: color
+                    required: false
+                    default: "#0b0b0d"
+                    hint: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+                    allowInput: true
+                    enableAlpha: false
+                collapsed: true
+              - name: textStyle
+                label: Оформление текста
+                widget: object
+                required: false
+                default:
+                  font: site
+                  size: "18"
+                  color: "#0b0b0d"
+                fields:
+                  - name: font
+                    label: Шрифт
+                    widget: select
+                    required: false
+                    default: site
+                    options:
+                      - value: site
+                        label: Шрифт сайта
+                      - value: arial
+                        label: Arial
+                      - value: georgia
+                        label: Georgia — с засечками
+                      - value: verdana
+                        label: Verdana
+                      - value: system
+                        label: Системный шрифт
+                  - name: size
+                    label: Размер шрифта
+                    widget: select
+                    required: false
+                    default: "18"
+                    options:
+                      - value: "14"
+                        label: 14 px
+                      - value: "16"
+                        label: 16 px
+                      - value: "18"
+                        label: 18 px
+                      - value: "20"
+                        label: 20 px
+                      - value: "22"
+                        label: 22 px
+                      - value: "24"
+                        label: 24 px
+                      - value: "28"
+                        label: 28 px
+                      - value: "32"
+                        label: 32 px
+                      - value: "36"
+                        label: 36 px
+                      - value: "40"
+                        label: 40 px
+                      - value: "48"
+                        label: 48 px
+                      - value: "56"
+                        label: 56 px
+                  - name: color
+                    label: Цвет текста
+                    widget: color
+                    required: false
+                    default: "#0b0b0d"
+                    hint: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+                    allowInput: true
+                    enableAlpha: false
+                collapsed: true
             collapsed: true
             label_singular: новость
             min: 0
             summary: "{{date}} — {{title}}"
-            hint: Раскройте новость для изменения или нажмите «Добавить новость». Выключите
-              «Показывать на сайте», чтобы скрыть её без удаления.
+            hint: "Добавьте новость: новые показываются слева, предыдущие — правее. При
+              одинаковой дате последняя добавленная будет первой. «Закрепить
+              первой» имеет приоритет. Внутри каждой новости есть оформление
+              заголовка и текста: шрифт, размер, цвет."
           - name: photos
             label: Фото и видео
             widget: list
@@ -442,9 +572,138 @@ collections:
                 widget: string
                 required: false
                 maxlength: 160
+              - name: audienceHeadingStyle
+                label: "Нижний блок: шрифт заголовка «Школа для тех, кто хочет»"
+                widget: object
+                required: false
+                default:
+                  font: site
+                  size: "36"
+                  color: "#ffffff"
+                fields:
+                  - name: font
+                    label: Шрифт
+                    widget: select
+                    required: false
+                    default: site
+                    options:
+                      - value: site
+                        label: Шрифт сайта
+                      - value: arial
+                        label: Arial
+                      - value: georgia
+                        label: Georgia — с засечками
+                      - value: verdana
+                        label: Verdana
+                      - value: system
+                        label: Системный шрифт
+                  - name: size
+                    label: Размер шрифта
+                    widget: select
+                    required: false
+                    default: "36"
+                    options:
+                      - value: "14"
+                        label: 14 px
+                      - value: "16"
+                        label: 16 px
+                      - value: "18"
+                        label: 18 px
+                      - value: "20"
+                        label: 20 px
+                      - value: "22"
+                        label: 22 px
+                      - value: "24"
+                        label: 24 px
+                      - value: "28"
+                        label: 28 px
+                      - value: "32"
+                        label: 32 px
+                      - value: "36"
+                        label: 36 px
+                      - value: "40"
+                        label: 40 px
+                      - value: "48"
+                        label: 48 px
+                      - value: "56"
+                        label: 56 px
+                  - name: color
+                    label: Цвет текста
+                    widget: color
+                    required: false
+                    default: "#ffffff"
+                    hint: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+                    allowInput: true
+                    enableAlpha: false
+                collapsed: true
+              - name: invitationStyle
+                label: "Нижний блок: шрифт приглашения на бесплатную тренировку"
+                widget: object
+                required: false
+                default:
+                  font: site
+                  size: "24"
+                  color: "#ffffff"
+                fields:
+                  - name: font
+                    label: Шрифт
+                    widget: select
+                    required: false
+                    default: site
+                    options:
+                      - value: site
+                        label: Шрифт сайта
+                      - value: arial
+                        label: Arial
+                      - value: georgia
+                        label: Georgia — с засечками
+                      - value: verdana
+                        label: Verdana
+                      - value: system
+                        label: Системный шрифт
+                  - name: size
+                    label: Размер шрифта
+                    widget: select
+                    required: false
+                    default: "24"
+                    options:
+                      - value: "14"
+                        label: 14 px
+                      - value: "16"
+                        label: 16 px
+                      - value: "18"
+                        label: 18 px
+                      - value: "20"
+                        label: 20 px
+                      - value: "22"
+                        label: 22 px
+                      - value: "24"
+                        label: 24 px
+                      - value: "28"
+                        label: 28 px
+                      - value: "32"
+                        label: 32 px
+                      - value: "36"
+                        label: 36 px
+                      - value: "40"
+                        label: 40 px
+                      - value: "48"
+                        label: 48 px
+                      - value: "56"
+                        label: 56 px
+                  - name: color
+                    label: Цвет текста
+                    widget: color
+                    required: false
+                    default: "#ffffff"
+                    hint: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+                    allowInput: true
+                    enableAlpha: false
+                collapsed: true
             collapsed: false
-            hint: Здесь меняются заголовок, основной текст и фото или видео страницы «О
-              нас». Видео запускается по нажатию.
+            hint: "Здесь меняются основной текст, медиа и шрифты нижнего заголовка и
+              приглашения. Для изменения самих текстов нижнего блока используйте
+              кнопку «О нас: нижний блок» в меню."
           - name: home
             label: Главная
             widget: object
@@ -472,10 +731,138 @@ collections:
                 public_folder: ./assets/photos
                 accept: .jpg,.jpeg,.png,.webp,.mp4,.webm
                 choose_url: false
+              - name: preparationHeadingStyle
+                label: "Блоки под новостями: шрифт заголовков"
+                widget: object
+                required: false
+                default:
+                  font: site
+                  size: "36"
+                  color: "#ffffff"
+                fields:
+                  - name: font
+                    label: Шрифт
+                    widget: select
+                    required: false
+                    default: site
+                    options:
+                      - value: site
+                        label: Шрифт сайта
+                      - value: arial
+                        label: Arial
+                      - value: georgia
+                        label: Georgia — с засечками
+                      - value: verdana
+                        label: Verdana
+                      - value: system
+                        label: Системный шрифт
+                  - name: size
+                    label: Размер шрифта
+                    widget: select
+                    required: false
+                    default: "36"
+                    options:
+                      - value: "14"
+                        label: 14 px
+                      - value: "16"
+                        label: 16 px
+                      - value: "18"
+                        label: 18 px
+                      - value: "20"
+                        label: 20 px
+                      - value: "22"
+                        label: 22 px
+                      - value: "24"
+                        label: 24 px
+                      - value: "28"
+                        label: 28 px
+                      - value: "32"
+                        label: 32 px
+                      - value: "36"
+                        label: 36 px
+                      - value: "40"
+                        label: 40 px
+                      - value: "48"
+                        label: 48 px
+                      - value: "56"
+                        label: 56 px
+                  - name: color
+                    label: Цвет текста
+                    widget: color
+                    required: false
+                    default: "#ffffff"
+                    hint: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+                    allowInput: true
+                    enableAlpha: false
+                collapsed: true
+              - name: preparationTextStyle
+                label: "Блоки под новостями: шрифт основного текста"
+                widget: object
+                required: false
+                default:
+                  font: site
+                  size: "22"
+                  color: "#ffffff"
+                fields:
+                  - name: font
+                    label: Шрифт
+                    widget: select
+                    required: false
+                    default: site
+                    options:
+                      - value: site
+                        label: Шрифт сайта
+                      - value: arial
+                        label: Arial
+                      - value: georgia
+                        label: Georgia — с засечками
+                      - value: verdana
+                        label: Verdana
+                      - value: system
+                        label: Системный шрифт
+                  - name: size
+                    label: Размер шрифта
+                    widget: select
+                    required: false
+                    default: "22"
+                    options:
+                      - value: "14"
+                        label: 14 px
+                      - value: "16"
+                        label: 16 px
+                      - value: "18"
+                        label: 18 px
+                      - value: "20"
+                        label: 20 px
+                      - value: "22"
+                        label: 22 px
+                      - value: "24"
+                        label: 24 px
+                      - value: "28"
+                        label: 28 px
+                      - value: "32"
+                        label: 32 px
+                      - value: "36"
+                        label: 36 px
+                      - value: "40"
+                        label: 40 px
+                      - value: "48"
+                        label: 48 px
+                      - value: "56"
+                        label: 56 px
+                  - name: color
+                    label: Цвет текста
+                    widget: color
+                    required: false
+                    default: "#ffffff"
+                    hint: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+                    allowInput: true
+                    enableAlpha: false
+                collapsed: true
             collapsed: false
-            hint: Здесь отдельно выбираются фото или видео первого экрана и блока «Основные
-              направления». После выбора сохраните. Галерея меняется в разделе
-              «Фото и видео».
+            hint: "Здесь выбираются медиа первого экрана и «Основных направлений», а также
+              шрифты, размеры и цвета блоков под новостями. Для изменения их
+              текста нажмите «Под новостями: тексты» в меню."
           - name: pageTexts
             label: Тексты страниц
             widget: object
@@ -1619,6 +2006,14 @@ collections:
                     widget: string
                     required: false
                     maxlength: 2000
+                  - name: newsPrevious
+                    label: К новым новостям
+                    widget: string
+                    required: false
+                  - name: newsNext
+                    label: К предыдущим новостям
+                    widget: string
+                    required: false
                 collapsed: true
               - name: articles
                 label: Статьи

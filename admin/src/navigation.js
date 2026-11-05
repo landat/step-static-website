@@ -1,4 +1,5 @@
-import { sections } from "./sections.js";
+import { editorShortcuts, sections } from "./sections.js";
+import fieldOrder from "../navigation-fields.json";
 
 export function setupNavigation() {
   const root = document.getElementById("nc-root");
@@ -9,12 +10,43 @@ export function setupNavigation() {
   let pending = null;
   let stopFollowing = () => {};
 
+  function mountNestedField(path) {
+    const split = path.lastIndexOf(".");
+    if (split < 0) return false;
+    const parentPath = path.slice(0, split);
+    const parent = root.querySelector(`[data-key-path="${parentPath}"]`);
+    const toggle = parent?.querySelector('button[aria-expanded][aria-controls]');
+    const list = document.getElementById(toggle?.getAttribute("aria-controls"));
+    const index = fieldOrder[parentPath]?.indexOf(path.slice(split + 1));
+    if (!list || index === undefined || index < 0) return false;
+    const slots = Array.from(list.children).filter((element) => element.matches('.placeholder, [data-key-path]'));
+    if (!slots[index]) return false;
+    slots[index].scrollIntoView({ block: "center", behavior: "instant" });
+    return true;
+  }
+
   function revealSection(name) {
+    const parts = name.split(".");
+    for (let depth = 1; depth < parts.length; depth++) {
+      const path = parts.slice(0, depth).join(".");
+      const ancestor = root.querySelector(`[data-key-path="${path}"]`);
+      if (!ancestor) {
+        if (mountNestedField(path)) return false;
+        break;
+      }
+      const toggle = ancestor.querySelector('button[aria-expanded][aria-controls]');
+      if (ancestor.dataset.fieldType === "object" && toggle?.getAttribute("aria-expanded") === "false") {
+        toggle.click();
+        ancestor.scrollIntoView({ block: "start", behavior: "instant" });
+        return false;
+      }
+    }
     const field = root.querySelector(`[data-key-path="${name}"]`);
     if (!field) {
       // Later fields mount lazily. Bring the nearest preceding section into view
       // so the requested field can mount and sync() can finish the jump.
-      const index = sections.findIndex((section) => section.name === name);
+      const index = sections.findIndex((section) => section.name === parts[0]);
+      if (mountNestedField(name)) return false;
       const preceding = sections.slice(0, index).reverse()
         .map((section) => root.querySelector(`[data-key-path="${section.name}"]`))
         .find(Boolean);
@@ -48,7 +80,8 @@ export function setupNavigation() {
     return true;
   }
 
-  for (const section of sections) {
+  const navigation = sections.flatMap((section) => section.name === "home" ? [section, ...editorShortcuts] : [section]);
+  for (const section of navigation) {
     const button = document.createElement("button");
     button.type = "button";
     button.dataset.section = section.name;

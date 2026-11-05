@@ -224,6 +224,126 @@ content:
             default: Подробнее
             options:
               maxlength: 60
+          - name: headingStyle
+            label: Оформление заголовка
+            type: object
+            required: false
+            default:
+              font: site
+              size: "24"
+              color: "#0b0b0d"
+            fields:
+              - name: font
+                label: Шрифт
+                type: select
+                default: site
+                options:
+                  values:
+                    - name: site
+                      label: Шрифт сайта
+                    - name: arial
+                      label: Arial
+                    - name: georgia
+                      label: Georgia — с засечками
+                    - name: verdana
+                      label: Verdana
+                    - name: system
+                      label: Системный шрифт
+              - name: size
+                label: Размер шрифта
+                type: select
+                default: "24"
+                options:
+                  values:
+                    - name: "14"
+                      label: 14 px
+                    - name: "16"
+                      label: 16 px
+                    - name: "18"
+                      label: 18 px
+                    - name: "20"
+                      label: 20 px
+                    - name: "22"
+                      label: 22 px
+                    - name: "24"
+                      label: 24 px
+                    - name: "28"
+                      label: 28 px
+                    - name: "32"
+                      label: 32 px
+                    - name: "36"
+                      label: 36 px
+                    - name: "40"
+                      label: 40 px
+                    - name: "48"
+                      label: 48 px
+                    - name: "56"
+                      label: 56 px
+              - name: color
+                label: Цвет текста
+                type: color
+                default: "#0b0b0d"
+                description: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+          - name: textStyle
+            label: Оформление текста
+            type: object
+            required: false
+            default:
+              font: site
+              size: "18"
+              color: "#0b0b0d"
+            fields:
+              - name: font
+                label: Шрифт
+                type: select
+                default: site
+                options:
+                  values:
+                    - name: site
+                      label: Шрифт сайта
+                    - name: arial
+                      label: Arial
+                    - name: georgia
+                      label: Georgia — с засечками
+                    - name: verdana
+                      label: Verdana
+                    - name: system
+                      label: Системный шрифт
+              - name: size
+                label: Размер шрифта
+                type: select
+                default: "18"
+                options:
+                  values:
+                    - name: "14"
+                      label: 14 px
+                    - name: "16"
+                      label: 16 px
+                    - name: "18"
+                      label: 18 px
+                    - name: "20"
+                      label: 20 px
+                    - name: "22"
+                      label: 22 px
+                    - name: "24"
+                      label: 24 px
+                    - name: "28"
+                      label: 28 px
+                    - name: "32"
+                      label: 32 px
+                    - name: "36"
+                      label: 36 px
+                    - name: "40"
+                      label: 40 px
+                    - name: "48"
+                      label: 48 px
+                    - name: "56"
+                      label: 56 px
+              - name: color
+                label: Цвет текста
+                type: color
+                default: "#0b0b0d"
+                description: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
   - name: photos
     label: 4. Фото и видео
     type: file
@@ -502,6 +622,126 @@ content:
             type: string
             options:
               maxlength: 160
+          - name: audienceHeadingStyle
+            label: "Нижний блок: шрифт заголовка «Школа для тех, кто хочет»"
+            type: object
+            required: false
+            default:
+              font: site
+              size: "36"
+              color: "#ffffff"
+            fields:
+              - name: font
+                label: Шрифт
+                type: select
+                default: site
+                options:
+                  values:
+                    - name: site
+                      label: Шрифт сайта
+                    - name: arial
+                      label: Arial
+                    - name: georgia
+                      label: Georgia — с засечками
+                    - name: verdana
+                      label: Verdana
+                    - name: system
+                      label: Системный шрифт
+              - name: size
+                label: Размер шрифта
+                type: select
+                default: "36"
+                options:
+                  values:
+                    - name: "14"
+                      label: 14 px
+                    - name: "16"
+                      label: 16 px
+                    - name: "18"
+                      label: 18 px
+                    - name: "20"
+                      label: 20 px
+                    - name: "22"
+                      label: 22 px
+                    - name: "24"
+                      label: 24 px
+                    - name: "28"
+                      label: 28 px
+                    - name: "32"
+                      label: 32 px
+                    - name: "36"
+                      label: 36 px
+                    - name: "40"
+                      label: 40 px
+                    - name: "48"
+                      label: 48 px
+                    - name: "56"
+                      label: 56 px
+              - name: color
+                label: Цвет текста
+                type: color
+                default: "#ffffff"
+                description: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+          - name: invitationStyle
+            label: "Нижний блок: шрифт приглашения на бесплатную тренировку"
+            type: object
+            required: false
+            default:
+              font: site
+              size: "24"
+              color: "#ffffff"
+            fields:
+              - name: font
+                label: Шрифт
+                type: select
+                default: site
+                options:
+                  values:
+                    - name: site
+                      label: Шрифт сайта
+                    - name: arial
+                      label: Arial
+                    - name: georgia
+                      label: Georgia — с засечками
+                    - name: verdana
+                      label: Verdana
+                    - name: system
+                      label: Системный шрифт
+              - name: size
+                label: Размер шрифта
+                type: select
+                default: "24"
+                options:
+                  values:
+                    - name: "14"
+                      label: 14 px
+                    - name: "16"
+                      label: 16 px
+                    - name: "18"
+                      label: 18 px
+                    - name: "20"
+                      label: 20 px
+                    - name: "22"
+                      label: 22 px
+                    - name: "24"
+                      label: 24 px
+                    - name: "28"
+                      label: 28 px
+                    - name: "32"
+                      label: 32 px
+                    - name: "36"
+                      label: 36 px
+                    - name: "40"
+                      label: 40 px
+                    - name: "48"
+                      label: 48 px
+                    - name: "56"
+                      label: 56 px
+              - name: color
+                label: Цвет текста
+                type: color
+                default: "#ffffff"
+                description: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
   - name: home
     label: 10. Главная
     type: file
@@ -532,6 +772,126 @@ content:
               categories:
                 - image
                 - video
+          - name: preparationHeadingStyle
+            label: "Блоки под новостями: шрифт заголовков"
+            type: object
+            required: false
+            default:
+              font: site
+              size: "36"
+              color: "#ffffff"
+            fields:
+              - name: font
+                label: Шрифт
+                type: select
+                default: site
+                options:
+                  values:
+                    - name: site
+                      label: Шрифт сайта
+                    - name: arial
+                      label: Arial
+                    - name: georgia
+                      label: Georgia — с засечками
+                    - name: verdana
+                      label: Verdana
+                    - name: system
+                      label: Системный шрифт
+              - name: size
+                label: Размер шрифта
+                type: select
+                default: "36"
+                options:
+                  values:
+                    - name: "14"
+                      label: 14 px
+                    - name: "16"
+                      label: 16 px
+                    - name: "18"
+                      label: 18 px
+                    - name: "20"
+                      label: 20 px
+                    - name: "22"
+                      label: 22 px
+                    - name: "24"
+                      label: 24 px
+                    - name: "28"
+                      label: 28 px
+                    - name: "32"
+                      label: 32 px
+                    - name: "36"
+                      label: 36 px
+                    - name: "40"
+                      label: 40 px
+                    - name: "48"
+                      label: 48 px
+                    - name: "56"
+                      label: 56 px
+              - name: color
+                label: Цвет текста
+                type: color
+                default: "#ffffff"
+                description: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
+          - name: preparationTextStyle
+            label: "Блоки под новостями: шрифт основного текста"
+            type: object
+            required: false
+            default:
+              font: site
+              size: "22"
+              color: "#ffffff"
+            fields:
+              - name: font
+                label: Шрифт
+                type: select
+                default: site
+                options:
+                  values:
+                    - name: site
+                      label: Шрифт сайта
+                    - name: arial
+                      label: Arial
+                    - name: georgia
+                      label: Georgia — с засечками
+                    - name: verdana
+                      label: Verdana
+                    - name: system
+                      label: Системный шрифт
+              - name: size
+                label: Размер шрифта
+                type: select
+                default: "22"
+                options:
+                  values:
+                    - name: "14"
+                      label: 14 px
+                    - name: "16"
+                      label: 16 px
+                    - name: "18"
+                      label: 18 px
+                    - name: "20"
+                      label: 20 px
+                    - name: "22"
+                      label: 22 px
+                    - name: "24"
+                      label: 24 px
+                    - name: "28"
+                      label: 28 px
+                    - name: "32"
+                      label: 32 px
+                    - name: "36"
+                      label: 36 px
+                    - name: "40"
+                      label: 40 px
+                    - name: "48"
+                      label: 48 px
+                    - name: "56"
+                      label: 56 px
+              - name: color
+                label: Цвет текста
+                type: color
+                default: "#ffffff"
+                description: "Нажмите на цвет для выбора. Можно ввести код, например #FFFFFF."
   - name: pageTexts
     label: 11. Тексты страниц
     type: file
@@ -1816,6 +2176,14 @@ content:
                 required: false
                 options:
                   maxlength: 2000
+              - name: newsPrevious
+                label: К новым новостям
+                type: string
+                required: false
+              - name: newsNext
+                label: К предыдущим новостям
+                type: string
+                required: false
           - name: articles
             label: Статьи
             type: object

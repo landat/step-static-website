@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "test": "node scripts/validate-content.mjs && node scripts/validate-cms.mjs && node scripts/validate-page-texts.mjs && npm run build:site && node scripts/validate-seo.mjs",
+    "test": "node scripts/validate-content.mjs && node scripts/validate-cms.mjs && node scripts/validate-page-texts.mjs && node scripts/validate-presentation.mjs && npm run build:site && node scripts/validate-seo.mjs",
     "build:site": "node scripts/build-redirects.mjs && node scripts/build-site.mjs",
     "build:redirects": "node scripts/build-redirects.mjs",
+    "build:favicon": "node scripts/build-favicon.mjs",
     "sync:publication": "node scripts/sync-publication.mjs",
     "optimize:photos": "node scripts/optimize-images.mjs",
     "build:home-images": "node scripts/build-home-images.mjs",

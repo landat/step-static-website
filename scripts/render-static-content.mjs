@@ -1,4 +1,5 @@
 import { escapeHtml as esc, paragraphs, replaceContent } from "./site-render.mjs";
+import { orderedNews, textCss } from "../assets/presentation.js";
 
 const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 const published = (item) => item.published !== false;
@@ -19,8 +20,12 @@ export function renderStaticContent(html, content) {
   html = html.replace(/(<a\b[^>]*data-contact-email[^>]*>)[\s\S]*?(<\/a>)/g, (all, opening, closing) => opening.replace(/href="[^"]*"/, `href="mailto:${esc(content.contact.email)}"`) + esc(content.contact.email) + closing);
   html = html.replace(/<iframe\b[^>]*data-contact-map[^>]*>/g, (tag) => tag.replace(/src="[^"]*"/, `src="${safe(content.contact.mapUrl)}"`));
   html = replaceContent(html, "data-prices-button", esc(content.prices.buttonLabel));
-  const news = content.news.filter(published).sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || b.date.localeCompare(a.date));
-  html = replaceContent(html, "data-news-list", news.map((n) => `<article class="card news-card${n.image ? " has-image" : ""}">${media(n.image, n.title)}<div class="news-card-body"><time datetime="${esc(n.date)}">${esc(n.date)}</time><h3>${esc(n.title)}</h3><p>${esc(n.text)}</p>${safe(n.url) ? `<a class="news-link" href="${safe(n.url)}">${esc(n.linkLabel || t.more)}</a>` : ""}</div></article>`).join("\n"));
+  const news = orderedNews(content.news);
+  html = replaceContent(html, "data-news-list", news.map((n) => `<article class="card news-card${n.image ? " has-image" : ""}">${media(n.image, n.title)}<div class="news-card-body"><time datetime="${esc(n.date)}">${esc(n.date)}</time><h3 data-news-heading style="${esc(textCss(n.headingStyle))}">${esc(n.title)}</h3><p data-news-text style="${esc(textCss(n.textStyle))}">${esc(n.text)}</p>${safe(n.url) ? `<a class="news-link" href="${safe(n.url)}">${esc(n.linkLabel || t.more)}</a>` : ""}</div></article>`).join("\n"));
+  html = html.replace(/<[\w-]+\b[^>]*data-text-style="([^"]+)"[^>]*>/g, (tag, path) => {
+    const style = path.split(".").reduce((value, key) => value?.[key], content);
+    return tag.replace(/\sstyle="[^"]*"/, "").replace(/>$/, ` style="${esc(textCss(style))}">`);
+  });
   html = replaceContent(html, "data-beginner-materials", content.beginnerMaterials.filter(published).map((m) => `<article class="card"><h3>${esc(m.title)}</h3>${paragraphs(m.text)}${safe(m.url) ? `<a class="button material-link" href="${safe(m.url)}">${esc(m.linkText || t.materialLink)}</a>` : ""}</article>`).join("\n"));
   return html;
 }

@@ -31,6 +31,9 @@
 .tile-video h3 { margin: 0; padding: 24px; font-size: 1.2rem; }
 .tile-video video { display: block; width: 100%; min-height: 0; flex: 1; aspect-ratio: 1; object-fit: contain; background: #000; }
 .preparation-tiles .plain-list { margin-bottom: 0; }
+.preparation-tiles p, .preparation-tiles .plain-list { font-size: 22px; }
+.preparation-tiles h2 { font-size: 36px; }
+.preparation-tiles .tile-red .plain-list li::before { background: white; }
 .home-price-note { display: flex; align-items: center; gap: 24px 48px; margin-top: 28px; }
 .home-price-note .content { flex: 1; min-width: 0; }
 .home-price-note h3 { margin: 0 0 8px; }

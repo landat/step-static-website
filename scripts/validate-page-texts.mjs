@@ -35,7 +35,7 @@ assert(content.contact.address.includes("Антонова-Овсеенко"));
 const code = readFileSync("assets/site.js", "utf8");
 for (const match of code.matchAll(/copyText\("([^"]+)"/g)) assert.equal(typeof lookup(match[1]), "string", match[1]);
 // Empty values, old JSON documents and literal HTML must not break text rendering.
-const helper = code.slice(0, code.indexOf("function renderPageTexts"));
+const helper = code.slice(code.indexOf("let pageTextValues"), code.indexOf("function renderPageTexts"));
 const context = {};
 runInNewContext(helper + `
   pageTextValues = { home: { title: '<img src=x onerror=alert(1)>', blank: '', cleared: null } };

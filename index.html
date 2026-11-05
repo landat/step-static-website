@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="assets/home.css">
     <noscript><style>.hero { background-image: linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.62) 48%, rgba(0,0,0,.18)), url("assets/optimized/hero.webp"); }</style></noscript>
     <link rel="canonical" href="https://meteorboxing.ru/">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 </head>
   <body class="home-page">
     <header class="site-header">
@@ -90,21 +93,22 @@
       <section class="section white" data-news-section id="news">
         <div class="section-inner">
           <div class="section-head">
-            <h2><span data-copy="home.text34">Новости</span></h2>
+            <h2 id="news-title"><span data-copy="home.text34">Новости</span></h2>
           </div>
-          <div class="news-grid" data-news-list><article class="card news-card has-image"><img src="assets/photos/img-20260917-wa0003.jpg" alt="Открыт набор в группы" loading="lazy" decoding="async"><div class="news-card-body"><time datetime="2026-10-10">2026-10-10</time><h3>Открыт набор в группы</h3><p>Приглашаем детей с 11 лет и взрослых начинающих. Первая групповая тренировка — бесплатно.</p></div></article></div>
+          <div class="news-controls" data-news-controls hidden><button type="button" data-news-previous aria-label="К новым новостям" data-copy-aria-label="interface.newsPrevious" title="К новым новостям" data-copy-title="interface.newsPrevious"><span aria-hidden="true">←</span></button><button type="button" data-news-next aria-label="К предыдущим новостям" data-copy-aria-label="interface.newsNext" title="К предыдущим новостям" data-copy-title="interface.newsNext"><span aria-hidden="true">→</span></button></div>
+          <div class="news-grid" data-news-list role="region" aria-labelledby="news-title" tabindex="0"><article class="card news-card has-image"><img src="assets/photos/img-20260917-wa0003.jpg" alt="Открыт набор в группы" loading="lazy" decoding="async"><div class="news-card-body"><time datetime="2026-10-10">2026-10-10</time><h3 data-news-heading style="font-family:Montserrat, Segoe UI, Arial, sans-serif;font-size:24px;color:#0b0b0d;">Открыт набор в группы</h3><p data-news-text style="font-family:Montserrat, Segoe UI, Arial, sans-serif;font-size:18px;color:#0b0b0d;">Приглашаем детей с 11 лет и взрослых начинающих. Первая групповая тренировка — бесплатно.</p></div></article></div>
         </div>
       </section>
 
       <section class="section tile-section">
         <div class="section-inner preparation-tiles">
           <div class="home-tile tile-copy tile-ink" data-reveal="left">
-            <h2><span data-copy="home.text35">Что необходимо для первого занятия?</span></h2>
-            <p><span data-copy="home.text36">Для пробной тренировки подойдет спортивная форма и нескользкая спортивная обувь. На первом занятии вас не поставят на лапы, снаряды или в спарринг без подготовки.</span></p>
+            <h2 data-text-style="home.preparationHeadingStyle" style="font-family:Montserrat, Segoe UI, Arial, sans-serif;font-size:36px;color:#ffffff;"><span data-copy="home.text35">Что необходимо для первого занятия?</span></h2>
+            <p data-text-style="home.preparationTextStyle" style="font-family:Montserrat, Segoe UI, Arial, sans-serif;font-size:22px;color:#ffffff;"><span data-copy="home.text36">Для пробной тренировки подойдет спортивная форма и нескользкая спортивная обувь. На первом занятии вас не поставят на лапы, снаряды или в спарринг без подготовки.</span></p>
           </div>
           <div class="home-tile tile-copy tile-red" data-reveal="right">
-            <h2><span data-copy="home.text37">Что понадобится дальше?</span></h2>
-            <ul class="plain-list">
+            <h2 data-text-style="home.preparationHeadingStyle" style="font-family:Montserrat, Segoe UI, Arial, sans-serif;font-size:36px;color:#ffffff;"><span data-copy="home.text37">Что понадобится дальше?</span></h2>
+            <ul class="plain-list" data-text-style="home.preparationTextStyle" style="font-family:Montserrat, Segoe UI, Arial, sans-serif;font-size:22px;color:#ffffff;">
               <li><span data-copy="home.text38">боксерские бинты</span></li>
               <li><span data-copy="home.text39">скакалка</span></li>
               <li><span data-copy="home.text40">снарядные и боксерские перчатки</span></li>
@@ -157,7 +161,7 @@
         <div class="footer-links"><a href="about.html"><span data-copy="common.text04">О нас</span></a><a href="./#prices"><span data-copy="common.text12">Стоимость и запись</span></a><a href="contacts.html"><span data-copy="common.text09">Контакты</span></a></div>
       </div>
     </footer>
-    <script src="assets/site.js"></script>
+    <script type="module" src="assets/site.js"></script>
     <script src="assets/home-motion.js"></script>
   </body>
 </html>
