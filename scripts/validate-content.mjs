@@ -119,6 +119,19 @@ if (!Array.isArray(content.prices?.items) || !content.prices.items.length) fail(
   localFile(item.url, `Материал ${index + 1}`, [".pdf", ".doc", ".docx"]);
 });
 
+const articleSlugs = new Set();
+(content.articles || []).forEach((item, index) => {
+  const label = `Статья ${index + 1}`;
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.slug || "")) fail(`${label}: неверный постоянный адрес`);
+  if (articleSlugs.has(item.slug)) fail(`${label}: адрес статьи повторяется`);
+  articleSlugs.add(item.slug);
+  if (!item.published) return;
+  requiredString(item.title, `${label} / заголовок`);
+  requiredString(item.description, `${label} / описание`);
+  requiredString(item.text, `${label} / текст`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date || "")) fail(`${label}: неверная дата`);
+});
+
 for (const html of readdirSync(root).filter((name) => name.endsWith(".html"))) {
   const body = readFileSync(join(root, html), "utf8");
   for (const match of body.matchAll(/(?:href|src)="([^"#]+)"/g)) {

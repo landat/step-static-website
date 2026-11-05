@@ -6,7 +6,7 @@ import { formatContent } from "../admin/src/content-format.js";
 const content = JSON.parse(readFileSync("content/site.json", "utf8"));
 const lookup = (key) => key.split(".").reduce((value, part) => value?.[part], content.pageTexts);
 const references = new Set();
-const dynamic = /\bdata-(?:announcement|news-list|carousel-track|carousel-status|video-catalog|beginner-materials|about-title|about-text|about-photo|prices-intro|price-items|prices-explanation-title|prices-explanation|prices-button|schedule-intro|schedule-groups|schedule-head|schedule-table|schedule-address|contact-address|contact-phone|contact-email|contact-directions)(?=[\s=>])/;
+const dynamic = /\bdata-(?:announcement|news-list|carousel-track|carousel-status|video-catalog|beginner-materials|articles-list|article-slug|about-title|about-text|about-photo|prices-intro|price-items|prices-explanation-title|prices-explanation|prices-button|schedule-intro|schedule-groups|schedule-head|schedule-table|schedule-address|contact-address|contact-phone|contact-email|contact-directions)(?=[\s=>])/;
 for (const file of readdirSync(".").filter((file) => file.endsWith(".html"))) {
   const source = readFileSync(file, "utf8");
   assert(!source.includes("Овсиенко"), `${file}: incorrect street spelling`);
@@ -24,7 +24,7 @@ for (const file of readdirSync(".").filter((file) => file.endsWith(".html"))) {
       const tag = token.match(/^<([\w-]+)/)?.[1];
       if (!tag || ["meta", "link", "img", "br", "hr", "input", "source", "wbr"].includes(tag)) continue;
       stack.push({ tag, editable: stack.at(-1)?.editable || /\bdata-copy=/.test(token),
-        excluded: stack.at(-1)?.excluded || ["script", "style", "noscript"].includes(tag) || dynamic.test(token) || /class="top-phone"|aria-hidden="true"/.test(token) });
+        excluded: stack.at(-1)?.excluded || ["script", "style", "noscript"].includes(tag) || (file.startsWith("article-") && tag === "title") || dynamic.test(token) || /class="top-phone"|aria-hidden="true"/.test(token) });
     } else if (/[a-zа-яё0-9]/i.test(token) && !stack.at(-1)?.excluded) {
       assert(stack.at(-1)?.editable, `${file}: text outside CMS: ${token.trim()}`);
     }

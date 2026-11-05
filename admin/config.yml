@@ -523,7 +523,7 @@ collections:
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text07
-                    label: "Кнопка или ссылка: Уроки начинающим"
+                    label: "Кнопка: Бокс для начинающих"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -564,6 +564,21 @@ collections:
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
+                  - name: text14
+                    label: Статьи
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text15
+                    label: Групповые тренировки
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text16
+                    label: Индивидуальные тренировки
+                    widget: text
+                    required: false
+                    maxlength: 6000
                 collapsed: true
               - name: home
                 label: Главная
@@ -571,14 +586,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: Школа бокса МЕТЕОР: тренировки по боксу на Пресне,
-                      группы для начинающ…"
+                    label: "SEO: description"
                     widget: text
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -882,14 +896,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: О нас - Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: О школе бокса МЕТЕОР, тренере, оборудовании и
-                      программах тренировок."
+                    label: "SEO: description"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -997,14 +1010,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Тренировки - Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: Бокс для детей с 11 лет и взрослых: группы по
-                      уровню подготовки, ход з…"
+                    label: "SEO: description"
                     widget: text
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1116,6 +1128,16 @@ collections:
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
+                  - name: groupLink
+                    label: Подробнее о групповых тренировках
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: personalLink
+                    label: Подробнее об индивидуальных тренировках
+                    widget: text
+                    required: false
+                    maxlength: 6000
                 collapsed: true
               - name: schedule
                 label: Расписание
@@ -1123,13 +1145,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Расписание - Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: Расписание тренировок по боксу в школе МЕТЕОР."
+                    label: "SEO: description"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1165,14 +1187,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Фото и видео — Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: Фотографии школы бокса МЕТЕОР, тренировок и
-                      атмосферы школы."
+                    label: "SEO: description"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1221,26 +1242,25 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Уроки начинающим - Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: Уроки бокса для начинающих: бинтование рук, стойка
-                      боксера и базовые м…"
+                    label: "SEO: description"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text03
-                    label: "Текст: Уроки начинающим"
+                    label: "Надпись над заголовком: Бокс для начинающих"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text04
-                    label: "Заголовок: Материалы для начинающих боксеров"
+                    label: "Заголовок H1: Бокс для начинающих"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1271,14 +1291,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Контакты - Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Описание для поиска: Контакты школы бокса МЕТЕОР: адрес, телефон, email
-                      и схема проезда."
+                    label: "SEO: description"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1339,13 +1358,13 @@ collections:
                 required: true
                 fields:
                   - name: text01
-                    label: "Заголовок вкладки: Фото — Школа бокса МЕТЕОР"
+                    label: "SEO: title"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
                     maxlength: 6000
                   - name: text02
-                    label: "Текст: Раздел «Отзывы» заменён на"
+                    label: "SEO: description"
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1355,6 +1374,27 @@ collections:
                     widget: string
                     required: false
                     hint: Обычный текст, без HTML. Пустое поле убирает надпись.
+                    maxlength: 6000
+                  - name: text04
+                    label: Отзывы о школе бокса «МЕТЕОР»
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text05
+                    label: Актуальные отзывы учеников и оценки школы можно прочитать в Яндекс
+                      Картах.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text06
+                    label: Читать отзывы в Яндекс Картах
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text07
+                    label: Посмотреть фото и видео тренировок
+                    widget: text
+                    required: false
                     maxlength: 6000
                 collapsed: true
               - name: prices
@@ -1580,7 +1620,291 @@ collections:
                     required: false
                     maxlength: 2000
                 collapsed: true
+              - name: articles
+                label: Статьи
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "SEO: title"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text02
+                    label: "SEO: description"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text03
+                    label: Статьи
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text04
+                    label: Статьи о боксе
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text05
+                    label: Материалы о выборе школы, тренировках и боксе. Статьи перенесены со
+                      старого сайта с сохранением отдельных адресов.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: readMore
+                    label: Читать статью →
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: back
+                    label: ← Все статьи
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: empty
+                    label: Статьи скоро появятся.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: archive
+                    label: Материал из архива школы. Сведения о правилах соревнований и организациях
+                      отражают время первоначальной публикации.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                collapsed: true
+              - name: groupTraining
+                label: Групповые тренировки
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "SEO: title"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text02
+                    label: "SEO: description"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text03
+                    label: Групповые тренировки
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text04
+                    label: Групповые тренировки по боксу
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text05
+                    label: Дети с 11 лет и взрослые занимаются в группах по уровню подготовки.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text06
+                    label: Какую группу выбрать
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text07
+                    label: В группе 13–15 человек. Первая пробная групповая тренировка — бесплатно.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text08
+                    label: Расписание групповых занятий
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text09
+                    label: Записаться на пробное занятие
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                collapsed: true
+              - name: personalTraining
+                label: Индивидуальные тренировки
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "SEO: title"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text02
+                    label: "SEO: description"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text03
+                    label: Индивидуальные тренировки
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text04
+                    label: Индивидуальные тренировки по боксу
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text05
+                    label: Персональная работа с тренером в школе бокса «МЕТЕОР» на Пресне.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text06
+                    label: Программа под ваши задачи
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text07
+                    label: "Занятия один на один с тренером: программа подбирается под ваш опыт,
+                      физическую подготовку и цели."
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text08
+                    label: Подойдут для освоения техники с нуля, работы над конкретными навыками или
+                      если расписание групп неудобно.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text09
+                    label: Время и стоимость
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text10
+                    label: Время, продолжительность и стоимость индивидуальных занятий согласуются с
+                      тренером. Бесплатное пробное занятие относится к групповым
+                      тренировкам.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text11
+                    label: Обсудить занятия с тренером
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text12
+                    label: Посмотреть групповые тренировки
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                collapsed: true
+              - name: competitions
+                label: Соревнования
+                widget: object
+                required: true
+                fields:
+                  - name: text01
+                    label: "SEO: title"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text02
+                    label: "SEO: description"
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text03
+                    label: Соревнования
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text04
+                    label: Соревнования школы бокса «МЕТЕОР»
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text05
+                    label: Архив выступлений спортсменов школы.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text06
+                    label: Турнир «Золотая перчатка» — 18 июля 2015 года
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text07
+                    label: Боксёры клуба «Метеор» выступили на турнире «Золотая перчатка»,
+                      проходившем в клубе «Китэк». Победителями стали Максим
+                      Макаров, Сергей Отаров и Андрей Стенипанин.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                  - name: text08
+                    label: Актуальные новости школы — на главной странице.
+                    widget: text
+                    required: false
+                    maxlength: 6000
+                collapsed: true
             collapsed: false
             hint: Раскройте нужную страницу. Поля идут в порядке появления на сайте.
               Новости, контакты, группы и цены редактируются в своих разделах.
               Общие подписи меняются сразу на всех страницах.
+          - name: articles
+            label: Статьи
+            widget: list
+            required: false
+            fields:
+              - name: published
+                label: Показывать на сайте
+                widget: boolean
+                required: false
+                default: true
+              - name: archived
+                label: Материал из архива
+                widget: boolean
+                required: false
+                default: false
+                hint: Показывает примечание о времени первоначальной публикации. Для новых
+                  статей выключите.
+              - name: slug
+                label: Адрес статьи (латиницей)
+                widget: string
+                required: true
+                hint: "Уникальный постоянный адрес: например kak-vybrat-klub. После публикации
+                  не меняйте его — на статью могут вести старые ссылки."
+                pattern:
+                  - ^[a-z0-9]+(?:-[a-z0-9]+)*$
+                  - Используйте строчные латинские буквы, цифры и дефисы.
+              - name: title
+                label: Заголовок статьи (H1)
+                widget: string
+                required: true
+                maxlength: 200
+              - name: date
+                label: Дата первоначальной публикации
+                widget: datetime
+                required: true
+                type: date
+                format: YYYY-MM-DD
+                date_format: DD.MM.YYYY
+                time_format: false
+              - name: seoTitle
+                label: "SEO: title"
+                widget: string
+                required: false
+                maxlength: 200
+              - name: description
+                label: Краткое описание и SEO description
+                widget: text
+                required: true
+                maxlength: 500
+              - name: text
+                label: Текст статьи
+                widget: text
+                required: true
+                hint: Обычный текст, без HTML. Абзацы разделяйте пустой строкой.
+            collapsed: true
+            label_singular: статью
+            min: 0
+            summary: "{{title}}"
+            hint: Добавьте статью, постоянный адрес латиницей, заголовок, описание и текст.
+              После сохранения нужна публикация сборки сайта на основном
+              хостинге. Адрес опубликованной статьи не меняйте без настройки
+              301.

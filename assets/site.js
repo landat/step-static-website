@@ -37,6 +37,7 @@ if (menuToggle && siteNav) {
     const expanded = menuToggle.getAttribute("aria-expanded") === "true";
     menuToggle.setAttribute("aria-expanded", String(!expanded));
     siteNav.classList.toggle("is-open");
+    if (!expanded) siteNav.style.maxHeight = `${Math.max(120, window.innerHeight - siteNav.getBoundingClientRect().top - 8)}px`;
   });
 }
 
@@ -81,10 +82,18 @@ ensureHeaderContact();
 
 document.querySelectorAll(".site-nav a").forEach((link) => {
   const current = window.location.pathname.split("/").pop() || "index.html";
-  if (link.getAttribute("href") === current) {
+  if (link.getAttribute("href") === current || (current === "index.html" && link.getAttribute("href") === "./")) {
     link.setAttribute("aria-current", "page");
   }
 });
+
+const trainingMenu = document.querySelector(".nav-training");
+if (trainingMenu) {
+  document.addEventListener("click", (event) => { if (!trainingMenu.contains(event.target)) trainingMenu.open = false; });
+  trainingMenu.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") { trainingMenu.open = false; trainingMenu.querySelector("summary").focus(); }
+  });
+}
 
 function escapeHtml(value) {
   return String(value || "").replace(/[&<>"']/g, (char) => ({
@@ -488,6 +497,26 @@ function renderPrices(prices) {
   document.querySelectorAll("[data-prices-button]").forEach((element) => { element.textContent = prices.buttonLabel || copyText("interface.priceButton", "Узнать стоимость"); });
 }
 
+function renderArticles(source) {
+  const articles = Array.isArray(source) ? source.filter(isPublished) : [];
+  const list = document.querySelector("[data-articles-list]");
+  if (list) list.innerHTML = articles.map((article) => {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || "")) return "";
+    const url = `article-${article.slug}.html`;
+    return `<article class="card article-card"><h2><a href="${url}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.description)}</p><a href="${url}">${escapeHtml(copyText("articles.readMore", "Читать статью →"))}</a></article>`;
+  }).join("") || `<p>${escapeHtml(copyText("articles.empty", "Статьи скоро появятся."))}</p>`;
+  const page = document.querySelector("[data-article-slug]");
+  if (!page) return;
+  const article = articles.find((item) => item.slug === page.dataset.articleSlug);
+  if (!article) return;
+  document.title = article.seoTitle || `${article.title} — МЕТЕОР`;
+  document.querySelector('meta[name="description"]').content = article.description;
+  page.querySelector("[data-article-title]").textContent = article.title;
+  page.querySelector("[data-article-description]").textContent = article.description;
+  const note = article.archived ? `<p class="article-note">${escapeHtml(copyText("articles.archive", "Материал из архива школы."))}</p>` : "";
+  page.querySelector("[data-article-body]").innerHTML = note + textParagraphs(article.text).map((text) => `<p>${escapeHtml(text).replace(/\n/g, "<br>")}</p>`).join("");
+}
+
 function showContentWarning() {
   const main = document.querySelector("main");
   if (!main || document.querySelector(".content-warning")) return;
@@ -515,6 +544,7 @@ async function loadEditableSiteContent() {
     initPhotoCarousel(content.photos);
     renderVideos(content.videos);
     renderBeginnerMaterials(content.beginnerMaterials);
+    renderArticles(content.articles);
     renderPageTexts(content.pageTexts);
   } catch (error) {
     renderHomeImages();

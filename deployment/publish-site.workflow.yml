@@ -1,0 +1,68 @@
+# Install as .github/workflows/publish-site.yml using GitHub's web interface.
+name: Build and publish site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "*.html"
+      - "assets/**"
+      - "admin/src/**"
+      - "admin/index.html"
+      - "admin/panel.css"
+      - "admin/help.html"
+      - ".pages.yml"
+      - "robots.txt"
+      - "scripts/**"
+      - "package*.json"
+      - ".github/workflows/publish-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish-site-main
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:cms
+      - run: npm test
+      - run: npm run sync:publication
+      - name: Save static pages for existing Rusonyx automatic update
+        shell: bash
+        run: |
+          git add -- '*.html' sitemap.xml .htaccess admin/config.yml admin/vendor
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Publish static pages from CMS content"
+          # Do not rebase stale HTML over a newer coach edit. Its queued run
+          # will rebuild main if another commit arrives during this job.
+          git push origin HEAD:main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Publish GitHub Pages mirror
+        id: deployment
+        uses: actions/deploy-pages@v4

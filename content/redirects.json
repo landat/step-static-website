@@ -1,0 +1,78 @@
+[
+  {
+    "from": "/index.html",
+    "to": "/"
+  },
+  {
+    "from": "/o-nas/",
+    "to": "/about.html"
+  },
+  {
+    "from": "/o-nas/ceny/",
+    "to": "/#prices"
+  },
+  {
+    "from": "/o-nas/foto/",
+    "to": "/photos.html"
+  },
+  {
+    "from": "/o-nas/video/",
+    "to": "/photos.html"
+  },
+  {
+    "from": "/trenirovki/",
+    "to": "/training.html"
+  },
+  {
+    "from": "/trenirovki/gruppovye-trenirovki/",
+    "to": "/group-training.html"
+  },
+  {
+    "from": "/trenirovki/individualnye-trenirovki/",
+    "to": "/personal-training.html"
+  },
+  {
+    "from": "/sorevnovaniya/",
+    "to": "/competitions.html"
+  },
+  {
+    "from": "/uroki-nachinayushchim/",
+    "to": "/beginners.html"
+  },
+  {
+    "from": "/schedule/",
+    "to": "/schedule.html"
+  },
+  {
+    "from": "/otzyvy/",
+    "to": "/reviews.html"
+  },
+  {
+    "from": "/stati/",
+    "to": "/articles.html"
+  },
+  {
+    "from": "/contact-us/",
+    "to": "/contacts.html"
+  },
+  {
+    "from": "/prices.html",
+    "to": "/#prices"
+  },
+  {
+    "from": "/stati/kak-vybrat-luchshiy-klub-boksa-v-moskve-kak-vybrat-trenera-po-boksu/",
+    "to": "/article-kak-vybrat-luchshiy-klub-boksa-v-moskve-kak-vybrat-trenera-po-boksu.html"
+  },
+  {
+    "from": "/stati/plyusy-i-minusy-boksa/",
+    "to": "/article-plyusy-i-minusy-boksa.html"
+  },
+  {
+    "from": "/stati/pochemu-stoit-poyti-na-boks/",
+    "to": "/article-pochemu-stoit-poyti-na-boks.html"
+  },
+  {
+    "from": "/stati/boks-chto-eto-takoe/",
+    "to": "/article-boks-chto-eto-takoe.html"
+  }
+]

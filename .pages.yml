@@ -4,7 +4,13 @@ media:
     input: assets/photos
     output: assets/photos
     rename: safe
-    extensions: [jpg, jpeg, png, webp, mp4, webm]
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - webp
+      - mp4
+      - webm
     actions:
       - name: optimize_photos
         label: Уменьшить большие фотографии
@@ -20,16 +26,22 @@ media:
     input: assets/videos
     output: assets/videos
     rename: safe
-    categories: [video]
-    extensions: [mp4, webm]
+    categories:
+      - video
+    extensions:
+      - mp4
+      - webm
   - name: materials
     label: Файлы для учеников
     input: assets/materials
     output: assets/materials
     rename: safe
-    categories: [document]
-    extensions: [pdf, doc, docx]
-
+    categories:
+      - document
+    extensions:
+      - pdf
+      - doc
+      - docx
 settings:
   hide: true
   content:
@@ -38,7 +50,6 @@ settings:
     identity: user
     templates:
       update: "Обновление сайта через CMS: {name}"
-
 content:
   - name: announcement
     label: 1. Срочное объявление
@@ -52,12 +63,34 @@ content:
         label: Объявление на главной странице
         type: object
         fields:
-          - { name: enabled, label: Показывать объявление, type: boolean, default: true }
-          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 80 } }
-          - { name: intro, label: Текст объявления, type: text, required: true, options: { maxlength: 500 } }
-          - { name: scheduleTitle, label: Подпись перед расписанием, type: string, required: true, options: { maxlength: 120 } }
-          - { name: directionsLabel, label: Текст ссылки на схему, type: string, required: true, options: { maxlength: 60 } }
-
+          - name: enabled
+            label: Показывать объявление
+            type: boolean
+            default: true
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: intro
+            label: Текст объявления
+            type: text
+            required: true
+            options:
+              maxlength: 500
+          - name: scheduleTitle
+            label: Подпись перед расписанием
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: directionsLabel
+            label: Текст ссылки на схему
+            type: string
+            required: true
+            options:
+              maxlength: 60
   - name: schedule
     label: 2. Расписание и группы
     type: file
@@ -70,7 +103,12 @@ content:
         label: Расписание
         type: object
         fields:
-          - { name: intro, label: Краткий текст над расписанием, type: text, required: true, options: { maxlength: 240 } }
+          - name: intro
+            label: Краткий текст над расписанием
+            type: text
+            required: true
+            options:
+              maxlength: 240
           - name: groups
             label: Группы
             type: object
@@ -80,8 +118,18 @@ content:
                 collapsed: false
                 summary: "{name}"
             fields:
-              - { name: name, label: Название группы, type: string, required: true, options: { maxlength: 80 } }
-              - { name: description, label: Для кого эта группа, type: text, required: true, options: { maxlength: 400 } }
+              - name: name
+                label: Название группы
+                type: string
+                required: true
+                options:
+                  maxlength: 80
+              - name: description
+                label: Для кого эта группа
+                type: text
+                required: true
+                options:
+                  maxlength: 400
               - name: sessions
                 label: Дни и время занятий
                 type: object
@@ -97,15 +145,25 @@ content:
                     required: true
                     options:
                       values:
-                        - { name: monday, label: Понедельник }
-                        - { name: tuesday, label: Вторник }
-                        - { name: wednesday, label: Среда }
-                        - { name: thursday, label: Четверг }
-                        - { name: friday, label: Пятница }
-                        - { name: saturday, label: Суббота }
-                        - { name: sunday, label: Воскресенье }
-                  - { name: time, label: Время, type: string, required: true, description: "Например: 19:00–20:30" }
-
+                        - name: monday
+                          label: Понедельник
+                        - name: tuesday
+                          label: Вторник
+                        - name: wednesday
+                          label: Среда
+                        - name: thursday
+                          label: Четверг
+                        - name: friday
+                          label: Пятница
+                        - name: saturday
+                          label: Суббота
+                        - name: sunday
+                          label: Воскресенье
+                  - name: time
+                    label: Время
+                    type: string
+                    required: true
+                    description: "Например: 19:00–20:30"
   - name: news
     label: 3. Новости
     type: file
@@ -122,20 +180,50 @@ content:
             collapsed: true
             summary: "{date} — {title}"
         fields:
-          - { name: published, label: Показывать на сайте, type: boolean, default: true }
-          - { name: pinned, label: Закрепить первой, type: boolean, default: false }
-          - { name: date, label: Дата, type: date, required: true, options: { format: yyyy-MM-dd } }
-          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 120 } }
-          - { name: text, label: Текст новости, type: text, required: true, options: { maxlength: 1000 } }
+          - name: published
+            label: Показывать на сайте
+            type: boolean
+            default: true
+          - name: pinned
+            label: Закрепить первой
+            type: boolean
+            default: false
+          - name: date
+            label: Дата
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: text
+            label: Текст новости
+            type: text
+            required: true
+            options:
+              maxlength: 1000
           - name: image
             label: Фото или видео к новости
             type: file
             options:
               media: photos
-              categories: [image, video]
-          - { name: url, label: Ссылка «Подробнее», type: string, description: "Можно вставить https://... или адрес страницы сайта, например photos.html" }
-          - { name: linkLabel, label: Текст ссылки, type: string, default: "Подробнее", options: { maxlength: 60 } }
-
+              categories:
+                - image
+                - video
+          - name: url
+            label: Ссылка «Подробнее»
+            type: string
+            description: Можно вставить https://... или адрес страницы сайта, например photos.html
+          - name: linkLabel
+            label: Текст ссылки
+            type: string
+            default: Подробнее
+            options:
+              maxlength: 60
   - name: photos
     label: 4. Фото и видео
     type: file
@@ -152,16 +240,26 @@ content:
             collapsed: true
             summary: "{alt}"
         fields:
-          - { name: published, label: Показывать на сайте, type: boolean, default: true }
+          - name: published
+            label: Показывать на сайте
+            type: boolean
+            default: true
           - name: src
             label: Фото или видео
             type: file
             required: true
             options:
               media: photos
-              categories: [image, video]
-          - { name: alt, label: Подпись и краткое описание, type: string, required: true, options: { maxlength: 160 }, description: "Несколько слов о фото или видео. Подпись отображается в галерее." }
-
+              categories:
+                - image
+                - video
+          - name: alt
+            label: Подпись и краткое описание
+            type: string
+            required: true
+            options:
+              maxlength: 160
+            description: Несколько слов о фото или видео. Подпись отображается в галерее.
   - name: contact
     label: 5. Контакты
     type: file
@@ -174,32 +272,40 @@ content:
         label: Контактная информация
         type: object
         fields:
-          - { name: address, label: Полный адрес, type: text, required: true, options: { maxlength: 300 } }
+          - name: address
+            label: Полный адрес
+            type: text
+            required: true
+            options:
+              maxlength: 300
           - name: phone
             label: Телефон
             type: string
             required: true
-            description: "В формате +7 495 123-45-67"
+            description: В формате +7 495 123-45-67
             pattern:
-              regex: "^\\+?[0-9 ()-]{10,24}$"
-              message: "Проверьте номер телефона. Разрешены цифры, пробелы, скобки, + и дефисы."
+              regex: ^\+?[0-9 ()-]{10,24}$
+              message: Проверьте номер телефона. Разрешены цифры, пробелы, скобки, + и дефисы.
           - name: email
             label: Email
             type: string
             required: true
             pattern:
-              regex: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
-              message: "Введите email в формате name@example.ru."
-          - { name: directions, label: Как добраться, type: text, required: true, description: "Абзацы разделяйте пустой строкой." }
+              regex: ^[^@\s]+@[^@\s]+\.[^@\s]+$
+              message: Введите email в формате name@example.ru.
+          - name: directions
+            label: Как добраться
+            type: text
+            required: true
+            description: Абзацы разделяйте пустой строкой.
           - name: mapUrl
             label: Ссылка для карты
             type: string
             required: true
-            description: "Ссылка из атрибута src виджета Яндекс.Карт. Обычно её меняет разработчик."
+            description: Ссылка из атрибута src виджета Яндекс.Карт. Обычно её меняет разработчик.
             pattern:
-              regex: "^https://yandex\\.ru/map-widget/.*$"
-              message: "Нужна ссылка виджета https://yandex.ru/map-widget/..."
-
+              regex: ^https://yandex\.ru/map-widget/.*$
+              message: Нужна ссылка виджета https://yandex.ru/map-widget/...
   - name: prices
     label: 6. Цены
     type: file
@@ -212,7 +318,12 @@ content:
         label: Стоимость и запись на главной странице
         type: object
         fields:
-          - { name: intro, label: Вводный текст, type: text, required: true, options: { maxlength: 300 } }
+          - name: intro
+            label: Вводный текст
+            type: text
+            required: true
+            options:
+              maxlength: 300
           - name: items
             label: Варианты занятий
             type: object
@@ -222,12 +333,35 @@ content:
                 collapsed: true
                 summary: "{title}"
             fields:
-              - { name: title, label: Название, type: string, required: true, options: { maxlength: 100 } }
-              - { name: text, label: Описание или стоимость, type: text, required: true, options: { maxlength: 400 } }
-          - { name: explanationTitle, label: Заголовок пояснения, type: string, required: true, options: { maxlength: 120 } }
-          - { name: explanation, label: Пояснение, type: text, required: true, description: "Коротко поясните, как узнать стоимость и записаться. Абзацы разделяйте пустой строкой." }
-          - { name: buttonLabel, label: Текст кнопки, type: string, required: true, options: { maxlength: 60 } }
-
+              - name: title
+                label: Название
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: text
+                label: Описание или стоимость
+                type: text
+                required: true
+                options:
+                  maxlength: 400
+          - name: explanationTitle
+            label: Заголовок пояснения
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: explanation
+            label: Пояснение
+            type: text
+            required: true
+            description: Коротко поясните, как узнать стоимость и записаться. Абзацы разделяйте пустой строкой.
+          - name: buttonLabel
+            label: Текст кнопки
+            type: string
+            required: true
+            options:
+              maxlength: 60
   - name: videos
     label: 7. Видео для новичков
     type: file
@@ -244,9 +378,21 @@ content:
             collapsed: true
             summary: "{title}"
         fields:
-          - { name: published, label: Показывать на сайте, type: boolean, default: true }
-          - { name: title, label: Название урока, type: string, required: true, options: { maxlength: 140 } }
-          - { name: description, label: Краткое описание, type: text, options: { maxlength: 500 } }
+          - name: published
+            label: Показывать на сайте
+            type: boolean
+            default: true
+          - name: title
+            label: Название урока
+            type: string
+            required: true
+            options:
+              maxlength: 140
+          - name: description
+            label: Краткое описание
+            type: text
+            options:
+              maxlength: 500
           - name: kind
             label: Где находится видео
             type: select
@@ -254,23 +400,25 @@ content:
             default: mp4
             options:
               values:
-                - { name: mp4, label: Загруженный MP4/WebM }
-                - { name: rutube, label: Rutube }
+                - name: mp4
+                  label: Загруженный MP4/WebM
+                - name: rutube
+                  label: Rutube
           - name: src
             label: Файл MP4/WebM
             type: file
-            description: "Заполните для типа «Загруженный MP4/WebM»."
+            description: Заполните для типа «Загруженный MP4/WebM».
             options:
               media: videos
-              categories: [video]
+              categories:
+                - video
           - name: rutubeUrl
             label: Ссылка на Rutube
             type: string
             description: "Заполните для типа «Rutube»: вставьте обычную ссылку на ролик."
             pattern:
-              regex: "^(https://(?:www\\.)?rutube\\.ru/(?:video|shorts|play/embed)/[^/?#]+[/?#]?.*|)$"
-              message: "Вставьте ссылку на видео с rutube.ru."
-
+              regex: ^(https://(?:www\.)?rutube\.ru/(?:video|shorts|play/embed)/[^/?#]+[/?#]?.*|)$
+              message: Вставьте ссылку на видео с rutube.ru.
   - name: beginner_materials
     label: 8. Материалы для новичков
     type: file
@@ -287,17 +435,34 @@ content:
             collapsed: true
             summary: "{title}"
         fields:
-          - { name: published, label: Показывать на сайте, type: boolean, default: true }
-          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 140 } }
-          - { name: text, label: Текст материала, type: text, required: true, description: "Абзацы разделяйте пустой строкой." }
+          - name: published
+            label: Показывать на сайте
+            type: boolean
+            default: true
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              maxlength: 140
+          - name: text
+            label: Текст материала
+            type: text
+            required: true
+            description: Абзацы разделяйте пустой строкой.
           - name: url
             label: Файл для скачивания
             type: file
             options:
               media: materials
-              categories: [document]
-          - { name: linkText, label: Текст кнопки, type: string, default: "Открыть материал", options: { maxlength: 60 } }
-
+              categories:
+                - document
+          - name: linkText
+            label: Текст кнопки
+            type: string
+            default: Открыть материал
+            options:
+              maxlength: 60
   - name: about
     label: 9. О нас
     type: file
@@ -310,17 +475,33 @@ content:
         label: Страница «О нас»
         type: object
         fields:
-          - { name: title, label: Заголовок, type: string, required: true, options: { maxlength: 100 } }
-          - { name: text, label: Основной текст, type: text, required: true, options: { maxlength: 3000 }, description: "Абзацы разделяйте пустой строкой. Возраст приёма — с 11 лет." }
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: text
+            label: Основной текст
+            type: text
+            required: true
+            options:
+              maxlength: 3000
+            description: Абзацы разделяйте пустой строкой. Возраст приёма — с 11 лет.
           - name: image
             label: Фото или видео
             type: file
-            description: "Выберите фото (JPG, PNG, WebP) или видео (MP4, WebM), до 50 МиБ. Видео запускается по нажатию. Чтобы скрыть медиа, очистите поле."
+            description: Выберите фото (JPG, PNG, WebP) или видео (MP4, WebM), до 50 МиБ. Видео запускается по нажатию. Чтобы скрыть медиа, очистите поле.
             options:
               media: photos
-              categories: [image, video]
-          - { name: imageAlt, label: Описание фото или видео, type: string, options: { maxlength: 160 } }
-
+              categories:
+                - image
+                - video
+          - name: imageAlt
+            label: Описание фото или видео
+            type: string
+            options:
+              maxlength: 160
   - name: home
     label: 10. Главная
     type: file
@@ -336,18 +517,21 @@ content:
           - name: heroImage
             label: Фото или видео первого экрана
             type: file
-            description: "Горизонтальное фото или видео MP4/WebM, до 50 МиБ. Фон заполняет экран; края могут обрезаться. Видео запускается кнопкой без звука. Пустое поле возвращает исходное фото."
+            description: Горизонтальное фото или видео MP4/WebM, до 50 МиБ. Фон заполняет экран; края могут обрезаться. Видео запускается кнопкой без звука. Пустое поле возвращает исходное фото.
             options:
               media: photos
-              categories: [image, video]
+              categories:
+                - image
+                - video
           - name: directionsImage
             label: Фото или видео блока «Основные направления»
             type: file
-            description: "Фото или видео MP4/WebM, до 50 МиБ, рядом с карточками направлений. Видео запускается по нажатию. Выберите файл и сохраните. Пустое поле возвращает исходный снимок. Этот блок не связан с галереей."
+            description: Фото или видео MP4/WebM, до 50 МиБ, рядом с карточками направлений. Видео запускается по нажатию. Выберите файл и сохраните. Пустое поле возвращает исходный снимок. Этот блок не связан с галереей.
             options:
               media: photos
-              categories: [image, video]
-
+              categories:
+                - image
+                - video
   - name: pageTexts
     label: 11. Тексты страниц
     type: file
@@ -407,7 +591,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text07
-                label: "Кнопка или ссылка: Уроки начинающим"
+                label: "Кнопка: Бокс для начинающих"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -455,20 +639,37 @@ content:
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
+              - name: text14
+                label: Статьи
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text15
+                label: Групповые тренировки
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text16
+                label: Индивидуальные тренировки
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
           - name: home
             label: Главная
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: Школа бокса МЕТЕОР: тренировки по боксу на Пресне,
-                  группы для начинающ…"
+                label: "SEO: description"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -489,8 +690,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text05
-                label: "Текст: Обучение классической технике бокса как системе самозащиты,
-                  постановка…"
+                label: "Текст: Обучение классической технике бокса как системе самозащиты, постановка…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -518,8 +718,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text09
-                label: "Текст: Школа работает с начинающими и опытными спортсменами, помогает
-                  развить…"
+                label: "Текст: Школа работает с начинающими и опытными спортсменами, помогает развить…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -603,16 +802,14 @@ content:
                 options:
                   maxlength: 6000
               - name: text21
-                label: "Текст: Бокс - один из самых динамичных и увлекательных видов спорта. Он
-                  разви…"
+                label: "Текст: Бокс - один из самых динамичных и увлекательных видов спорта. Он разви…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text22
-                label: "Текст: Занятия боксом укрепляют волю, воспитывают смелость,
-                  находчивость, уме…"
+                label: "Текст: Занятия боксом укрепляют волю, воспитывают смелость, находчивость, уме…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -633,8 +830,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text25
-                label: "Текст: Удобное местоположение, специализированная школа бокса, группы по
-                  уров…"
+                label: "Текст: Удобное местоположение, специализированная школа бокса, группы по уров…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -648,8 +844,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text27
-                label: "Текст: Основная цель школы - научить классической технике бокса как
-                  системе с…"
+                label: "Текст: Основная цель школы - научить классической технике бокса как системе с…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -663,8 +858,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text29
-                label: "Текст: Для новичков есть отдельная группа, при росте уровня возможен
-                  переход …"
+                label: "Текст: Для новичков есть отдельная группа, при росте уровня возможен переход …"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -678,8 +872,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text31
-                label: "Текст: Просторная специализированная школа бокса, мешки, груши, снаряды,
-                  разд…"
+                label: "Текст: Просторная специализированная школа бокса, мешки, груши, снаряды, разд…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -714,8 +907,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text36
-                label: "Текст: Для пробной тренировки подойдет спортивная форма и нескользкая
-                  спортив…"
+                label: "Текст: Для пробной тренировки подойдет спортивная форма и нескользкая спортив…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -771,8 +963,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text44
-                label: "Текст: Занятия боксом на Пресне рядом с метро Шелепиха, Фили, Улица 1905
-                  года…"
+                label: "Текст: Занятия боксом на Пресне рядом с метро Шелепиха, Фили, Улица 1905 года…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -818,15 +1009,14 @@ content:
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: О нас - Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: О школе бокса МЕТЕОР, тренере, оборудовании и
-                  программах тренировок."
+                label: "SEO: description"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -840,8 +1030,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text04
-                label: "Текст: Школа бокса начала свою работу в 2010 году и открыта для всех
-                  желающих…"
+                label: "Текст: Школа бокса начала свою работу в 2010 году и открыта для всех желающих…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -862,8 +1051,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text07
-                label: "Текст: Тренер по боксу имеет профильное образование и опыт работы более
-                  10 ле…"
+                label: "Текст: Тренер по боксу имеет профильное образование и опыт работы более 10 ле…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -877,8 +1065,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text09
-                label: "Текст: Существуют дифференцированные программы тренировок для начинающих
-                  и бо…"
+                label: "Текст: Существуют дифференцированные программы тренировок для начинающих и бо…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -892,8 +1079,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text11
-                label: "Текст: Приходите на первую бесплатную тренировку и посмотрите, подходит
-                  ли ва…"
+                label: "Текст: Приходите на первую бесплатную тренировку и посмотрите, подходит ли ва…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -907,8 +1093,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text13
-                label: "Текст: Освоить бокс как систему самообороны и повысить уверенность в
-                  себе."
+                label: "Текст: Освоить бокс как систему самообороны и повысить уверенность в себе."
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -922,8 +1107,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text15
-                label: "Текст: Развить силу, скорость удара и реакции, научиться работать
-                  акцентирова…"
+                label: "Текст: Развить силу, скорость удара и реакции, научиться работать акцентирова…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -948,15 +1132,14 @@ content:
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Тренировки - Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: Бокс для детей с 11 лет и взрослых: группы по
-                  уровню подготовки, ход з…"
+                label: "SEO: description"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -977,8 +1160,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text05
-                label: "Текст: Групповые и индивидуальные занятия для детей с 11 лет и
-                  взрослых."
+                label: "Текст: Групповые и индивидуальные занятия для детей с 11 лет и взрослых."
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -992,8 +1174,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text07
-                label: "Текст: В группе 13–15 человек. Первая пробная групповая тренировка —
-                  бесплатн…"
+                label: "Текст: В группе 13–15 человек. Первая пробная групповая тренировка — бесплатн…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1049,8 +1230,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text15
-                label: "Текст: Бой с тенью, упражнения на лапах и мешках, работа в парах — по
-                  уровню …"
+                label: "Текст: Бой с тенью, упражнения на лапах и мешках, работа в парах — по уровню …"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1064,16 +1244,14 @@ content:
                 options:
                   maxlength: 6000
               - name: text17
-                label: "Текст: Занятия один на один с тренером: программа подбирается под ваш
-                  опыт, ф…"
+                label: "Текст: Занятия один на один с тренером: программа подбирается под ваш опыт, ф…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text18
-                label: "Текст: Подойдут для освоения техники с нуля, работы над конкретными
-                  навыками …"
+                label: "Текст: Подойдут для освоения техники с нуля, работы над конкретными навыками …"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1086,19 +1264,31 @@ content:
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
+              - name: groupLink
+                label: Подробнее о групповых тренировках
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: personalLink
+                label: Подробнее об индивидуальных тренировках
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
           - name: schedule
             label: Расписание
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Расписание - Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: Расписание тренировок по боксу в школе МЕТЕОР."
+                label: "SEO: description"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1137,15 +1327,14 @@ content:
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Фото и видео — Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: Фотографии школы бокса МЕТЕОР, тренировок и
-                  атмосферы школы."
+                label: "SEO: description"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1166,8 +1355,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text05
-                label: "Текст: Школа бокса, групповые тренировки, работа на лапах и атмосфера
-                  школы."
+                label: "Текст: Школа бокса, групповые тренировки, работа на лапах и атмосфера школы."
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1199,37 +1387,35 @@ content:
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Уроки начинающим - Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: Уроки бокса для начинающих: бинтование рук, стойка
-                  боксера и базовые м…"
+                label: "SEO: description"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text03
-                label: "Текст: Уроки начинающим"
+                label: "Надпись над заголовком: Бокс для начинающих"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text04
-                label: "Заголовок: Материалы для начинающих боксеров"
+                label: "Заголовок H1: Бокс для начинающих"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text05
-                label: "Текст: Базовые уроки для тех, кто только начинает заниматься боксом:
-                  экипиров…"
+                label: "Текст: Базовые уроки для тех, кто только начинает заниматься боксом: экипиров…"
                 type: text
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1254,15 +1440,14 @@ content:
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Контакты - Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Описание для поиска: Контакты школы бокса МЕТЕОР: адрес, телефон, email
-                  и схема проезда."
+                label: "SEO: description"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1283,8 +1468,7 @@ content:
                 options:
                   maxlength: 6000
               - name: text05
-                label: "Текст: Рядом с метро Фили, Шелепиха, Деловой центр, Международная, Улица
-                  1905…"
+                label: "Текст: Рядом с метро Фили, Шелепиха, Деловой центр, Международная, Улица 1905…"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1330,14 +1514,14 @@ content:
             type: object
             fields:
               - name: text01
-                label: "Заголовок вкладки: Фото — Школа бокса МЕТЕОР"
+                label: "SEO: title"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
                 options:
                   maxlength: 6000
               - name: text02
-                label: "Текст: Раздел «Отзывы» заменён на"
+                label: "SEO: description"
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
@@ -1348,6 +1532,30 @@ content:
                 type: string
                 required: false
                 description: Обычный текст, без HTML. Пустое поле убирает надпись.
+                options:
+                  maxlength: 6000
+              - name: text04
+                label: Отзывы о школе бокса «МЕТЕОР»
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text05
+                label: Актуальные отзывы учеников и оценки школы можно прочитать в Яндекс Картах.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text06
+                label: Читать отзывы в Яндекс Картах
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text07
+                label: Посмотреть фото и видео тренировок
+                type: text
+                required: false
                 options:
                   maxlength: 6000
           - name: prices
@@ -1495,8 +1703,7 @@ content:
                 options:
                   maxlength: 2000
               - name: contentError
-                label: Часть информации временно недоступна. Уточните расписание и контакты по
-                  телефону.
+                label: Часть информации временно недоступна. Уточните расписание и контакты по телефону.
                 type: string
                 required: false
                 options:
@@ -1508,8 +1715,7 @@ content:
                 options:
                   maxlength: 2000
               - name: consentText
-                label: Сайт использует обезличенную статистику. Яндекс Метрика будет подключена
-                  только с вашего согласия.
+                label: Сайт использует обезличенную статистику. Яндекс Метрика будет подключена только с вашего согласия.
                 type: string
                 required: false
                 options:
@@ -1610,3 +1816,307 @@ content:
                 required: false
                 options:
                   maxlength: 2000
+          - name: articles
+            label: Статьи
+            type: object
+            fields:
+              - name: text01
+                label: "SEO: title"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text02
+                label: "SEO: description"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text03
+                label: Статьи
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text04
+                label: Статьи о боксе
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text05
+                label: Материалы о выборе школы, тренировках и боксе. Статьи перенесены со старого сайта с сохранением отдельных адресов.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: readMore
+                label: Читать статью →
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: back
+                label: ← Все статьи
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: empty
+                label: Статьи скоро появятся.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: archive
+                label: Материал из архива школы. Сведения о правилах соревнований и организациях отражают время первоначальной публикации.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+          - name: groupTraining
+            label: Групповые тренировки
+            type: object
+            fields:
+              - name: text01
+                label: "SEO: title"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text02
+                label: "SEO: description"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text03
+                label: Групповые тренировки
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text04
+                label: Групповые тренировки по боксу
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text05
+                label: Дети с 11 лет и взрослые занимаются в группах по уровню подготовки.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text06
+                label: Какую группу выбрать
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text07
+                label: В группе 13–15 человек. Первая пробная групповая тренировка — бесплатно.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text08
+                label: Расписание групповых занятий
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text09
+                label: Записаться на пробное занятие
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+          - name: personalTraining
+            label: Индивидуальные тренировки
+            type: object
+            fields:
+              - name: text01
+                label: "SEO: title"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text02
+                label: "SEO: description"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text03
+                label: Индивидуальные тренировки
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text04
+                label: Индивидуальные тренировки по боксу
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text05
+                label: Персональная работа с тренером в школе бокса «МЕТЕОР» на Пресне.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text06
+                label: Программа под ваши задачи
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text07
+                label: "Занятия один на один с тренером: программа подбирается под ваш опыт, физическую подготовку и цели."
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text08
+                label: Подойдут для освоения техники с нуля, работы над конкретными навыками или если расписание групп неудобно.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text09
+                label: Время и стоимость
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text10
+                label: Время, продолжительность и стоимость индивидуальных занятий согласуются с тренером. Бесплатное пробное занятие относится к групповым тренировкам.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text11
+                label: Обсудить занятия с тренером
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text12
+                label: Посмотреть групповые тренировки
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+          - name: competitions
+            label: Соревнования
+            type: object
+            fields:
+              - name: text01
+                label: "SEO: title"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text02
+                label: "SEO: description"
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text03
+                label: Соревнования
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text04
+                label: Соревнования школы бокса «МЕТЕОР»
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text05
+                label: Архив выступлений спортсменов школы.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text06
+                label: Турнир «Золотая перчатка» — 18 июля 2015 года
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text07
+                label: Боксёры клуба «Метеор» выступили на турнире «Золотая перчатка», проходившем в клубе «Китэк». Победителями стали Максим Макаров, Сергей Отаров и Андрей Стенипанин.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+              - name: text08
+                label: Актуальные новости школы — на главной странице.
+                type: text
+                required: false
+                options:
+                  maxlength: 6000
+  - name: articles
+    label: 12. Статьи
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: articles
+        label: Статьи
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: published
+            label: Показывать на сайте
+            type: boolean
+            default: true
+          - name: archived
+            label: Материал из архива
+            type: boolean
+            default: false
+            description: Показывает примечание о времени первоначальной публикации. Для новых статей выключите.
+          - name: slug
+            label: Адрес статьи (латиницей)
+            type: string
+            required: true
+            description: "Уникальный постоянный адрес: например kak-vybrat-klub. После публикации не меняйте его — на статью могут вести старые ссылки."
+            pattern:
+              regex: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+              message: Используйте строчные латинские буквы, цифры и дефисы.
+          - name: title
+            label: Заголовок статьи (H1)
+            type: string
+            required: true
+            options:
+              maxlength: 200
+          - name: date
+            label: Дата первоначальной публикации
+            type: date
+            required: true
+          - name: seoTitle
+            label: "SEO: title"
+            type: string
+            required: false
+            options:
+              maxlength: 200
+          - name: description
+            label: Краткое описание и SEO description
+            type: text
+            required: true
+            options:
+              maxlength: 500
+          - name: text
+            label: Текст статьи
+            type: text
+            required: true
+            description: Обычный текст, без HTML. Абзацы разделяйте пустой строкой.

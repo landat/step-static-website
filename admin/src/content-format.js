@@ -10,6 +10,12 @@ export function repositoryMediaPath(value) {
 
 export function formatContent(value) {
   const content = structuredClone(value);
+  const articleSlugs = new Set();
+  for (const article of content.articles || []) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || "")) throw new Error("Укажите адрес статьи: строчные латинские буквы, цифры и дефисы.");
+    if (articleSlugs.has(article.slug)) throw new Error(`Адрес статьи «${article.slug}» повторяется. Для каждой статьи нужен свой адрес.`);
+    articleSlugs.add(article.slug);
+  }
   for (const [section, field] of [["about", "image"], ["home", "heroImage"], ["home", "directionsImage"]]) {
     if (content[section] && Object.hasOwn(content[section], field)) {
       content[section][field] = repositoryMediaPath(content[section][field]);

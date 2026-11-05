@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, isAbsolute, relative, resolve } from "node:path";
 
-const root = resolve(".");
+const root = resolve(process.env.SITE_ROOT || ".");
 const port = Number(process.env.PORT || 8080);
 
 const types = {
@@ -13,6 +13,8 @@ const types = {
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".yml": "application/yaml; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
   ".mp4": "video/mp4",
   ".webm": "video/webm",
   ".png": "image/png",
