@@ -111,6 +111,11 @@
       "published": false,
       "src": "assets/photos/img-20260917-wa0002.jpg",
       "alt": "Школа бокса Метеор"
+    },
+    {
+      "published": true,
+      "src": "assets/photos/vid_20261014_213519.mp4",
+      "alt": "Отработка на лапах правого прямого удара после уклона от встречного удара"
     }
   ],
   "contact": {
