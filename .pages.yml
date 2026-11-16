@@ -134,7 +134,7 @@ content:
                 label: Дни и время занятий
                 type: object
                 list:
-                  min: 1
+                  min: 0
                   collapsible:
                     collapsed: false
                     summary: "{day} — {time}"

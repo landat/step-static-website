@@ -132,7 +132,7 @@ collections:
                         hint: "Например: 19:00–20:30"
                     collapsed: false
                     label_singular: занятие
-                    min: 1
+                    min: 0
                     summary: "{{day}} — {{time}}"
                 collapsed: false
                 label_singular: группу

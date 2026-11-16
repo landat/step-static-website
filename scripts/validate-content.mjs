@@ -55,8 +55,10 @@ if (!Array.isArray(content.schedule?.groups) || !content.schedule.groups.length)
     const label = `Расписание / группа ${index + 1}`;
     requiredString(group.name, `${label} / название`);
     requiredString(group.description, `${label} / описание`);
-    if (!Array.isArray(group.sessions) || !group.sessions.length) {
-      fail(`${label}: добавьте хотя бы один день занятий`);
+    // A group may be announced before its timetable is agreed. The public
+    // table already renders an empty timetable as dashes, without inventing times.
+    if (!Array.isArray(group.sessions)) {
+      fail(`${label}: дни занятий должны быть списком`);
     } else {
       const days = new Set();
       group.sessions.forEach((session, sessionIndex) => {

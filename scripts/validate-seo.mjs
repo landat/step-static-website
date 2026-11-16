@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
-import { articlePath, escapeHtml, origin, replaceContent, syncTexts } from "./site-render.mjs";
+import { articlePath, escapeHtml, origin, paragraphs, replaceContent, syncTexts } from "./site-render.mjs";
 import { formatContent } from "../admin/src/content-format.js";
 
 const content = JSON.parse(readFileSync("content/site.json", "utf8"));
@@ -47,8 +47,10 @@ for (const redirect of redirects) {
 }
 for (const article of content.articles.filter((item) => item.published !== false)) {
   const html = readFileSync(`dist/${articlePath(article.slug)}`, "utf8");
-  assert(html.includes(escapeHtml(article.title)) && html.includes(escapeHtml(article.text.split(/\n\n/)[0])), "Article must be readable without JavaScript");
-  assert(redirects.some((item) => item.from === `/stati/${article.slug}/` && item.to === `/${articlePath(article.slug)}`), "Missing old article redirect");
+  assert(html.includes(escapeHtml(article.title)) && html.includes(paragraphs(article.text)), "Article must be readable without JavaScript");
+  // New CMS articles never had an old URL. Only restored archive articles
+  // need a migration redirect; requiring one for every new article broke builds.
+  if (article.archived) assert(redirects.some((item) => item.from === `/stati/${article.slug}/` && item.to === `/${articlePath(article.slug)}`), "Missing old article redirect");
 }
 const robot = readFileSync("robots.txt", "utf8");
 assert(robot.includes(`Sitemap: ${origin}/sitemap.xml`));
