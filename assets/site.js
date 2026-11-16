@@ -1,4 +1,4 @@
-import { orderedNews, textCss } from "./presentation.js";
+import { orderedArticles, orderedNews, textCss } from "./presentation.js";
 
 let pageTextValues = {};
 function copyText(key, fallback = "") {
@@ -530,7 +530,7 @@ function renderPrices(prices) {
 }
 
 function renderArticles(source) {
-  const articles = Array.isArray(source) ? source.filter(isPublished) : [];
+  const articles = orderedArticles(source);
   const list = document.querySelector("[data-articles-list]");
   if (list) list.innerHTML = articles.map((article) => {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || "")) return "";

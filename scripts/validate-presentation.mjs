@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
-import { orderedNews, textCss } from "../assets/presentation.js";
+import { orderedArticles, orderedNews, textCss } from "../assets/presentation.js";
+import { renderArticleList } from "./site-render.mjs";
 import { renderStaticContent } from "./render-static-content.mjs";
 import { formatContent } from "../admin/src/content-format.js";
 
@@ -13,6 +14,13 @@ const items = [
 const unchanged = structuredClone(items);
 assert.deepEqual(orderedNews(items).map((n) => n.title), ["same-day-last", "same-day-first", "old"]);
 assert.deepEqual(items, unchanged, "Rendering must not reorder the editor's document");
+assert.deepEqual(orderedArticles(items).map((n) => n.title), ["same-day-last", "same-day-first", "old"]);
+assert.deepEqual(items, unchanged, "Article sorting must preserve the editor's document");
+assert.deepEqual(orderedArticles(undefined), []);
+assert.equal(orderedArticles([...items, { title: "older-pinned", date: "2020-01-01", pinned: true }]).at(-1).title, "older-pinned", "Articles are ordered strictly by date");
+const articleList = renderArticleList(items, { readMore: "Read", empty: "Empty" });
+assert(articleList.indexOf("same-day-last") < articleList.indexOf("same-day-first") && articleList.indexOf("same-day-first") < articleList.indexOf("old"), "Static articles must follow the same newest-first order as the browser");
+assert(!articleList.includes("hidden"));
 assert.equal(orderedNews([...items, { title: "pinned", date: "2020-01-01", pinned: true }])[0].title, "pinned");
 assert.equal(textCss({ font: "georgia", size: "24", color: "#123abc" }), "font-family:Georgia, Times New Roman, serif;font-size:24px;color:#123abc;");
 assert.equal(textCss({ font: "url(https://example.com)", size: "24;display:none", color: "red;background:url(x)" }), "");

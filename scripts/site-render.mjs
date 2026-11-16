@@ -1,3 +1,5 @@
+import { orderedArticles } from "../assets/presentation.js";
+
 // Shared, deterministic HTML rendering for the static publication build.
 export const origin = "https://meteorboxing.ru";
 export const escapeHtml = (value = "") => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
@@ -37,7 +39,7 @@ export function replaceContent(html, attribute, body) {
 }
 
 export function renderArticleList(articles, texts) {
-  return articles.filter((item) => item.published !== false).map((item) => `<article class="card article-card"><h2><a href="${articlePath(item.slug)}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.description)}</p><a href="${articlePath(item.slug)}">${escapeHtml(texts.readMore)}</a></article>`).join("\n") || `<p>${escapeHtml(texts.empty)}</p>`;
+  return orderedArticles(articles).map((item) => `<article class="card article-card"><h2><a href="${articlePath(item.slug)}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.description)}</p><a href="${articlePath(item.slug)}">${escapeHtml(texts.readMore)}</a></article>`).join("\n") || `<p>${escapeHtml(texts.empty)}</p>`;
 }
 
 export function articlePage(shell, article, texts) {

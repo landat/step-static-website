@@ -17,6 +17,13 @@ export function textCss(style) {
   return rules.length ? rules.join(";") + ";" : "";
 }
 
+export function orderedArticles(source) {
+  return (Array.isArray(source) ? source : []).map((item, index) => ({ item, index }))
+    .filter(({ item }) => item && item.published !== false)
+    .sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")) || b.index - a.index)
+    .map(({ item }) => item);
+}
+
 export function orderedNews(source) {
   return (Array.isArray(source) ? source : []).map((item, index) => ({ item, index }))
     .filter(({ item }) => item && item.published !== false)
